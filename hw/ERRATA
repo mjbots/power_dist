@@ -1,0 +1,34 @@
+r4 ERRATA
+ * Need an isolated CAN transceiver so that we can actually connect it up
+
+
+r3 DONE
+ * Fixed SWDIO and SWCLK
+ * Drove VBAT
+ * Moved LEDS
+ * Need mjbots logo
+
+
+r2 ERRATA
+ * SWDIO and SWCLK are on wrong pins!
+ * VBAT needs to be connected to VCC
+ * PC13/15 cannot drive LEDs
+
+r2 DONE
+ * updated XT90 pins to be correct diameter
+ * updated AMASS input to have correct polarity
+ * fixed STM32 pinout to use QFN pinout instead of LQFP... stupid digikey
+ * switched 10k 1% to actually be 10k 1% instead of a 10k thermistor
+
+r1
+ * main pins for XT90 right angle are approximately double the
+   necessary diameter
+ * input AMASS connector has wrong polarity
+ * STM32 pinout doesn't match datasheet... grrrrh digikey
+ * both resistor dividers have thermistors instead of 1% 10k resistors
+
+---- OLD "precharge" board
+
+r1
+
+ * Add some kind of GPIO hole for a soft-switch
