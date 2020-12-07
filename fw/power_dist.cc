@@ -14,6 +14,8 @@
 
 #include "mbed.h"
 
+#include "mjlib/base/assert.h"
+
 #include "fw/fdcan.h"
 #include "fw/git_info.h"
 #include "fw/millisecond_timer.h"
@@ -69,18 +71,8 @@ void SetClock() {
   SystemCoreClockUpdate();
 }
 
-}
-
-ADC_TypeDef* const g_adc5 = ADC5;
-
-int main(void) {
-  // Drop our speed down to nothing, because we don't really need to
-  // go fast for this and we might as well save the battery.
-  SetClock();
-
-  // We use ADC5 for VSAMP_OUT
-  __HAL_RCC_ADC345_CLK_ENABLE();
-
+#if POWER_DIST_HW_REV < 1
+void RunRev0() {
   moteus::FDCan::Filter filters[] = {
     { 0x10005, 0xffffff, moteus::FDCan::FilterMode::kMask,
       moteus::FDCan::FilterAction::kAccept,
@@ -91,8 +83,8 @@ int main(void) {
   moteus::FDCan can(
       [&]() {
         moteus::FDCan::Options options;
-        options.td = PA_12;
-        options.rd = PA_11;
+        options.td = CAN_TX;
+        options.rd = CAN_RX;
         options.slow_bitrate = 125000;
         options.fast_bitrate = 125000;
 
@@ -105,9 +97,6 @@ int main(void) {
   moteus::GitInfo git_info;
 
   DigitalOut led1(DEBUG_LED1, 1);
-
-  // On my prototype r2 board, this pin is shorted to ground.  Don't
-  // drive it high!
   DigitalOut led2(DEBUG_LED2, 0);
 
   DigitalOut switch_led(PWR_LED);
@@ -286,4 +275,137 @@ int main(void) {
       }
     }
   }
+}
+#endif
+
+#if POWER_DIST_HW_REV >= 1
+void RunRev1() {
+  moteus::FDCan::Filter filters[] = {
+    { 0x10005, 0xffffff, moteus::FDCan::FilterMode::kMask,
+      moteus::FDCan::FilterAction::kAccept,
+      moteus::FDCan::FilterType::kExtended,
+    },
+  };
+
+  moteus::FDCan can(
+      [&]() {
+        moteus::FDCan::Options options;
+        options.td = CAN_TX;
+        options.rd = CAN_RX;
+        options.slow_bitrate = 125000;
+        options.fast_bitrate = 125000;
+
+        options.filter_begin = &filters[0];
+        options.filter_end = &filters[0] + (sizeof(filters) / sizeof(filters[0]));
+
+        return options;
+      }());
+
+  moteus::GitInfo git_info;
+
+  DigitalOut led1(DEBUG_LED1, 1);
+  DigitalOut led2(DEBUG_LED2, 1);
+
+  DigitalOut switch_led(PWR_LED);
+  DigitalIn power_switch(PWR_SW, PullUp);
+
+  DigitalOut pshdn(PSHDN, 1);
+
+  moteus::MillisecondTimer timer;
+
+  uint32_t last_can = 0;
+
+  char can_status_data[8] = {
+    0, // switch status
+    0, // lock time in 0.1s
+  };
+
+  char can_command_data[8] = {};
+
+  char& power_switch_status = can_status_data[0];
+  uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
+
+  FDCAN_RxHeaderTypeDef can_rx_header;
+
+  while (true) {
+    {
+      const auto now = timer.read_ms() / 100;
+      if (now != last_can) {
+        last_can = now;
+
+        can.Send(0x10004, std::string_view(can_status_data,
+                                           sizeof(can_status_data)));
+
+        if (lock_time > 0) { lock_time--; }
+      }
+
+      if (can.Poll(&can_rx_header, can_command_data)) {
+        if (can_command_data[1] > 0) {
+          lock_time = static_cast<uint8_t>(can_command_data[1]);
+        }
+      }
+      led1.write(!((now % 10) == 0));
+    }
+
+    power_switch_status = (power_switch.read() == 0) ? 1 : 0;
+
+    if (power_switch_status == 1) {
+      pshdn.write(0);
+      led2.write(0);
+      switch_led.write(0);
+    } else if (lock_time == 0) {
+      pshdn.write(1);
+      led2.write(1);
+      switch_led.write(1);
+    }
+  }
+}
+#endif
+
+}
+
+ADC_TypeDef* const g_adc5 = ADC5;
+
+int main(void) {
+  // Drop our speed down to nothing, because we don't really need to
+  // go fast for this and we might as well save the battery.
+  SetClock();
+
+  // We use ADC5 for VSAMP_OUT
+  __HAL_RCC_ADC345_CLK_ENABLE();
+
+  DigitalIn hwrev0(HWREV_PIN0, PullUp);
+  DigitalIn hwrev1(HWREV_PIN1, PullUp);
+  DigitalIn hwrev2(HWREV_PIN2, PullUp);
+
+  const uint8_t this_hw_pins =
+      0x07 & (~(hwrev0.read() |
+                (hwrev1.read() << 1) |
+                (hwrev2.read() << 2)));
+  const uint8_t measured_hw_rev = [&]() {
+    int i = 0;
+    for (auto rev_pins : kHardwareInterlock) {
+      if (rev_pins == this_hw_pins) { return i; }
+      i++;
+    }
+    return -1;
+  }();
+
+  // Check if the detected board revision level is in our compatible
+  // set.
+  const bool compatible = [&]() {
+    for (auto possible_version : kCompatibleHwRev) {
+      if (measured_hw_rev == possible_version) { return true; }
+    }
+    return false;
+  }();
+  MJ_ASSERT(compatible);
+
+
+
+#if POWER_DIST_HW_REV < 1
+  RunRev0();
+#else
+  RunRev1();
+#endif
 }

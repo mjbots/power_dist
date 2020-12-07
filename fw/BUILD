@@ -36,6 +36,7 @@ cc_library(
 mbed_binary(
     name = "power_dist",
     srcs = [
+        "assert.cc",
         "fdcan.cc",
         "fdcan.h",
         "millisecond_timer.h",
@@ -44,6 +45,7 @@ mbed_binary(
     ],
     deps = [
         ":git_info",
+        "@com_github_mjbots_mjlib//mjlib/base:assert",
         "@com_github_mjbots_mjlib//mjlib/base:string_span",
     ],
     copts = COPTS,
@@ -56,7 +58,7 @@ OCD = (
 )
 
 genrule(
-    name = "power_dist_flash",
+    name = "flash",
     tags = ["manual"],
     srcs = ["power_dist.bin"],
     outs = ["power_dist.stamp"],
