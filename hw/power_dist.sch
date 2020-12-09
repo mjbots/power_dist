@@ -1395,104 +1395,14 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
 </package>
 <package name="TO277-3L_ONS">
-<smd name="1" x="0" y="0.8763" dx="5.6134" dy="4.191" layer="1" rot="R90"/>
+<smd name="3" x="0" y="0.8763" dx="5.6134" dy="4.191" layer="1" rot="R90"/>
 <smd name="2" x="-1.05" y="-2.8067" dx="1.4478" dy="1.397" layer="1" rot="R90"/>
-<smd name="3" x="1.05" y="-2.8067" dx="1.4478" dy="1.397" layer="1" rot="R90"/>
+<smd name="1" x="1.05" y="-2.8067" dx="1.4478" dy="1.397" layer="1" rot="R90"/>
 <wire x1="-2.4384" y1="-3.2004" x2="-2.0828" y2="-3.2004" width="0.1524" layer="21"/>
 <wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
 <wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
 <wire x1="2.0828" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
 <text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
-<wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
-<wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
-<wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
-<wire x1="-2.3114" y1="3.0734" x2="-2.3114" y2="-3.0734" width="0.1524" layer="51"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
-</package>
-<package name="TO277-3L_ONS-M">
-<smd name="1" x="0" y="0.9271" dx="5.9182" dy="4.191" layer="1" rot="R90"/>
-<smd name="2" x="-1.05" y="-2.8575" dx="1.5494" dy="1.4478" layer="1" rot="R90"/>
-<smd name="3" x="1.05" y="-2.8575" dx="1.5494" dy="1.4478" layer="1" rot="R90"/>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="-2.4384" y1="-3.2004" x2="-2.1082" y2="-3.2004" width="0.1524" layer="21"/>
-<wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
-<wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
-<wire x1="2.1082" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
-<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
-<wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
-<wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
-<wire x1="-2.3114" y1="3.0734" x2="-2.3114" y2="-3.0734" width="0.1524" layer="51"/>
-<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
-</package>
-<package name="TO277-3L_ONS-L">
-<smd name="1" x="0" y="0.8255" dx="5.3086" dy="4.1402" layer="1" rot="R90"/>
-<smd name="2" x="-1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
-<smd name="3" x="1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="-2.4384" y1="-3.2004" x2="-2.0574" y2="-3.2004" width="0.1524" layer="21"/>
-<wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
-<wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
-<wire x1="2.0574" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
-<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
 <wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
 <wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
 <wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
@@ -2308,6 +2218,96 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="10.4" y1="1.1" x2="8.4" y2="-3" width="0.127" layer="21"/>
 <wire x1="-10.4" y1="1" x2="-8.4" y2="-3" width="0.127" layer="21"/>
 </package>
+<package name="TO277-3L_ONS-M">
+<smd name="3" x="0" y="0.9271" dx="5.9182" dy="4.191" layer="1" rot="R90"/>
+<smd name="2" x="-1.05" y="-2.8575" dx="1.5494" dy="1.4478" layer="1" rot="R90"/>
+<smd name="1" x="1.05" y="-2.8575" dx="1.5494" dy="1.4478" layer="1" rot="R90"/>
+<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="-2.4384" y1="-3.2004" x2="-2.1082" y2="-3.2004" width="0.1524" layer="21"/>
+<wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
+<wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
+<wire x1="2.1082" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
+<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
+<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="51"/>
+<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
+<wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
+<wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
+<wire x1="-2.3114" y1="3.0734" x2="-2.3114" y2="-3.0734" width="0.1524" layer="51"/>
+<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
+<package name="TO277-3L_ONS-L">
+<smd name="3" x="0" y="0.8255" dx="5.3086" dy="4.1402" layer="1" rot="R90"/>
+<smd name="2" x="-1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
+<smd name="1" x="1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
+<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
+<wire x1="-2.4384" y1="-3.2004" x2="-2.0574" y2="-3.2004" width="0.1524" layer="21"/>
+<wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
+<wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
+<wire x1="2.0574" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
+<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
+<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="51"/>
+<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
+<wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
+<wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
+<wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
+<wire x1="-2.3114" y1="3.0734" x2="-2.3114" y2="-3.0734" width="0.1524" layer="51"/>
+<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
 </packages>
 <symbols>
 <symbol name="MAX15062AATA+T">
@@ -2647,8 +2647,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <devices>
 <device name="" package="TO277-3L_ONS">
 <connects>
-<connect gate="A" pin="ANODE" pad="2"/>
-<connect gate="A" pin="ANODE_2" pad="1"/>
+<connect gate="A" pin="ANODE" pad="1"/>
+<connect gate="A" pin="ANODE_2" pad="2"/>
 <connect gate="A" pin="CATHODE" pad="3"/>
 </connects>
 <technologies>
@@ -2663,8 +2663,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </device>
 <device name="TO277-3L_ONS-M" package="TO277-3L_ONS-M">
 <connects>
-<connect gate="A" pin="ANODE" pad="2"/>
-<connect gate="A" pin="ANODE_2" pad="1"/>
+<connect gate="A" pin="ANODE" pad="1"/>
+<connect gate="A" pin="ANODE_2" pad="2"/>
 <connect gate="A" pin="CATHODE" pad="3"/>
 </connects>
 <technologies>
@@ -2679,8 +2679,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </device>
 <device name="TO277-3L_ONS-L" package="TO277-3L_ONS-L">
 <connects>
-<connect gate="A" pin="ANODE" pad="2"/>
-<connect gate="A" pin="ANODE_2" pad="1"/>
+<connect gate="A" pin="ANODE" pad="1"/>
+<connect gate="A" pin="ANODE_2" pad="2"/>
 <connect gate="A" pin="CATHODE" pad="3"/>
 </connects>
 <technologies>
@@ -3685,7 +3685,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
-<part name="D3" library="power_dist" deviceset="FSV10150V" device="">
+<part name="D3" library="power_dist" deviceset="FSV10150V" device="TO277-3L_ONS-L" value="FSV10150VTO277-3L_ONS-L">
 <attribute name="MPN" value="FSV10150V"/>
 <attribute name="POPULATE" value="1"/>
 </part>
