@@ -20,7 +20,7 @@
 
 #include "mjlib/base/string_span.h"
 
-namespace moteus {
+namespace fw {
 
 class FDCan {
  public:

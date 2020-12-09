@@ -15,11 +15,24 @@
 #include "mbed.h"
 
 #include "mjlib/base/assert.h"
+#include "mjlib/micro/async_exclusive.h"
+#include "mjlib/micro/async_stream.h"
+#include "mjlib/micro/command_manager.h"
+#include "mjlib/micro/persistent_config.h"
+#include "mjlib/micro/pool_ptr.h"
+#include "mjlib/micro/telemetry_manager.h"
+#include "mjlib/multiplex/micro_server.h"
+#include "mjlib/multiplex/micro_stream_datagram.h"
 
 #include "fw/fdcan.h"
+#include "fw/fdcan_micro_server.h"
 #include "fw/git_info.h"
 #include "fw/millisecond_timer.h"
 #include "fw/power_dist_hw.h"
+#include "fw/stm32g4_flash.h"
+
+namespace micro = mjlib::micro;
+namespace multiplex = mjlib::multiplex;
 
 namespace {
 
@@ -73,16 +86,16 @@ void SetClock() {
 
 #if POWER_DIST_HW_REV < 1
 void RunRev0() {
-  moteus::FDCan::Filter filters[] = {
-    { 0x10005, 0xffffff, moteus::FDCan::FilterMode::kMask,
-      moteus::FDCan::FilterAction::kAccept,
-      moteus::FDCan::FilterType::kExtended,
+  fw::FDCan::Filter filters[] = {
+    { 0x10005, 0xffffff, fw::FDCan::FilterMode::kMask,
+      fw::FDCan::FilterAction::kAccept,
+      fw::FDCan::FilterType::kExtended,
     },
   };
 
-  moteus::FDCan can(
+  fw::FDCan can(
       [&]() {
-        moteus::FDCan::Options options;
+        fw::FDCan::Options options;
         options.td = CAN_TX;
         options.rd = CAN_RX;
         options.slow_bitrate = 125000;
@@ -93,8 +106,6 @@ void RunRev0() {
 
         return options;
       }());
-
-  moteus::GitInfo git_info;
 
   DigitalOut led1(DEBUG_LED1, 1);
   DigitalOut led2(DEBUG_LED2, 0);
@@ -108,7 +119,7 @@ void RunRev0() {
   // We use this merely to configure the pins.
   AnalogIn vsamp_out_do_not_use(VSAMP_OUT);
 
-  moteus::MillisecondTimer timer;
+  fw::MillisecondTimer timer;
 
   State state = kPowerOff;
   uint32_t precharge_start = 0;
@@ -280,28 +291,51 @@ void RunRev0() {
 
 #if POWER_DIST_HW_REV >= 1
 void RunRev1() {
-  moteus::FDCan::Filter filters[] = {
-    { 0x10005, 0xffffff, moteus::FDCan::FilterMode::kMask,
-      moteus::FDCan::FilterAction::kAccept,
-      moteus::FDCan::FilterType::kExtended,
-    },
-  };
+  micro::SizedPool<14000> pool;
 
-  moteus::FDCan can(
+  // fw::FDCan::Filter filters[] = {
+  //   { 0x10005, 0xffffff, fw::FDCan::FilterMode::kMask,
+  //     fw::FDCan::FilterAction::kAccept,
+  //     fw::FDCan::FilterType::kExtended,
+  //   },
+  // };
+
+  fw::FDCan can(
       [&]() {
-        moteus::FDCan::Options options;
+        fw::FDCan::Options options;
         options.td = CAN_TX;
         options.rd = CAN_RX;
         options.slow_bitrate = 125000;
         options.fast_bitrate = 125000;
+        options.fdcan_frame = true;
+        options.bitrate_switch = true;
 
-        options.filter_begin = &filters[0];
-        options.filter_end = &filters[0] + (sizeof(filters) / sizeof(filters[0]));
+        // options.filter_begin = &filters[0];
+        // options.filter_end = &filters[0] + (sizeof(filters) / sizeof(filters[0]));
 
         return options;
       }());
 
-  moteus::GitInfo git_info;
+  fw::FDCanMicroServer fdcan_micro_server(&can);
+  multiplex::MicroServer multiplex_protocol(&pool, &fdcan_micro_server, {});
+
+  micro::AsyncStream* serial = multiplex_protocol.MakeTunnel(1);
+
+  micro::AsyncExclusive<micro::AsyncWriteStream> write_stream(serial);
+  micro::CommandManager command_manager(&pool, serial, &write_stream);
+  micro::TelemetryManager telemetry_manager(
+      &pool, &command_manager, &write_stream);
+  fw::Stm32G4Flash flash_interface;
+  micro::PersistentConfig persistent_config(pool, command_manager, flash_interface);
+
+  persistent_config.Register("id", multiplex_protocol.config(), [](){});
+
+  fw::GitInfo git_info;
+
+  telemetry_manager.Register("git", &git_info);
+
+  persistent_config.Load();
+
 
   DigitalOut led1(DEBUG_LED1, 1);
   DigitalOut led2(DEBUG_LED2, 1);
@@ -311,7 +345,7 @@ void RunRev1() {
 
   DigitalOut pshdn(PSHDN, 1);
 
-  moteus::MillisecondTimer timer;
+  fw::MillisecondTimer timer;
 
   uint32_t last_can = 0;
 
@@ -320,12 +354,17 @@ void RunRev1() {
     0, // lock time in 0.1s
   };
 
-  char can_command_data[8] = {};
+  // char can_command_data[8] = {};
 
   char& power_switch_status = can_status_data[0];
   uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
 
-  FDCAN_RxHeaderTypeDef can_rx_header;
+  // FDCAN_RxHeaderTypeDef can_rx_header;
+
+  command_manager.AsyncStart();
+  multiplex_protocol.Start(nullptr);
+
+  auto old_time = timer.read_ms();
 
   while (true) {
     {
@@ -333,17 +372,20 @@ void RunRev1() {
       if (now != last_can) {
         last_can = now;
 
+        fw::FDCan::SendOptions send_options;
+        send_options.fdcan_frame = fw::FDCan::Override::kDisable;
+        send_options.bitrate_switch = fw::FDCan::Override::kDisable;
         can.Send(0x10004, std::string_view(can_status_data,
                                            sizeof(can_status_data)));
 
         if (lock_time > 0) { lock_time--; }
       }
 
-      if (can.Poll(&can_rx_header, can_command_data)) {
-        if (can_command_data[1] > 0) {
-          lock_time = static_cast<uint8_t>(can_command_data[1]);
-        }
-      }
+      // if (can.Poll(&can_rx_header, can_command_data)) {
+      //   if (can_command_data[1] > 0) {
+      //     lock_time = static_cast<uint8_t>(can_command_data[1]);
+      //   }
+      // }
       led1.write(!((now % 10) == 0));
     }
 
@@ -358,6 +400,15 @@ void RunRev1() {
       led2.write(1);
       switch_led.write(1);
     }
+
+    const auto new_time = timer.read_ms();
+    if (new_time != old_time) {
+      telemetry_manager.PollMillisecond();
+
+      old_time = new_time;
+    }
+
+    fdcan_micro_server.Poll();
   }
 }
 #endif
@@ -408,4 +459,10 @@ int main(void) {
 #else
   RunRev1();
 #endif
+}
+
+extern "C" {
+  void abort() {
+    mbed_die();
+  }
 }

@@ -16,7 +16,7 @@
 
 #include <cstring>
 
-namespace moteus {
+namespace fw {
 
 namespace {
 

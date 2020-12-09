@@ -19,7 +19,7 @@
 extern const PinMap PinMap_CAN_TD[];
 extern const PinMap PinMap_CAN_RD[];
 
-namespace moteus {
+namespace fw {
 namespace {
 constexpr uint32_t RoundUpDlc(size_t size) {
   if (size == 0) { return FDCAN_DLC_BYTES_0; }

@@ -20,7 +20,7 @@
 #undef wait_us
 #endif
 
-namespace moteus {
+namespace fw {
 
 class MillisecondTimer {
  public:

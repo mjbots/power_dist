@@ -19,7 +19,7 @@
 
 #include "mjlib/base/visitor.h"
 
-namespace moteus {
+namespace fw {
 
 struct GitInfo {
   GitInfo();
