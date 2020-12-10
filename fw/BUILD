@@ -20,6 +20,7 @@ load("@com_github_ARMmbed_mbed-os//:rules.bzl", "mbed_binary")
 COPTS = [
     "-Werror",
     "-Wdouble-promotion",
+    "-Wno-maybe-uninitialized",
 ]
 
 cc_library(
@@ -40,6 +41,8 @@ mbed_binary(
         "fdcan.cc",
         "fdcan.h",
         "fdcan_micro_server.h",
+        "lm5066.cc",
+        "lm5066.h",
         "millisecond_timer.h",
         "power_dist.cc",
         "power_dist_hw.h",
@@ -51,6 +54,7 @@ mbed_binary(
         "@com_github_mjbots_mjlib//mjlib/base:string_span",
         "@com_github_mjbots_mjlib//mjlib/micro:async_exclusive",
         "@com_github_mjbots_mjlib//mjlib/micro:async_stream",
+        "@com_github_mjbots_mjlib//mjlib/micro:callback_table",
         "@com_github_mjbots_mjlib//mjlib/micro:command_manager",
         "@com_github_mjbots_mjlib//mjlib/micro:persistent_config",
         "@com_github_mjbots_mjlib//mjlib/micro:pool_ptr",

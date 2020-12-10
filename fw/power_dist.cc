@@ -27,6 +27,7 @@
 #include "fw/fdcan.h"
 #include "fw/fdcan_micro_server.h"
 #include "fw/git_info.h"
+#include "fw/lm5066.h"
 #include "fw/millisecond_timer.h"
 #include "fw/power_dist_hw.h"
 #include "fw/stm32g4_flash.h"
@@ -72,9 +73,11 @@ void SetClock() {
 
     PeriphClkInit.PeriphClockSelection =
         RCC_PERIPHCLK_FDCAN |
+        RCC_PERIPHCLK_I2C2 |
         RCC_PERIPHCLK_ADC345;
     PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_PCLK1;
     PeriphClkInit.Adc345ClockSelection = RCC_ADC345CLKSOURCE_SYSCLK;
+    PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
     {
       mbed_die();
@@ -300,6 +303,8 @@ void RunRev1() {
   //   },
   // };
 
+  fw::MillisecondTimer timer;
+
   fw::FDCan can(
       [&]() {
         fw::FDCan::Options options;
@@ -332,6 +337,16 @@ void RunRev1() {
 
   fw::GitInfo git_info;
 
+  fw::Lm5066 lm5066(
+      &pool, &persistent_config, &telemetry_manager, &timer,
+      []() {
+        fw::Lm5066::Options options;
+        options.sda = PA_8;
+        options.scl = PA_9;
+        options.smba = PA_10;
+        return options;
+      }());
+
   telemetry_manager.Register("git", &git_info);
 
   persistent_config.Load();
@@ -344,8 +359,6 @@ void RunRev1() {
   DigitalIn power_switch(PWR_SW, PullUp);
 
   DigitalOut pshdn(PSHDN, 1);
-
-  fw::MillisecondTimer timer;
 
   uint32_t last_can = 0;
 
@@ -404,6 +417,7 @@ void RunRev1() {
     const auto new_time = timer.read_ms();
     if (new_time != old_time) {
       telemetry_manager.PollMillisecond();
+      lm5066.PollMillisecond();
 
       old_time = new_time;
     }
