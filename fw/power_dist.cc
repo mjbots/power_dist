@@ -310,8 +310,8 @@ void RunRev1() {
         fw::FDCan::Options options;
         options.td = CAN_TX;
         options.rd = CAN_RX;
-        options.slow_bitrate = 125000;
-        options.fast_bitrate = 125000;
+        options.slow_bitrate = 1000000;
+        options.fast_bitrate = 1000000;
         options.fdcan_frame = true;
         options.bitrate_switch = true;
 
