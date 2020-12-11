@@ -61,11 +61,17 @@ class Lm5066 {
     bool cml_fault = false;
     bool cb_fault = false;
 
-    uint16_t iin_10mA = 0;
-    uint16_t vout_10mv = 0;
-    uint16_t vin_10mv = 0;
-    uint16_t pin_100mW = 0;
-    uint16_t temperature_C = 0;
+    int16_t iin_raw = 0;
+    int16_t vout_raw = 0;
+    int16_t vin_raw = 0;
+    int16_t pin_raw = 0;
+    int16_t temperature_raw = 0;
+
+    int16_t iin_10mA = 0;
+    int16_t vout_10mv = 0;
+    int16_t vin_10mv = 0;
+    int16_t pin_100mW = 0;
+    int16_t temperature_C = 0;
 
     template <typename Archive>
     void Serialize(Archive* a) {
@@ -85,6 +91,12 @@ class Lm5066 {
       a->Visit(MJ_NVP(otemp_fault));
       a->Visit(MJ_NVP(cml_fault));
       a->Visit(MJ_NVP(cb_fault));
+
+      a->Visit(MJ_NVP(iin_raw));
+      a->Visit(MJ_NVP(vout_raw));
+      a->Visit(MJ_NVP(vin_raw));
+      a->Visit(MJ_NVP(pin_raw));
+      a->Visit(MJ_NVP(temperature_raw));
 
       a->Visit(MJ_NVP(iin_10mA));
       a->Visit(MJ_NVP(vout_10mv));

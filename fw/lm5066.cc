@@ -29,6 +29,7 @@ constexpr int PMBUS_READ = 0x01;
 constexpr float CURRENT_SENSE_MOHM = 0.3f;
 
 enum {
+  DEVICE_SETUP = 0xd9,
   BLOCK_READ = 0xda,
 };
 
@@ -77,6 +78,19 @@ class Lm5066::Impl {
     HAL_NVIC_EnableIRQ(smbus_er_irq);
 
     status_update_ = telemetry->Register("lm5066", &status_);
+
+    // Configure the device.
+    uint8_t device_setup = 0
+        | (2 << 5)  // Retry setting = 010 (retry 1 time)
+        | (1 << 4)  // Current limit setting = 1 (low 26mv)
+        | (0 << 3)  // CB/CL ratio = 0 (low setting 1.9x)
+        | (1 << 2)  // Current limit configuration = 1 (Use SMBus)
+        | 0;
+    SmbusWrite(DEVICE_SETUP, &device_setup, 1);
+
+    uint8_t verify_device_setup[2] = {};
+    SmbusRead(DEVICE_SETUP, verify_device_setup, 1);
+    if (verify_device_setup[0] != device_setup) { mbed_die(); }
   }
 
   void PollMillisecond() {
@@ -86,18 +100,7 @@ class Lm5066::Impl {
     count_ = kUpdatePeriodMs;
     uint8_t buf[16] = {};
 
-    buf[0] = BLOCK_READ;
-    if (HAL_SMBUS_Master_Transmit_IT(
-            &smbus_, address_ << 1, buf, 1, SMBUS_FIRST_FRAME) != HAL_OK) {
-      return;
-    }
-    while (HAL_SMBUS_GetState(&smbus_) != HAL_SMBUS_STATE_READY);
-
-    if (HAL_SMBUS_Master_Receive_IT(
-            &smbus_, address_ << 1, buf, 13, SMBUS_LAST_FRAME_NO_PEC) != HAL_OK) {
-      return;
-    }
-    while (HAL_SMBUS_GetState(&smbus_) != HAL_SMBUS_STATE_READY);
+    SmbusRead(BLOCK_READ, buf, 13);
 
     const auto& br = &buf[1];
     Status& s = status_;
@@ -125,19 +128,65 @@ class Lm5066::Impl {
     const int16_t pin = (br[9] << 8) | br[8];
     const int16_t temp = (br[11] << 8) | br[10];
 
-    status_.iin_10mA = static_cast<uint16_t>(
-        100.0f * ((iin * 100.0f + 600.0f) / (5405.0f * CURRENT_SENSE_MOHM)));
+    status_.iin_raw = iin;
+    status_.vout_raw = vout;
+    status_.vin_raw = vin;
+    status_.pin_raw = pin;
+    status_.temperature_raw = temp;
 
-    status_.vout_10mv = static_cast<uint16_t>(
+    // These constants were calibrated by hand from the following dataset:
+    //  10 - 0A
+    //  27 - 0.9A
+    //  38 - 1.2A
+    //  54 - 1.5A
+    //  68 - 1.8A
+    //  81 - 2.1A
+    status_.iin_10mA = static_cast<int16_t>(
+        100.0f * ((iin * 100.0f + 1300.0f) / (15130.0f * CURRENT_SENSE_MOHM)));
+
+    status_.vout_10mv = static_cast<int16_t>(
         100.0f * (vout * 100.0f + 2400.0f) / 4587.0f);
-    status_.vin_10mv = static_cast<uint16_t>(
+    status_.vin_10mv = static_cast<int16_t>(
         100.0f * (vin * 100.0f + 1200.0f) / 4578.0f);
-    status_.pin_100mW = static_cast<uint16_t>(
-        10.0f * (pin * 1000.0f + 6000.0f) / (1204 * CURRENT_SENSE_MOHM));
-    status_.temperature_C = static_cast<uint16_t>(
+
+    // Calibrated from the following empirical dataset:
+    //  4 - 14W
+    //  8 - 24W
+    //  15 - 38W
+    //  22 - 54W
+    //  32 - 74W
+    //  44 - 97W
+    status_.pin_100mW = static_cast<int16_t>(
+        10.0f * (pin * 1000.0f + 3500.0f) / (1606.4f * CURRENT_SENSE_MOHM));
+
+    status_.temperature_C = static_cast<int16_t>(
         (temp * 1000.0f) / 16000.0f);
 
     status_update_();
+  }
+
+  void SmbusRead(uint8_t reg, uint8_t* data, size_t size) {
+    if (HAL_SMBUS_Master_Transmit_IT(
+            &smbus_, address_ << 1, &reg, 1, SMBUS_FIRST_FRAME) != HAL_OK) {
+      mbed_die();
+    }
+    while (HAL_SMBUS_GetState(&smbus_) != HAL_SMBUS_STATE_READY);
+
+    if (HAL_SMBUS_Master_Receive_IT(
+            &smbus_, address_ << 1, data, size, SMBUS_LAST_FRAME_NO_PEC) != HAL_OK) {
+      mbed_die();
+    }
+    while (HAL_SMBUS_GetState(&smbus_) != HAL_SMBUS_STATE_READY);
+  }
+
+  void SmbusWrite(uint8_t reg, uint8_t* data, size_t size) {
+    outbuf_[0] = reg;
+    std::memcpy(&outbuf_[1], data, size);
+    if (HAL_SMBUS_Master_Transmit_IT(
+            &smbus_, address_ << 1, outbuf_, size + 1, SMBUS_LAST_FRAME_NO_PEC) != HAL_OK) {
+      mbed_die();
+    }
+    while (HAL_SMBUS_GetState(&smbus_) != HAL_SMBUS_STATE_READY);
   }
 
   fw::MillisecondTimer* const timer_;
@@ -154,6 +203,8 @@ class Lm5066::Impl {
 
   micro::CallbackTable::Callback ev_callback_;
   micro::CallbackTable::Callback er_callback_;
+
+  uint8_t outbuf_[17] = {};
 };
 
 Lm5066::Lm5066(micro::Pool* pool,
