@@ -92,7 +92,7 @@ class Lm5066::Impl {
     // resolution of current and power.  With the 0.3 mOhm sense
     // resistor, that works out to a current limit of around 85A.
     uint8_t device_setup = 0
-        | (2 << 5)  // Retry setting = 010 (retry 1 time)
+        | (1 << 5)  // Retry setting = 001 (no retries)
         | (1 << 4)  // Current limit setting = 1 (low 26mv)
         | (0 << 3)  // CB/CL ratio = 0 (low setting 1.9x)
         | (1 << 2)  // Current limit configuration = 1 (Use SMBus)
