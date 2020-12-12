@@ -18,6 +18,7 @@
 
 #include "mjlib/base/visitor.h"
 
+#include "mjlib/micro/command_manager.h"
 #include "mjlib/micro/persistent_config.h"
 #include "mjlib/micro/pool_ptr.h"
 #include "mjlib/micro/telemetry_manager.h"
@@ -35,6 +36,7 @@ class Lm5066 {
   };
 
   Lm5066(mjlib::micro::Pool*,
+         mjlib::micro::CommandManager*,
          mjlib::micro::PersistentConfig*,
          mjlib::micro::TelemetryManager*,
          MillisecondTimer* timer,
@@ -42,6 +44,18 @@ class Lm5066 {
   ~Lm5066();
 
   void PollMillisecond();
+
+  enum class Fault {
+    kNone = 0,
+    kOverCurrent = 1,
+    kUnderVoltage = 2,
+    kOverTemperature = 3,
+    kOverVoltage = 4,
+    kCircuitBreaker = 5,
+    kMosfetShorted = 6,
+    kCommunications = 7,
+    kSize,
+  };
 
   struct Status {
     bool vout_uv_warn = false;
@@ -73,6 +87,8 @@ class Lm5066 {
     int16_t pin_100mW = 0;
     int16_t temperature_C = 0;
 
+    Fault fault = Fault::kNone;
+
     template <typename Archive>
     void Serialize(Archive* a) {
       a->Visit(MJ_NVP(vout_uv_warn));
@@ -103,12 +119,40 @@ class Lm5066 {
       a->Visit(MJ_NVP(vin_10mv));
       a->Visit(MJ_NVP(pin_100mW));
       a->Visit(MJ_NVP(temperature_C));
+      a->Visit(MJ_NVP(fault));
     }
   };
+
+  const Status& status() const;
 
  private:
   class Impl;
   mjlib::micro::PoolPtr<Impl> impl_;
 };
 
+}
+
+namespace mjlib {
+namespace base {
+
+template <>
+struct IsEnum<fw::Lm5066::Fault> {
+  static constexpr bool value = true;
+
+  using F = fw::Lm5066::Fault;
+  static std::array<std::pair<F, const char*>, static_cast<size_t>(F::kSize)> map() {
+    return { {
+        { F::kNone, "none" },
+        { F::kOverCurrent, "over_current" },
+        { F::kUnderVoltage, "under_voltage" },
+        { F::kOverTemperature, "over_temp" },
+        { F::kOverVoltage, "over_voltage" },
+        { F::kCircuitBreaker, "circuit_breaker" },
+        { F::kMosfetShorted, "mosfet_shorted" },
+        { F::kCommunications, "communications" },
+      }};
+  }
+};
+
+}
 }

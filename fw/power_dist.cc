@@ -338,7 +338,7 @@ void RunRev1() {
   fw::GitInfo git_info;
 
   fw::Lm5066 lm5066(
-      &pool, &persistent_config, &telemetry_manager, &timer,
+      &pool, &command_manager, &persistent_config, &telemetry_manager, &timer,
       []() {
         fw::Lm5066::Options options;
         options.sda = PA_8;
@@ -380,8 +380,8 @@ void RunRev1() {
   auto old_time = timer.read_ms();
 
   while (true) {
+    const auto now = timer.read_ms() / 100;
     {
-      const auto now = timer.read_ms() / 100;
       if (now != last_can) {
         last_can = now;
 
@@ -399,7 +399,7 @@ void RunRev1() {
       //     lock_time = static_cast<uint8_t>(can_command_data[1]);
       //   }
       // }
-      led1.write(!((now % 10) == 0));
+      led1.write(!((now % 50) == 0));
     }
 
     power_switch_status = (power_switch.read() == 0) ? 1 : 0;
@@ -407,10 +407,28 @@ void RunRev1() {
     if (power_switch_status == 1) {
       pshdn.write(0);
       led2.write(0);
-      switch_led.write(0);
     } else if (lock_time == 0) {
       pshdn.write(1);
       led2.write(1);
+    }
+
+    const auto& status = lm5066.status();
+    if (status.vout_10mv > 1000) {
+      // We are all the way on.
+      switch_led.write(0);
+    } else if (status.fault != fw::Lm5066::Fault::kNone) {
+      // We should be flashing a fault code.
+      const int code = static_cast<int>(status.fault);
+
+      // The code is flashed every 5s at 2Hz, consisting of a fault
+      // code pulsed at 200ms pulses.
+      const int phase = (now % 50) / 2;
+      switch_led.write((phase < (code * 2) && (phase % 2) == 0) ? 0 : 1);
+    } else if (power_switch_status == 1 &&
+               status.device_off) {
+      // For some reason we are not on yet.  Flash a constant rate.
+      switch_led.write((((now / 3)) % 2 == 0) ? 0 : 1);
+    } else {
       switch_led.write(1);
     }
 
