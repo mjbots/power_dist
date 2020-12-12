@@ -80,6 +80,10 @@ class Lm5066::Impl {
     status_update_ = telemetry->Register("lm5066", &status_);
 
     // Configure the device.
+    //
+    // We set the current limit to low in order to give better
+    // resolution of current and power.  With the 0.3 mOhm sense
+    // resistor, that works out to a current limit of around 85A.
     uint8_t device_setup = 0
         | (2 << 5)  // Retry setting = 010 (retry 1 time)
         | (1 << 4)  // Current limit setting = 1 (low 26mv)
