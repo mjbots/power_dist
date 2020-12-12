@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-namespace moteus {
+namespace fw {
 
 char kGitHash[41] = BUILD_SCM_REVISION;
 char kGitDirty[10] = BUILD_SCM_STATUS;
