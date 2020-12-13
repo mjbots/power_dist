@@ -3073,7 +3073,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
 </part>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
-<part name="U$5" library="power_dist" deviceset="LTC4830" device=""/>
+<part name="U6" library="power_dist" deviceset="LTC4830" device=""/>
 <part name="R1" library="mfpassives" deviceset="RESISTOR" device="_0603">
 <attribute name="HOUSEPART" value="1"/>
 </part>
@@ -3138,6 +3138,20 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="P+6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
 <part name="SH4" library="shorts" deviceset="SHORT" device="BIG" value="SHORTBIG">
 <attribute name="POPULATE" value="0"/>
+</part>
+<part name="D7" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="MF-DIO-SOD123-1N4148"/>
+<part name="D8" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="MF-DIO-SOD123-1N4148"/>
+<part name="R18" library="mfpassives" deviceset="RESISTOR" device="_0603" value="DNP">
+<attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="GND8" library="supply1" deviceset="GND" device=""/>
+<part name="C19" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.01uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-0.01uF"/>
+</part>
+<part name="C20" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.01uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-0.01uF"/>
 </part>
 </parts>
 <sheets>
@@ -3546,7 +3560,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="GND11" gate="1" x="297.18" y="5.08" smashed="yes">
 <attribute name="VALUE" x="294.64" y="2.54" size="1.778" layer="96"/>
 </instance>
-<instance part="U$5" gate="G$1" x="2.54" y="-45.72" smashed="yes">
+<instance part="U6" gate="G$1" x="2.54" y="-45.72" smashed="yes">
 <attribute name="NAME" x="-17.78" y="-22.86" size="2.54" layer="95" font="vector" ratio="10"/>
 </instance>
 <instance part="R1" gate="G$1" x="-5.08" y="-2.54" smashed="yes" rot="R180">
@@ -3648,6 +3662,29 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="SH4" gate="G$1" x="-10.16" y="111.76" smashed="yes">
 <attribute name="POPULATE" x="-10.16" y="111.76" size="1.778" layer="96" display="off"/>
 <attribute name="NAME" x="-12.3825" y="113.03" size="1.778" layer="95"/>
+</instance>
+<instance part="D7" gate="G$1" x="190.5" y="170.18" smashed="yes" rot="R180">
+<attribute name="NAME" x="193.04" y="165.1" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="193.04" y="167.64" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="D8" gate="G$1" x="190.5" y="180.34" smashed="yes" rot="R180">
+<attribute name="NAME" x="193.04" y="175.26" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="193.04" y="177.8" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="R18" gate="G$1" x="177.8" y="157.48" smashed="yes" rot="R180">
+<attribute name="NAME" x="175.26" y="155.956" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="175.26" y="159.004" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="GND8" gate="1" x="177.8" y="147.32" smashed="yes">
+<attribute name="VALUE" x="175.26" y="144.78" size="1.778" layer="96"/>
+</instance>
+<instance part="C19" gate="G$1" x="251.46" y="-43.18" smashed="yes">
+<attribute name="NAME" x="254" y="-41.656" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="254" y="-44.704" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="C20" gate="G$1" x="218.44" y="-43.18" smashed="yes">
+<attribute name="NAME" x="220.98" y="-41.656" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="220.98" y="-44.704" size="1.016" layer="96" font="vector"/>
 </instance>
 </instances>
 <busses>
@@ -3781,7 +3818,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <junction x="2.54" y="-71.12"/>
 <wire x1="2.54" y1="-71.12" x2="5.08" y2="-71.12" width="0.1524" layer="91"/>
 <wire x1="2.54" y1="-71.12" x2="-10.16" y2="-71.12" width="0.1524" layer="91"/>
-<pinref part="U$5" gate="G$1" pin="GND"/>
+<pinref part="U6" gate="G$1" pin="GND"/>
 <wire x1="-10.16" y1="-71.12" x2="-10.16" y2="-63.5" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="-50.8" x2="-40.64" y2="-71.12" width="0.1524" layer="91"/>
 <wire x1="-40.64" y1="-71.12" x2="-10.16" y2="-71.12" width="0.1524" layer="91"/>
@@ -3835,11 +3872,24 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="GND25" gate="1" pin="GND"/>
 <wire x1="238.76" y1="-50.8" x2="238.76" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="238.76" y="-50.8"/>
+<pinref part="C20" gate="G$1" pin="P$2"/>
+<wire x1="218.44" y1="-45.72" x2="218.44" y2="-50.8" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="-50.8" x2="233.68" y2="-50.8" width="0.1524" layer="91"/>
+<junction x="233.68" y="-50.8"/>
+<pinref part="C19" gate="G$1" pin="P$2"/>
+<wire x1="251.46" y1="-45.72" x2="251.46" y2="-50.8" width="0.1524" layer="91"/>
+<wire x1="251.46" y1="-50.8" x2="243.84" y2="-50.8" width="0.1524" layer="91"/>
+<junction x="243.84" y="-50.8"/>
 </segment>
 <segment>
 <pinref part="GND22" gate="1" pin="GND"/>
 <pinref part="SH4" gate="G$1" pin="P$1"/>
 <wire x1="-20.32" y1="111.76" x2="-12.7" y2="111.76" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="GND8" gate="1" pin="GND"/>
+<pinref part="R18" gate="G$1" pin="P$1"/>
+<wire x1="177.8" y1="149.86" x2="177.8" y2="152.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="1">
@@ -4103,13 +4153,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <segment>
 <pinref part="U1" gate="A" pin="VIN"/>
 <pinref part="P+3" gate="1" pin="+24V"/>
-<wire x1="175.26" y1="132.08" x2="170.18" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="132.08" x2="157.48" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="132.08" x2="157.48" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="157.48" y1="132.08" x2="157.48" y2="144.78" width="0.1524" layer="91"/>
-<pinref part="U1" gate="A" pin="EN/UVLO"/>
-<wire x1="175.26" y1="129.54" x2="170.18" y2="129.54" width="0.1524" layer="91"/>
-<wire x1="170.18" y1="129.54" x2="170.18" y2="132.08" width="0.1524" layer="91"/>
-<junction x="170.18" y="132.08"/>
 <wire x1="157.48" y1="132.08" x2="154.94" y2="132.08" width="0.1524" layer="91"/>
 <junction x="157.48" y="132.08"/>
 <pinref part="C1" gate="G$1" pin="P$1"/>
@@ -4244,7 +4289,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <label x="15.24" y="2.54" size="1.778" layer="95" rot="R90"/>
 <pinref part="R10" gate="A" pin="S1"/>
 <wire x1="15.24" y1="-15.24" x2="12.7" y2="-15.24" width="0.1524" layer="91"/>
-<pinref part="U$5" gate="G$1" pin="SNS"/>
+<pinref part="U6" gate="G$1" pin="SNS"/>
 <wire x1="12.7" y1="-15.24" x2="12.7" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -4259,7 +4304,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <label x="22.86" y="2.54" size="1.778" layer="95" rot="R90"/>
 <pinref part="R10" gate="A" pin="S2"/>
 <wire x1="22.86" y1="-17.78" x2="20.32" y2="-17.78" width="0.1524" layer="91"/>
-<pinref part="U$5" gate="G$1" pin="OUT"/>
+<pinref part="U6" gate="G$1" pin="OUT"/>
 <wire x1="20.32" y1="-17.78" x2="20.32" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
 <segment>
@@ -4344,7 +4389,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 </net>
 <net name="FLT" class="0">
 <segment>
-<pinref part="U$5" gate="G$1" pin="FLT"/>
+<pinref part="U6" gate="G$1" pin="FLT"/>
 <wire x1="33.02" y1="-45.72" x2="63.5" y2="-45.72" width="0.1524" layer="91"/>
 <label x="40.64" y="-45.72" size="1.778" layer="95"/>
 </segment>
@@ -4416,11 +4461,16 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <junction x="-15.24" y="27.94"/>
 <label x="-5.08" y="27.94" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="D7" gate="G$1" pin="ANODE"/>
+<wire x1="193.04" y1="170.18" x2="213.36" y2="170.18" width="0.1524" layer="91"/>
+<label x="200.66" y="170.18" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="N$5" class="0">
 <segment>
 <pinref part="R2" gate="G$1" pin="P$2"/>
-<pinref part="U$5" gate="G$1" pin="GATE"/>
+<pinref part="U6" gate="G$1" pin="GATE"/>
 <wire x1="-2.54" y1="-10.16" x2="-2.54" y2="-27.94" width="0.1524" layer="91"/>
 <wire x1="-2.54" y1="-10.16" x2="-5.08" y2="-10.16" width="0.1524" layer="91"/>
 <junction x="-2.54" y="-10.16"/>
@@ -4437,7 +4487,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 </net>
 <net name="N$10" class="0">
 <segment>
-<pinref part="U$5" gate="G$1" pin="DRN"/>
+<pinref part="U6" gate="G$1" pin="DRN"/>
 <wire x1="-12.7" y1="-27.94" x2="-12.7" y2="-25.4" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="P$1"/>
 <wire x1="-12.7" y1="-25.4" x2="-20.32" y2="-25.4" width="0.1524" layer="91"/>
@@ -4446,7 +4496,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <net name="LTC_VCC" class="0">
 <segment>
 <wire x1="-40.64" y1="-45.72" x2="-40.64" y2="-43.18" width="0.1524" layer="91"/>
-<pinref part="U$5" gate="G$1" pin="VCC"/>
+<pinref part="U6" gate="G$1" pin="VCC"/>
 <wire x1="-40.64" y1="-43.18" x2="-33.02" y2="-43.18" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="P$2"/>
 <wire x1="-33.02" y1="-43.18" x2="-22.86" y2="-43.18" width="0.1524" layer="91"/>
@@ -4459,7 +4509,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <label x="-33.02" y="-35.56" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U$5" gate="G$1" pin="SEL"/>
+<pinref part="U6" gate="G$1" pin="SEL"/>
 <wire x1="17.78" y1="-63.5" x2="17.78" y2="-66.04" width="0.1524" layer="91"/>
 <wire x1="17.78" y1="-66.04" x2="27.94" y2="-66.04" width="0.1524" layer="91"/>
 <label x="20.32" y="-66.04" size="1.778" layer="95"/>
@@ -4468,13 +4518,13 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <net name="N$12" class="0">
 <segment>
 <pinref part="C18" gate="G$1" pin="P$1"/>
-<pinref part="U$5" gate="G$1" pin="TMR"/>
+<pinref part="U6" gate="G$1" pin="TMR"/>
 <wire x1="5.08" y1="-66.04" x2="5.08" y2="-63.5" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="LTC_EN" class="0">
 <segment>
-<pinref part="U$5" gate="G$1" pin="ON"/>
+<pinref part="U6" gate="G$1" pin="ON"/>
 <wire x1="-22.86" y1="-48.26" x2="-27.94" y2="-48.26" width="0.1524" layer="91"/>
 <wire x1="-27.94" y1="-48.26" x2="-27.94" y2="-60.96" width="0.1524" layer="91"/>
 <label x="-33.02" y="-63.5" size="1.778" layer="95"/>
@@ -4557,8 +4607,13 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <segment>
 <pinref part="R11" gate="G$1" pin="P$2"/>
 <pinref part="R9" gate="G$1" pin="P$1"/>
-<wire x1="233.68" y1="-38.1" x2="233.68" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="233.68" y1="-38.1" x2="233.68" y2="-35.56" width="0.1524" layer="91"/>
 <label x="233.68" y="-33.02" size="1.778" layer="95" rot="R180"/>
+<pinref part="C20" gate="G$1" pin="P$1"/>
+<wire x1="233.68" y1="-35.56" x2="233.68" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="-40.64" x2="218.44" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="-35.56" x2="233.68" y2="-35.56" width="0.1524" layer="91"/>
+<junction x="233.68" y="-35.56"/>
 </segment>
 </net>
 <net name="VSWITCHED_SAMP" class="0">
@@ -4570,9 +4625,14 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 </segment>
 <segment>
 <pinref part="R17" gate="G$1" pin="P$2"/>
-<wire x1="243.84" y1="-38.1" x2="243.84" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="243.84" y1="-38.1" x2="243.84" y2="-35.56" width="0.1524" layer="91"/>
 <pinref part="R12" gate="G$1" pin="P$1"/>
 <label x="243.84" y="-35.56" size="1.778" layer="95"/>
+<pinref part="C19" gate="G$1" pin="P$1"/>
+<wire x1="243.84" y1="-35.56" x2="243.84" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="243.84" y1="-35.56" x2="251.46" y2="-35.56" width="0.1524" layer="91"/>
+<wire x1="251.46" y1="-35.56" x2="251.46" y2="-40.64" width="0.1524" layer="91"/>
+<junction x="243.84" y="-35.56"/>
 </segment>
 </net>
 <net name="N$2" class="0">
@@ -4626,6 +4686,36 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="C15" gate="G$1" pin="P$2"/>
 <wire x1="101.6" y1="0" x2="101.6" y2="-27.94" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="-27.94" x2="96.52" y2="-27.94" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="3V3_EN" class="0">
+<segment>
+<pinref part="U1" gate="A" pin="EN/UVLO"/>
+<wire x1="175.26" y1="129.54" x2="165.1" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="129.54" x2="165.1" y2="170.18" width="0.1524" layer="91"/>
+<label x="167.64" y="147.32" size="1.778" layer="95" rot="R90"/>
+<pinref part="D7" gate="G$1" pin="CATHODE"/>
+<wire x1="187.96" y1="170.18" x2="177.8" y2="170.18" width="0.1524" layer="91"/>
+<pinref part="D8" gate="G$1" pin="CATHODE"/>
+<wire x1="177.8" y1="170.18" x2="165.1" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="180.34" x2="165.1" y2="180.34" width="0.1524" layer="91"/>
+<wire x1="165.1" y1="180.34" x2="165.1" y2="170.18" width="0.1524" layer="91"/>
+<junction x="165.1" y="170.18"/>
+<pinref part="R18" gate="G$1" pin="P$2"/>
+<wire x1="177.8" y1="162.56" x2="177.8" y2="170.18" width="0.1524" layer="91"/>
+<junction x="177.8" y="170.18"/>
+</segment>
+</net>
+<net name="3V3_OVERRIDE" class="0">
+<segment>
+<pinref part="D8" gate="G$1" pin="ANODE"/>
+<wire x1="193.04" y1="180.34" x2="213.36" y2="180.34" width="0.1524" layer="91"/>
+<label x="200.66" y="180.34" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="PB13"/>
+<wire x1="492.76" y1="127" x2="523.24" y2="127" width="0.1524" layer="91"/>
+<label x="510.54" y="127" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
