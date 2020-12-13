@@ -1523,8 +1523,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </polygon>
 </package>
 <package name="XT90PW-M">
-<pad name="2" x="5.45" y="0" drill="3.6"/>
-<pad name="1" x="-5.45" y="0" drill="3.6"/>
+<pad name="2" x="5.45" y="0" drill="3.7"/>
+<pad name="1" x="-5.45" y="0" drill="3.7"/>
 <pad name="S1" x="-9.45" y="9.4" drill="2"/>
 <pad name="S2" x="9.45" y="9.4" drill="2"/>
 <wire x1="-10.4" y1="1" x2="-10.4" y2="23" width="0.127" layer="21"/>
@@ -2745,6 +2745,81 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </deviceset>
 </devicesets>
 </library>
+<library name="shorts">
+<packages>
+<package name="SHORT_TOP-50">
+<description>Short, top layer, 50mil width</description>
+<smd name="1" x="0.127" y="0" dx="0.254" dy="0.254" layer="1" stop="no" cream="no"/>
+<smd name="2" x="-0.127" y="0" dx="0.254" dy="0.254" layer="1" stop="no" cream="no"/>
+<text x="-1.27" y="-2.032" size="1.27" layer="25" ratio="16">&gt;NAME</text>
+</package>
+<package name="SHORT_ALL-50">
+<description>Short, all layers, 50mil width</description>
+<pad name="1" x="-0.635" y="0" drill="0.7366" diameter="1.524"/>
+<pad name="2" x="0.635" y="0" drill="0.7366" diameter="1.524"/>
+<text x="-1.7145" y="-2.2225" size="1.27" layer="25" ratio="16">&gt;NAME</text>
+<text x="0.381" y="-0.889" size="0.762" layer="51" ratio="10" rot="R90">&gt;NAME</text>
+<rectangle x1="-0.254" y1="0.381" x2="0.254" y2="0.635" layer="1"/>
+<rectangle x1="-0.254" y1="-0.635" x2="0.254" y2="-0.381" layer="1"/>
+<rectangle x1="-0.254" y1="0.381" x2="0.254" y2="0.635" layer="16"/>
+<rectangle x1="-0.254" y1="-0.635" x2="0.254" y2="-0.381" layer="16"/>
+</package>
+<package name="SHORT_TOP-BIG">
+<smd name="1" x="0.635" y="0" dx="1.27" dy="1.27" layer="1" stop="no" cream="no"/>
+<smd name="2" x="-0.635" y="0" dx="1.27" dy="1.27" layer="1" stop="no" cream="no"/>
+<text x="-1.27" y="-2.032" size="1.27" layer="25" ratio="16">&gt;NAME</text>
+</package>
+</packages>
+<symbols>
+<symbol name="SHORT-H">
+<wire x1="-2.54" y1="0" x2="2.54" y2="0" width="0.508" layer="94"/>
+<text x="-2.2225" y="1.27" size="1.778" layer="95">&gt;NAME</text>
+<pin name="P$1" x="-2.54" y="0" visible="off" length="point" swaplevel="1"/>
+<pin name="P$2" x="2.54" y="0" visible="off" length="point" swaplevel="1"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="SHORT" prefix="SH">
+<description>Short between two nets</description>
+<gates>
+<gate name="G$1" symbol="SHORT-H" x="0" y="0" swaplevel="1"/>
+</gates>
+<devices>
+<device name="T5" package="SHORT_TOP-50">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="BOM" value="no"/>
+</technology>
+</technologies>
+</device>
+<device name="A5" package="SHORT_ALL-50">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="BOM" value="no"/>
+</technology>
+</technologies>
+</device>
+<device name="BIG" package="SHORT_TOP-BIG">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -2850,8 +2925,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="P+16" library="supply1" deviceset="VCC" device=""/>
 <part name="GND18" library="supply1" deviceset="GND" device=""/>
 <part name="U4" library="precharge" deviceset="TCAN334G" device="">
-<attribute name="MF" value="Analog"/>
-<attribute name="MPN" value="LTC2875IS8"/>
+<attribute name="MF" value="TI"/>
+<attribute name="MPN" value="TCAN334GDR"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="CAN1" library="precharge" deviceset="JST-PH3" device="SMT_VERT">
@@ -3061,6 +3136,9 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="P+6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
+<part name="SH4" library="shorts" deviceset="SHORT" device="BIG" value="SHORTBIG">
+<attribute name="POPULATE" value="0"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3287,8 +3365,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="P+21" gate="VCC" x="441.96" y="157.48" smashed="yes">
 <attribute name="VALUE" x="439.42" y="154.94" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND22" gate="1" x="-7.62" y="111.76" smashed="yes">
-<attribute name="VALUE" x="-10.16" y="109.22" size="1.778" layer="96"/>
+<instance part="GND22" gate="1" x="-20.32" y="109.22" smashed="yes">
+<attribute name="VALUE" x="-22.86" y="106.68" size="1.778" layer="96"/>
 </instance>
 <instance part="U1" gate="A" x="172.72" y="132.08" smashed="yes">
 <attribute name="NAME" x="193.3956" y="141.1986" size="2.0828" layer="95" ratio="6" rot="SR0"/>
@@ -3567,6 +3645,10 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="P+6" gate="1" x="233.68" y="-15.24" smashed="yes">
 <attribute name="VALUE" x="231.14" y="-20.32" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="SH4" gate="G$1" x="-10.16" y="111.76" smashed="yes">
+<attribute name="POPULATE" x="-10.16" y="111.76" size="1.778" layer="96" display="off"/>
+<attribute name="NAME" x="-12.3825" y="113.03" size="1.778" layer="95"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -3753,6 +3835,11 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="GND25" gate="1" pin="GND"/>
 <wire x1="238.76" y1="-50.8" x2="238.76" y2="-53.34" width="0.1524" layer="91"/>
 <junction x="238.76" y="-50.8"/>
+</segment>
+<segment>
+<pinref part="GND22" gate="1" pin="GND"/>
+<pinref part="SH4" gate="G$1" pin="P$1"/>
+<wire x1="-20.32" y1="111.76" x2="-12.7" y2="111.76" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="1">
@@ -4501,8 +4588,9 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="P7" gate="G$1" pin="1"/>
 <wire x1="-48.26" y1="139.7" x2="-30.48" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="-30.48" y1="139.7" x2="-30.48" y2="121.92" width="0.1524" layer="91"/>
-<wire x1="-30.48" y1="121.92" x2="2.54" y2="121.92" width="0.1524" layer="91"/>
+<wire x1="-30.48" y1="121.92" x2="-5.08" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="P1" gate="G$1" pin="1"/>
+<wire x1="-5.08" y1="121.92" x2="2.54" y2="121.92" width="0.1524" layer="91"/>
 <wire x1="2.54" y1="142.24" x2="10.16" y2="142.24" width="0.1524" layer="91"/>
 <pinref part="P2" gate="G$1" pin="1"/>
 <wire x1="10.16" y1="142.24" x2="22.86" y2="142.24" width="0.1524" layer="91"/>
@@ -4521,6 +4609,10 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <junction x="60.96" y="142.24"/>
 <wire x1="2.54" y1="121.92" x2="2.54" y2="142.24" width="0.1524" layer="91"/>
 <label x="5.08" y="121.92" size="1.778" layer="95"/>
+<pinref part="SH4" gate="G$1" pin="P$2"/>
+<wire x1="-7.62" y1="111.76" x2="-5.08" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="-5.08" y1="111.76" x2="-5.08" y2="121.92" width="0.1524" layer="91"/>
+<junction x="-5.08" y="121.92"/>
 </segment>
 <segment>
 <pinref part="D3" gate="A" pin="ANODE"/>
