@@ -1590,41 +1590,11 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <smd name="3" x="0" y="0.8255" dx="5.3086" dy="4.1402" layer="1" rot="R90"/>
 <smd name="2" x="-1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
 <smd name="1" x="1.05" y="-2.7559" dx="1.3462" dy="1.3462" layer="1" rot="R90"/>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="21"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="21"/>
 <wire x1="-2.4384" y1="-3.2004" x2="-2.0574" y2="-3.2004" width="0.1524" layer="21"/>
 <wire x1="2.4384" y1="-3.2004" x2="2.4384" y2="3.2004" width="0.1524" layer="21"/>
 <wire x1="-2.4384" y1="3.2004" x2="-2.4384" y2="-3.2004" width="0.1524" layer="21"/>
 <wire x1="2.0574" y1="-3.2004" x2="2.4384" y2="-3.2004" width="0.1524" layer="21"/>
 <text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
-<wire x1="0" y1="4.8514" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0" y2="6.1214" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.8674" x2="0" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.8674" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.508" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.381" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.254" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0" y1="5.8674" x2="-0.127" y2="5.1054" width="0.1524" layer="51"/>
-<wire x1="0.635" y1="5.1054" x2="-0.635" y2="5.1054" width="0.1524" layer="51"/>
 <wire x1="-2.3114" y1="-3.0734" x2="2.3114" y2="-3.0734" width="0.1524" layer="51"/>
 <wire x1="2.3114" y1="-3.0734" x2="2.3114" y2="3.0734" width="0.1524" layer="51"/>
 <wire x1="2.3114" y1="3.0734" x2="-2.3114" y2="3.0734" width="0.1524" layer="51"/>
@@ -3115,7 +3085,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="R17" library="mfpassives" deviceset="RESISTOR" device="_0603" value="2M">
 <attribute name="HOUSEPART" value="1"/>
 </part>
-<part name="!6" library="mfpassives" deviceset="RESISTOR" device="_0603" value="500k">
+<part name="R16" library="mfpassives" deviceset="RESISTOR" device="_0603" value="500k">
 <attribute name="HOUSEPART" value="1"/>
 </part>
 <part name="Q4" library="mfdiscretesemi" deviceset="NPN_BJT" device="_SOT-23-3" technology="MMBT3904" value="MF-DSC-SOT233-MMBT3904"/>
@@ -3630,7 +3600,7 @@ actual power switch.</text>
 <attribute name="NAME" x="499.364" y="-12.7" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
 <attribute name="VALUE" x="496.316" y="-12.7" size="1.016" layer="96" font="vector" rot="R270"/>
 </instance>
-<instance part="!6" gate="G$1" x="480.06" y="-27.94" smashed="yes" rot="R270">
+<instance part="R16" gate="G$1" x="480.06" y="-27.94" smashed="yes" rot="R270">
 <attribute name="NAME" x="481.584" y="-30.48" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
 <attribute name="VALUE" x="478.536" y="-30.48" size="1.016" layer="96" font="vector" rot="R270"/>
 </instance>
@@ -4124,7 +4094,7 @@ actual power switch.</text>
 <pinref part="J2" gate="A" pin="3"/>
 </segment>
 <segment>
-<pinref part="!6" gate="G$1" pin="P$2"/>
+<pinref part="R16" gate="G$1" pin="P$2"/>
 <label x="459.74" y="-27.94" size="1.778" layer="95"/>
 <wire x1="474.98" y1="-27.94" x2="459.74" y2="-27.94" width="0.1524" layer="91"/>
 <wire x1="474.98" y1="-27.94" x2="474.98" y2="-10.16" width="0.1524" layer="91"/>
@@ -4569,7 +4539,7 @@ actual power switch.</text>
 </net>
 <net name="N$17" class="0">
 <segment>
-<pinref part="!6" gate="G$1" pin="P$1"/>
+<pinref part="R16" gate="G$1" pin="P$1"/>
 <pinref part="D6" gate="G$1" pin="ANODE"/>
 <wire x1="485.14" y1="-27.94" x2="487.68" y2="-27.94" width="0.1524" layer="91"/>
 </segment>
