@@ -242,8 +242,8 @@
 <vertex x="16.49" y="6.98"/>
 </polygon>
 <polygon width="0.05" layer="25">
-<vertex x="15.91" y="2.93"/>
-<vertex x="15.641825" y="1.857296875"/>
+<vertex x="15.86748125" y="2.959921875"/>
+<vertex x="15.598428125" y="1.8837125"/>
 <vertex x="15.871825" y="1.717296875"/>
 <vertex x="16.111825" y="1.587296875"/>
 <vertex x="16.381825" y="1.497296875"/>
@@ -1603,12 +1603,12 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="POPULATE" value="1" x="24.4" y="46.3" size="1.778" layer="27" display="off"/>
 <attribute name="VENDOR" value="Vishay" x="24.4" y="46.3" size="1.778" layer="27" display="off"/>
 </element>
-<element name="X3" library="power_dist" package="TO277-3L_ONS-L" value="FSV10150VTO277-3L_ONS-L" x="68" y="4" smashed="yes">
+<element name="D8" library="power_dist" package="TO277-3L_ONS-L" value="FSV10150VTO277-3L_ONS-L" x="68" y="4" smashed="yes">
 <attribute name="BUILT_BY" value="EMA_Jessica" x="68" y="4" size="1.778" layer="27" display="off"/>
 <attribute name="COPYRIGHT" value="Copyright (C) 2018 Accelerated Designs. All rights reserved" x="68" y="4" size="1.778" layer="27" display="off"/>
 <attribute name="MANUFACTURER_PART_NUMBER" value="FSV10150V" x="68" y="4" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="FSV10150V" x="68" y="4" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="64.5234" y="3.515" size="0.6" layer="25" ratio="10" rot="SR0"/>
+<attribute name="NAME" x="64.3234" y="3.715" size="0.6" layer="25" ratio="10" rot="SR0"/>
 <attribute name="POPULATE" value="1" x="68" y="4" size="1.778" layer="27" display="off"/>
 <attribute name="SOURCELIBRARY" value="ON_Semiconductor_2019-12-30" x="68" y="4" size="1.778" layer="27" display="off"/>
 <attribute name="VENDOR" value="ON Semiconductor" x="68" y="4" size="1.778" layer="27" display="off"/>
@@ -1956,7 +1956,6 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="WATTAGE" value="" x="62.4" y="21" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="SH4" library="shorts" package="SHORT_TOP-BIG" value="SHORTBIG" x="18.6" y="27.2" smashed="yes" rot="R180">
-<attribute name="NAME" x="19.87" y="29.232" size="1.27" layer="25" ratio="16" rot="R180"/>
 <attribute name="POPULATE" value="0" x="18.6" y="26.8" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="D2" library="mfdiscretesemi" package="SOD-123" value="MF-DIO-SOD123-1N4148" x="48.8" y="38.6" smashed="yes" rot="R270">
@@ -2594,7 +2593,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="P3" pad="2"/>
 <contactref element="P2" pad="2"/>
 <contactref element="P1" pad="2"/>
-<contactref element="X3" pad="3"/>
+<contactref element="D8" pad="3"/>
 <contactref element="C15" pad="P$1"/>
 <contactref element="DB_VSW" pad="P$1"/>
 <polygon width="0.1524" layer="1" thermals="no">
@@ -2857,21 +2856,28 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="49.6" y="29.8" extent="1-16" drill="0.5"/>
 <via x="49.6" y="28.4" extent="1-16" drill="0.5"/>
 <via x="49.6" y="27" extent="1-16" drill="0.5"/>
-<via x="46.8" y="12" extent="1-16" drill="0.5"/>
-<via x="46.8" y="13" extent="1-16" drill="0.5"/>
-<via x="46.8" y="16.8" extent="1-16" drill="0.5"/>
-<via x="46.8" y="18.2" extent="1-16" drill="0.5"/>
-<via x="46.8" y="19.6" extent="1-16" drill="0.5"/>
-<via x="46.8" y="21.2" extent="1-16" drill="0.5"/>
-<via x="47.2" y="48" extent="1-16" drill="0.5"/>
-<via x="47.2" y="46.6" extent="1-16" drill="0.5"/>
-<via x="47.2" y="45.2" extent="1-16" drill="0.5"/>
-<via x="47.2" y="43.8" extent="1-16" drill="0.5"/>
-<via x="47.2" y="42.4" extent="1-16" drill="0.5"/>
+<via x="46.6" y="18.2" extent="1-16" drill="0.5"/>
+<via x="45.2" y="18.2" extent="1-16" drill="0.5"/>
+<via x="43.8" y="18.2" extent="1-16" drill="0.5"/>
+<via x="46.6" y="21.8" extent="1-16" drill="0.5"/>
+<via x="45.2" y="21.8" extent="1-16" drill="0.5"/>
+<via x="43.8" y="21.8" extent="1-16" drill="0.5"/>
+<via x="44" y="47.4" extent="1-16" drill="0.5"/>
+<via x="45.6" y="47.4" extent="1-16" drill="0.5"/>
+<via x="44" y="43.8" extent="1-16" drill="0.5"/>
+<via x="45.6" y="43.8" extent="1-16" drill="0.5"/>
+<via x="47.2" y="47.4" extent="1-16" drill="0.5"/>
 <via x="47.2" y="38.4" extent="1-16" drill="0.5"/>
 <contactref element="D2" pad="ANODE"/>
 <wire x1="48.8" y1="36.925" x2="48.675" y2="36.925" width="0.1524" layer="1"/>
 <wire x1="48.675" y1="36.925" x2="47.2" y2="38.4" width="0.1524" layer="1"/>
+<via x="47.2" y="43.8" extent="1-16" drill="0.5"/>
+<via x="43.8" y="34.6" extent="1-16" drill="0.5"/>
+<via x="45.2" y="34.6" extent="1-16" drill="0.5"/>
+<via x="46.6" y="34.6" extent="1-16" drill="0.5"/>
+<via x="43.7" y="31" extent="1-16" drill="0.5"/>
+<via x="45.2" y="31" extent="1-16" drill="0.5"/>
+<via x="46.6" y="31" extent="1-16" drill="0.5"/>
 </signal>
 <signal name="N$5">
 <contactref element="R6" pad="P$2"/>
@@ -3090,9 +3096,6 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="64.4" y="8.4"/>
 <vertex x="34.8" y="8.4"/>
 </polygon>
-<contactref element="X3" pad="1"/>
-<contactref element="X3" pad="2"/>
-<contactref element="C15" pad="P$2"/>
 <polygon width="0.1524" layer="1" thermals="no">
 <vertex x="64.6" y="3.8"/>
 <vertex x="70.85714375" y="3.8"/>
@@ -3134,6 +3137,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="28" y="44"/>
 <vertex x="24.8" y="44"/>
 </polygon>
+<contactref element="D8" pad="1"/>
+<contactref element="D8" pad="2"/>
+<contactref element="C15" pad="P$2"/>
 </signal>
 <signal name="3V3_EN">
 <contactref element="U1" pad="2"/>
