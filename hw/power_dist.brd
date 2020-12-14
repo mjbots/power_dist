@@ -579,6 +579,8 @@
 <text x="19.1" y="20.5" size="1" layer="21">3V</text>
 <text x="21.9" y="48.7" size="1" layer="21">VIN</text>
 <text x="68.5" y="48.1" size="1" layer="21">VSW</text>
+<text x="59.45" y="23.55" size="0.6" layer="25" font="vector" ratio="10" rot="R90">F</text>
+<text x="59.75" y="41.5" size="0.6" layer="25" font="vector" ratio="10">LE</text>
 </plain>
 <libraries>
 <library name="mfpassives">
@@ -1756,7 +1758,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="DIELECTRIC" value="" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="HOUSEPART" value="" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="MPN" value="" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="57.4" y="21.85" size="0.6" layer="25" font="vector" ratio="10"/>
+<attribute name="NAME" x="57.35" y="21.8" size="0.6" layer="25" font="vector" ratio="10"/>
 <attribute name="POPULATE" value="0" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="TOLERANCE" value="" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="URL" value="" x="55.8" y="21.95" size="1.778" layer="27" rot="R180" display="off"/>
@@ -1766,7 +1768,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="DIELECTRIC" value="" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="HOUSEPART" value="1" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MPN" value="MF-CAP-0603-0.1uF" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="52.75" y="22.45" size="0.6" layer="25" font="vector" ratio="10" rot="R180"/>
+<attribute name="NAME" x="51" y="23.15" size="0.6" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="POPULATE" value="1" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="TOLERANCE" value="" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="URL" value="" x="51.9" y="24" size="1.778" layer="27" rot="R270" display="off"/>
@@ -1856,7 +1858,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <element name="D7" library="mfdiscretesemi" package="SOD-123" value="MF-DIO-SOD123-1N4148" x="60.6" y="23" smashed="yes" rot="R270">
 <attribute name="HOUSEPART" value="YES" x="60.6" y="23" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="MPN" value="MF-DIO-SOD123-1N4148" x="60.6" y="23" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="59.61" y="22.8" size="0.6" layer="25" font="vector" ratio="10" rot="R90"/>
+<attribute name="NAME" x="59.61" y="20.8" size="0.6" layer="25" font="vector" ratio="10" rot="R90"/>
 <attribute name="POPULATE" value="1" x="60.6" y="23" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="URL" value="https://factory.macrofab.com/part/MF-DIO-SOD123-1N4148" x="60.6" y="23" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
@@ -2001,6 +2003,18 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="TOLERANCE" value="" x="50.8" y="15.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="URL" value="" x="50.8" y="15.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="VOLTAGE" value="" x="50.8" y="15.6" size="1.778" layer="27" rot="R90" display="off"/>
+</element>
+<element name="DB_LEN" library="precharge" package="24AWG_PAD" value="PAD24AWG_PAD" x="60.2" y="40.8" smashed="yes">
+<attribute name="POPULATE" value="0" x="60.2" y="40.8" size="1.778" layer="27" display="off"/>
+</element>
+<element name="DB_FLT" library="precharge" package="24AWG_PAD" value="PAD24AWG_PAD" x="59.2" y="22.85" smashed="yes">
+<attribute name="POPULATE" value="0" x="59.2" y="22.85" size="1.778" layer="27" display="off"/>
+</element>
+<element name="DB_IB" library="precharge" package="24AWG_PAD" value="PAD24AWG_PAD" x="53.6" y="22.2" smashed="yes">
+<attribute name="POPULATE" value="0" x="53.6" y="22.2" size="0.6" layer="27" font="vector" ratio="10" display="off"/>
+</element>
+<element name="DB_IS" library="precharge" package="24AWG_PAD" value="PAD24AWG_PAD" x="52" y="22" smashed="yes">
+<attribute name="POPULATE" value="0" x="52" y="22" size="0.6" layer="27" font="vector" ratio="10" display="off"/>
 </element>
 </elements>
 <signals>
@@ -2437,9 +2451,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="53.6481" y1="26.4481" x2="53.4" y2="26.4481" width="0.1524" layer="2"/>
 <via x="53.4" y="26.4481" extent="1-16" drill="0.3048"/>
 <wire x1="53.4" y1="26.4481" x2="52.9714" y2="26.0195" width="0.1524" layer="1"/>
-<wire x1="50.8166" y1="25.27094375" x2="50.8166" y2="22.72905625" width="0.1524" layer="1"/>
-<wire x1="51.95" y1="21.59565625" x2="51.95" y2="15.95" width="0.1524" layer="1"/>
-<wire x1="50.8166" y1="22.72905625" x2="51.95" y2="21.59565625" width="0.1524" layer="1"/>
+<wire x1="50.8166" y1="25.27094375" x2="50.8166" y2="21.52905625" width="0.1524" layer="1"/>
+<wire x1="51.75" y1="20.59565625" x2="51.75" y2="16.15" width="0.1524" layer="1"/>
+<wire x1="51.75" y1="16.15" x2="51.95" y2="15.95" width="0.1524" layer="1"/>
+<wire x1="50.8166" y1="21.52905625" x2="51.75" y2="20.59565625" width="0.1524" layer="1"/>
 <wire x1="52.9714" y1="26.0195" x2="51.56515625" y2="26.0195" width="0.1524" layer="1"/>
 <wire x1="51.56515625" y1="26.0195" x2="50.8166" y2="25.27094375" width="0.1524" layer="1"/>
 <wire x1="50.1" y1="36.0808875" x2="51.9928" y2="34.0072" width="0.1524" layer="1"/>
@@ -2755,6 +2770,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="59.1" y1="19.1" x2="59.1" y2="17.6" width="0.1524" layer="1"/>
 <wire x1="59.1" y1="17.6" x2="58.15" y2="16.65" width="0.1524" layer="1"/>
 <wire x1="57.8" y1="21.4" x2="57.8" y2="20.4" width="0.1524" layer="2"/>
+<contactref element="DB_FLT" pad="P$1"/>
+<wire x1="57.8" y1="21.4" x2="57.8" y2="21.45" width="0.1524" layer="1"/>
+<wire x1="57.8" y1="21.45" x2="59.2" y2="22.85" width="0.1524" layer="1"/>
 </signal>
 <signal name="ISAMP_BIAS">
 <contactref element="U5" pad="6"/>
@@ -2762,13 +2780,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="C19" pad="P$1"/>
 <wire x1="51.9" y1="24.75" x2="52.075" y2="24.925" width="0.1524" layer="1"/>
 <wire x1="52.075" y1="24.925" x2="53.5902" y2="24.925" width="0.1524" layer="1"/>
-<wire x1="52.7970125" y1="24.7195" x2="52.6631" y2="24.5855875" width="0.1524" layer="1"/>
-<wire x1="53.5902" y1="24.925" x2="53.3847" y2="24.7195" width="0.1524" layer="1"/>
-<wire x1="53.3847" y1="24.7195" x2="52.7970125" y2="24.7195" width="0.1524" layer="1"/>
 <wire x1="56.1286" y1="21.2714" x2="56.8" y2="20.6" width="0.1524" layer="1"/>
 <wire x1="54.6553125" y1="21.2714" x2="56.1286" y2="21.2714" width="0.1524" layer="1"/>
-<wire x1="52.6631" y1="24.5855875" x2="52.6631" y2="23.2636125" width="0.1524" layer="1"/>
-<wire x1="52.6631" y1="23.2636125" x2="54.6553125" y2="21.2714" width="0.1524" layer="1"/>
+<wire x1="52.6631" y1="24.5855875" x2="52.6631" y2="23.1369" width="0.1524" layer="1"/>
 <via x="56.8" y="20.6" extent="1-16" drill="0.3048"/>
 <wire x1="56.8" y1="20.6" x2="59" y2="20.6" width="0.1524" layer="15"/>
 <wire x1="59" y1="20.6" x2="59" y2="20.4" width="0.1524" layer="15"/>
@@ -2776,6 +2790,13 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="59" y1="20.4" x2="59.5" y2="19.9" width="0.1524" layer="1"/>
 <wire x1="59.5" y1="19.9" x2="59.5" y2="16.6" width="0.1524" layer="1"/>
 <wire x1="59.5" y1="16.6" x2="58.85" y2="15.95" width="0.1524" layer="1"/>
+<contactref element="DB_IB" pad="P$1"/>
+<wire x1="52.6631" y1="24.5855875" x2="52.7970125" y2="24.7195" width="0.1524" layer="1"/>
+<wire x1="52.7970125" y1="24.7195" x2="53.3847" y2="24.7195" width="0.1524" layer="1"/>
+<wire x1="53.3847" y1="24.7195" x2="53.5902" y2="24.925" width="0.1524" layer="1"/>
+<wire x1="53.6" y1="22.2" x2="52.6631" y2="23.1369" width="0.1524" layer="1"/>
+<wire x1="53.6" y1="22.2" x2="53.7267125" y2="22.2" width="0.1524" layer="1"/>
+<wire x1="53.7267125" y1="22.2" x2="54.6553125" y2="21.2714" width="0.1524" layer="1"/>
 </signal>
 <signal name="ISAMP">
 <contactref element="U5" pad="5"/>
@@ -2788,11 +2809,15 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="51.2553125" y1="22.7214" x2="51.1214" y2="22.8553125" width="0.1524" layer="1"/>
 <wire x1="51.1214" y1="25.1446875" x2="51.2" y2="25.2232875" width="0.1524" layer="1"/>
 <wire x1="51.2" y1="25.2232875" x2="51.2" y2="25.2" width="0.1524" layer="1"/>
-<wire x1="53.4" y1="21.2" x2="51.8786" y2="22.7214" width="0.1524" layer="1"/>
-<wire x1="51.8786" y1="22.7214" x2="51.2553125" y2="22.7214" width="0.1524" layer="1"/>
+<wire x1="51.2553125" y1="22.7214" x2="51.8786" y2="22.7214" width="0.1524" layer="1"/>
 <wire x1="51.1214" y1="22.8553125" x2="51.1214" y2="25.1446875" width="0.1524" layer="1"/>
 <wire x1="51.2" y1="25.2" x2="51.575" y2="25.575" width="0.1524" layer="1"/>
 <wire x1="51.575" y1="25.575" x2="53.5902" y2="25.575" width="0.1524" layer="1"/>
+<contactref element="DB_IS" pad="P$1"/>
+<wire x1="51.8786" y1="22.7214" x2="52" y2="22.6" width="0.1524" layer="1"/>
+<wire x1="52" y1="22.6" x2="52" y2="22" width="0.1524" layer="1"/>
+<wire x1="53.4" y1="21.2" x2="52.8" y2="21.2" width="0.1524" layer="1"/>
+<wire x1="52.8" y1="21.2" x2="52" y2="22" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$6">
 <contactref element="U5" pad="1"/>
@@ -2949,6 +2974,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="59.75" y1="35.85" x2="59.75" y2="35.8" width="0.1524" layer="1"/>
 <wire x1="58" y1="37.6" x2="57.15" y2="37.6" width="0.1524" layer="15"/>
 <wire x1="58" y1="37.6" x2="59" y2="36.6" width="0.1524" layer="15"/>
+<contactref element="DB_LEN" pad="P$1"/>
+<wire x1="60.2" y1="40.8" x2="60.8" y2="40.2" width="0.1524" layer="1"/>
+<wire x1="60.8" y1="36.85" x2="59.75" y2="35.8" width="0.1524" layer="1"/>
+<wire x1="60.8" y1="40.2" x2="60.8" y2="36.85" width="0.1524" layer="1"/>
 </signal>
 <signal name="N$13">
 <contactref element="D6" pad="CATHODE"/>
@@ -3050,9 +3079,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="R13" pad="P$2"/>
 <contactref element="R12" pad="P$1"/>
 <wire x1="62.4" y1="23.25" x2="62.4" y2="21.75" width="0.3048" layer="1"/>
-<wire x1="62.4" y1="21.75" x2="61.95" y2="22.2" width="0.1524" layer="1"/>
-<wire x1="61.95" y1="22.2" x2="59.6" y2="22.2" width="0.1524" layer="1"/>
-<wire x1="59.6" y1="22.2" x2="57.15" y2="19.75" width="0.1524" layer="1"/>
+<wire x1="62.4" y1="21.75" x2="62.15" y2="22" width="0.1524" layer="1"/>
+<wire x1="62.15" y1="22" x2="59.4" y2="22" width="0.1524" layer="1"/>
+<wire x1="59.4" y1="22" x2="57.15" y2="19.75" width="0.1524" layer="1"/>
 <wire x1="57.15" y1="19.75" x2="57.15" y2="18.2" width="0.1524" layer="1"/>
 <contactref element="C18" pad="P$1"/>
 <wire x1="57.15" y1="18.2" x2="57.15" y2="16.65" width="0.1524" layer="1"/>

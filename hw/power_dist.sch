@@ -3122,6 +3122,18 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-CAP-0603-0.01uF"/>
 </part>
+<part name="DB_LEN" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="DB_FLT" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="DB_IB" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="DB_IS" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3662,6 +3674,22 @@ actual power switch.</text>
 <instance part="C17" gate="G$1" x="218.44" y="-43.18" smashed="yes">
 <attribute name="NAME" x="220.98" y="-41.656" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="220.98" y="-44.704" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="DB_LEN" gate="G$1" x="322.58" y="-7.62" smashed="yes">
+<attribute name="POPULATE" x="322.58" y="-7.62" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="314.96" y="-2.54" size="1.6764" layer="94"/>
+</instance>
+<instance part="DB_FLT" gate="G$1" x="322.58" y="7.62" smashed="yes">
+<attribute name="POPULATE" x="322.58" y="7.62" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="314.96" y="12.7" size="1.6764" layer="94"/>
+</instance>
+<instance part="DB_IB" gate="G$1" x="322.58" y="25.4" smashed="yes">
+<attribute name="POPULATE" x="322.58" y="25.4" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="314.96" y="30.48" size="1.6764" layer="94"/>
+</instance>
+<instance part="DB_IS" gate="G$1" x="322.58" y="43.18" smashed="yes">
+<attribute name="POPULATE" x="322.58" y="43.18" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="314.96" y="48.26" size="1.6764" layer="94"/>
 </instance>
 </instances>
 <busses>
@@ -4372,6 +4400,11 @@ actual power switch.</text>
 <pinref part="U2" gate="G$1" pin="PA5"/>
 <wire x1="454.66" y1="101.6" x2="454.66" y2="106.68" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="DB_FLT" gate="G$1" pin="P$1"/>
+<wire x1="314.96" y1="7.62" x2="304.8" y2="7.62" width="0.1524" layer="91"/>
+<label x="307.34" y="7.62" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="ISAMP_BIAS" class="0">
 <segment>
@@ -4386,6 +4419,11 @@ actual power switch.</text>
 <wire x1="447.04" y1="124.46" x2="426.72" y2="124.46" width="0.1524" layer="91"/>
 <label x="429.26" y="124.46" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="DB_IB" gate="G$1" pin="P$1"/>
+<wire x1="314.96" y1="25.4" x2="299.72" y2="25.4" width="0.1524" layer="91"/>
+<label x="302.26" y="25.4" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="ISAMP" class="0">
 <segment>
@@ -4398,6 +4436,11 @@ actual power switch.</text>
 <wire x1="477.52" y1="106.68" x2="477.52" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="477.52" y1="99.06" x2="523.24" y2="99.06" width="0.1524" layer="91"/>
 <label x="505.46" y="99.06" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="DB_IS" gate="G$1" pin="P$1"/>
+<wire x1="314.96" y1="43.18" x2="299.72" y2="43.18" width="0.1524" layer="91"/>
+<label x="302.26" y="43.18" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$6" class="0">
@@ -4507,6 +4550,11 @@ actual power switch.</text>
 <pinref part="Q5" gate="G$1" pin="EMITTER"/>
 <wire x1="520.7" y1="-35.56" x2="538.48" y2="-35.56" width="0.1524" layer="91"/>
 <wire x1="520.7" y1="-50.8" x2="520.7" y2="-35.56" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="DB_LEN" gate="G$1" pin="P$1"/>
+<wire x1="314.96" y1="-7.62" x2="304.8" y2="-7.62" width="0.1524" layer="91"/>
+<label x="307.34" y="-7.62" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$13" class="0">
