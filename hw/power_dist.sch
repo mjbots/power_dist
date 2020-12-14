@@ -2985,7 +2985,6 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MPN" value="SMBJ51CA-E3/52"/>
 <attribute name="POPULATE" value="1"/>
 </part>
-<part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="X3" library="power_dist" deviceset="FSV10150V" device="TO277-3L_ONS-L" value="FSV10150VTO277-3L_ONS-L">
 <attribute name="MPN" value="FSV10150V"/>
 <attribute name="POPULATE" value="1"/>
@@ -3441,9 +3440,6 @@ actual power switch.</text>
 <attribute name="MPN" x="-63.5" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
 <attribute name="POPULATE" x="-63.5" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
-<instance part="GND7" gate="1" x="-63.5" y="-2.54" smashed="yes">
-<attribute name="VALUE" x="-66.04" y="-5.08" size="1.778" layer="96"/>
-</instance>
 <instance part="X3" gate="A" x="83.82" y="-25.4" smashed="yes" rot="R90">
 <attribute name="NAME" x="79.7814" y="-4.7244" size="2.0828" layer="95" ratio="6" rot="SR90"/>
 <attribute name="VALUE" x="82.3214" y="-5.3594" size="2.0828" layer="96" ratio="6" rot="SR90"/>
@@ -3790,11 +3786,6 @@ actual power switch.</text>
 <wire x1="154.94" y1="119.38" x2="154.94" y2="114.3" width="0.1524" layer="91"/>
 <wire x1="154.94" y1="114.3" x2="165.1" y2="114.3" width="0.1524" layer="91"/>
 <junction x="165.1" y="114.3"/>
-</segment>
-<segment>
-<pinref part="D3" gate="A" pin="2"/>
-<pinref part="GND7" gate="1" pin="GND"/>
-<wire x1="-63.5" y1="7.62" x2="-63.5" y2="0" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="J3" gate="A" pin="5"/>
@@ -4699,6 +4690,11 @@ actual power switch.</text>
 <wire x1="101.6" y1="0" x2="101.6" y2="-27.94" width="0.1524" layer="91"/>
 <wire x1="101.6" y1="-27.94" x2="96.52" y2="-27.94" width="0.1524" layer="91"/>
 <label x="96.52" y="-33.02" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="D3" gate="A" pin="2"/>
+<wire x1="-63.5" y1="7.62" x2="-63.5" y2="0" width="0.1524" layer="91"/>
+<label x="-66.04" y="-2.54" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="3V3_EN" class="0">
