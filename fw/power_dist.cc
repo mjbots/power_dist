@@ -374,6 +374,7 @@ void RunRev1() {
 
   char& power_switch_status = can_status_data[0];
   uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
+  int16_t& input_10mv = reinterpret_cast<int16_t&>(can_status_data[2]);
   uint32_t& energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[4]);
 
   // FDCAN_RxHeaderTypeDef can_rx_header;
@@ -392,7 +393,10 @@ void RunRev1() {
         fw::FDCan::SendOptions send_options;
         send_options.fdcan_frame = fw::FDCan::Override::kDisable;
         send_options.bitrate_switch = fw::FDCan::Override::kDisable;
+
         energy_uW_hr = lm5066.status().energy_uW_hr;
+        input_10mv = lm5066.status().vin_10mv;
+
         can.Send(0x10004, std::string_view(can_status_data,
                                            sizeof(can_status_data)));
 
