@@ -93,7 +93,7 @@ class Lm5066::Impl {
     // resistor, that works out to a current limit of around 85A.
     uint8_t device_setup = 0
         | (1 << 5)  // Retry setting = 001 (no retries)
-        | (1 << 4)  // Current limit setting = 1 (low 26mv)
+        | (0 << 4)  // Current limit setting = 0 (high 50mv)
         | (0 << 3)  // CB/CL ratio = 0 (low setting 1.9x)
         | (1 << 2)  // Current limit configuration = 1 (Use SMBus)
         | 0;
@@ -150,13 +150,14 @@ class Lm5066::Impl {
 
     // These constants were calibrated by hand from the following dataset:
     //  10 - 0A
-    //  27 - 0.9A
-    //  38 - 1.2A
-    //  54 - 1.5A
-    //  68 - 1.8A
-    //  81 - 2.1A
-    status_.iin_10mA = static_cast<int16_t>(
-        100.0f * ((iin * 100.0f + 1300.0f) / (15130.0f * CURRENT_SENSE_MOHM)));
+    //  28 - 0.97A
+    //  37 - 1.2A
+    //  48 - 1.4A
+    //  55 - 1.61
+    //  62 - 1.80
+    //  69 - 2.01
+    status_.iin_10mA = (iin < 12) ?
+        0 : static_cast<int16_t>(100.0f * (iin * 0.02512f + 0.267f));
 
     status_.vout_10mv = static_cast<int16_t>(
         100.0f * (vout * 100.0f + 2400.0f) / 4587.0f);
@@ -164,17 +165,25 @@ class Lm5066::Impl {
         100.0f * (vin * 100.0f + 1200.0f) / 4578.0f);
 
     // Calibrated from the following empirical dataset:
-    //  4 - 14W
-    //  8 - 24W
-    //  15 - 38W
-    //  22 - 54W
-    //  32 - 74W
-    //  44 - 97W
-    status_.pin_100mW = static_cast<int16_t>(
-        10.0f * (pin * 1000.0f + 3500.0f) / (1606.4f * CURRENT_SENSE_MOHM));
+    //  2 - 0W
+    //  5 - 16W
+    //  8 - 25W
+    //  12 - 36W
+    //  18 - 50W
+    //  24 - 65W
+    //  32 - 82W
+    status_.pin_100mW = (pin < 5) ?
+        0 : static_cast<int16_t>(10.0f * (pin * 2.375f + 6.0f));
 
     status_.temperature_C = static_cast<int16_t>(
         (temp * 1000.0f) / 16000.0f);
+
+    const float delta_uW_hr =
+        1.0e6f * // to get uW
+        static_cast<float>(status_.pin_100mW) / 10.0f   // to get W
+        / 3600.0f / (1000.0f / kUpdatePeriodMs);  // to get W*hr
+    status_.energy_uW_hr += static_cast<int32_t>(delta_uW_hr);
+
 
     // We check for faults in priority order, so that the higher
     // priority faults take precedence over the lower priority ones.

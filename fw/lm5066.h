@@ -87,6 +87,8 @@ class Lm5066 {
     int16_t pin_100mW = 0;
     int16_t temperature_C = 0;
 
+    uint32_t energy_uW_hr = 0;
+
     Fault fault = Fault::kNone;
 
     template <typename Archive>
@@ -119,6 +121,9 @@ class Lm5066 {
       a->Visit(MJ_NVP(vin_10mv));
       a->Visit(MJ_NVP(pin_100mW));
       a->Visit(MJ_NVP(temperature_C));
+
+      a->Visit(MJ_NVP(energy_uW_hr));
+
       a->Visit(MJ_NVP(fault));
     }
   };
