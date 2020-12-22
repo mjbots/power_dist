@@ -59,15 +59,25 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
     return properties;
   }
 
-  void Poll() {
-    if (!current_read_header_) { return; }
+  bool Poll(FDCAN_RxHeaderTypeDef* header, mjlib::base::string_span data) {
+    const bool got_data = fdcan_->Poll(header, data);
+    if (!got_data) { return false; }
 
-    const bool got_data = fdcan_->Poll(&fdcan_header_, current_read_data_);
-    if (!got_data) { return; }
+    const auto size_in_bytes = FDCan::ParseDlc(header->DataLength);
 
-    current_read_header_->destination = fdcan_header_.Identifier & 0xff;
-    current_read_header_->source = (fdcan_header_.Identifier >> 8) & 0xff;
-    current_read_header_->size = FDCan::ParseDlc(fdcan_header_.DataLength);
+    if (header->Identifier & ~0xffff) {
+      // This is definitely not a multiplex packet.
+      return true;
+    }
+
+    // Weird, no one is waiting for us, just return.
+    if (!current_read_header_) { return false; }
+
+    std::memcpy(&current_read_data_[0], &data[0], size_in_bytes);
+
+    current_read_header_->destination = header->Identifier & 0xff;
+    current_read_header_->source = (header->Identifier >> 8) & 0xff;
+    current_read_header_->size = size_in_bytes;
 
     auto copy = current_read_callback_;
     auto bytes = current_read_header_->size;
@@ -77,6 +87,7 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
     current_read_data_ = {};
 
     copy(mjlib::micro::error_code(), bytes);
+    return false;
   }
 
   static size_t RoundUpDlc(size_t value) {
@@ -106,7 +117,6 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
   Header* current_read_header_ = nullptr;
   mjlib::base::string_span current_read_data_;
 
-  FDCAN_RxHeaderTypeDef fdcan_header_ = {};
   char buf_[64] = {};
 };
 

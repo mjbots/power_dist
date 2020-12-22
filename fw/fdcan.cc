@@ -90,8 +90,13 @@ FDCan::Rate ApplyRateOverride(FDCan::Rate base, FDCan::Rate overlay) {
 }
 }
 
-FDCan::FDCan(const Options& options)
-    : options_(options) {
+FDCan::FDCan(const Options& options) {
+  Reset(options);
+}
+
+void FDCan::Reset(const Options& options) {
+  options_ = options;
+
   __HAL_RCC_FDCAN_CLK_ENABLE();
 
   {
@@ -282,12 +287,12 @@ bool ApplyOverride(bool value, FDCan::Override o) {
 }
 }
 
-void FDCan::Send(uint32_t dest_id,
-                 std::string_view data,
-                 const SendOptions& send_options) {
+FDCan::SendResult FDCan::Send(uint32_t dest_id,
+                              std::string_view data,
+                              const SendOptions& send_options) {
 
   // Abort anything we have started that hasn't finished.
-  if (last_tx_request_) {
+  if (send_options.abort_existing && last_tx_request_) {
     HAL_FDCAN_AbortTxRequest(&hfdcan1_, last_tx_request_);
   }
 
@@ -317,9 +322,11 @@ void FDCan::Send(uint32_t dest_id,
           &hfdcan1_, &tx_header,
           const_cast<uint8_t*>(
               reinterpret_cast<const uint8_t*>(data.data()))) != HAL_OK) {
-    mbed_die();
+    return kNoSpace;
   }
   last_tx_request_ = HAL_FDCAN_GetLatestTxFifoQRequestBuffer(&hfdcan1_);
+
+  return kSuccess;
 }
 
 bool FDCan::Poll(FDCAN_RxHeaderTypeDef* header,
@@ -333,9 +340,19 @@ bool FDCan::Poll(FDCAN_RxHeaderTypeDef* header,
   return true;
 }
 
+void FDCan::RecoverBusOff() {
+  hfdcan1_.Instance->CCCR &= ~FDCAN_CCCR_INIT;
+}
+
 FDCAN_ProtocolStatusTypeDef FDCan::status() {
   FDCAN_ProtocolStatusTypeDef result = {};
   HAL_FDCAN_GetProtocolStatus(&hfdcan1_, &result);
+  return result;
+}
+
+FDCAN_ErrorCountersTypeDef FDCan::error_counters() {
+  FDCAN_ErrorCountersTypeDef result = {};
+  HAL_FDCAN_GetErrorCounters(&hfdcan1_, &result);
   return result;
 }
 

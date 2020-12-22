@@ -370,14 +370,14 @@ void RunRev1() {
     0, 0, 0, 0,  // energy in uW*hr
   };
 
-  // char can_command_data[8] = {};
+  char can_command_data[8] = {};
 
   char& power_switch_status = can_status_data[0];
   uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
   int16_t& input_10mv = reinterpret_cast<int16_t&>(can_status_data[2]);
   uint32_t& energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[4]);
 
-  // FDCAN_RxHeaderTypeDef can_rx_header;
+  FDCAN_RxHeaderTypeDef can_rx_header;
 
   command_manager.AsyncStart();
   multiplex_protocol.Start(nullptr);
@@ -389,6 +389,11 @@ void RunRev1() {
     {
       if (now != last_can) {
         last_can = now;
+
+        const auto status = can.status();
+        if (status.BusOff) {
+          can.RecoverBusOff();
+        }
 
         fw::FDCan::SendOptions send_options;
         send_options.fdcan_frame = fw::FDCan::Override::kDisable;
@@ -403,11 +408,12 @@ void RunRev1() {
         if (lock_time > 0) { lock_time--; }
       }
 
-      // if (can.Poll(&can_rx_header, can_command_data)) {
-      //   if (can_command_data[1] > 0) {
-      //     lock_time = static_cast<uint8_t>(can_command_data[1]);
-      //   }
-      // }
+
+      if (fdcan_micro_server.Poll(&can_rx_header, can_command_data)) {
+        if (can_command_data[1] > 0) {
+          lock_time = static_cast<uint8_t>(can_command_data[1]);
+        }
+      }
       led1.write(!((now % 50) == 0));
     }
 
@@ -448,8 +454,6 @@ void RunRev1() {
 
       old_time = new_time;
     }
-
-    fdcan_micro_server.Poll();
   }
 }
 #endif

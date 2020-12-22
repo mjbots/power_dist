@@ -88,6 +88,10 @@ class FDCan {
 
   FDCan(const Options& options = Options());
 
+  Options options() { return options_; }
+
+  void Reset(const Options&);
+
   enum class Override {
     kDefault,
     kRequire,
@@ -99,18 +103,27 @@ class FDCan {
     Override fdcan_frame = Override::kDefault;
     Override remote_frame = Override::kDefault;
     Override extended_id = Override::kDefault;
+    bool abort_existing = false;
 
     SendOptions() {}
   };
 
-  void Send(uint32_t dest_id,
-            std::string_view data,
-            const SendOptions& = SendOptions());
+  enum SendResult {
+    kSuccess,
+    kNoSpace,
+  };
+
+  SendResult Send(uint32_t dest_id,
+                  std::string_view data,
+                  const SendOptions& = SendOptions());
 
   /// @return true if a packet was available.
   bool Poll(FDCAN_RxHeaderTypeDef* header, mjlib::base::string_span);
 
+  void RecoverBusOff();
+
   FDCAN_ProtocolStatusTypeDef status();
+  FDCAN_ErrorCountersTypeDef error_counters();
 
   struct Config {
     int clock = 0;
@@ -123,7 +136,7 @@ class FDCan {
   static int ParseDlc(uint32_t dlc_code);
 
  private:
-  const Options options_;
+  Options options_;
   Config config_;
 
   FDCAN_GlobalTypeDef* can_ = nullptr;
