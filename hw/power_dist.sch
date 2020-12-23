@@ -1601,6 +1601,59 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="-2.3114" y1="3.0734" x2="-2.3114" y2="-3.0734" width="0.1524" layer="51"/>
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
 </package>
+<package name="UDFN-4L_STM">
+<smd name="1" x="-0.4953" y="0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="2" x="-0.4953" y="-0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="3" x="0.4953" y="-0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="4" x="0.4953" y="0.2794" dx="0.762" dy="0.254" layer="1"/>
+<wire x1="-1.2192" y1="0.2286" x2="-1.2192" y2="0.3302" width="0.1524" layer="21" curve="-258"/>
+<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
+<wire x1="-0.6604" y1="-0.508" x2="0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="-0.508" x2="0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="0.508" x2="-0.3048" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.3048" y1="0.508" x2="-0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.6604" y1="0.508" x2="-0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="-0.0508" y1="0.2794" x2="-0.2032" y2="0.2794" width="0.1524" layer="51" curve="-180"/>
+<wire x1="-0.2032" y1="0.2794" x2="-0.0508" y2="0.2794" width="0.1524" layer="51" curve="-180"/>
+<wire x1="0.3048" y1="0.5334" x2="-0.3048" y2="0.508" width="0.1524" layer="51" curve="-180"/>
+<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
+<package name="UDFN-4L_STM-M">
+<smd name="1" x="-0.5969" y="0.2794" dx="0.9652" dy="0.254" layer="1"/>
+<smd name="2" x="-0.5969" y="-0.2794" dx="0.9652" dy="0.254" layer="1"/>
+<smd name="3" x="0.5969" y="-0.2794" dx="0.9652" dy="0.254" layer="1"/>
+<smd name="4" x="0.5969" y="0.2794" dx="0.9652" dy="0.254" layer="1"/>
+<wire x1="-1.5748" y1="0.2794" x2="-1.778" y2="0.2794" width="0.1524" layer="21" curve="-180"/>
+<wire x1="-1.778" y1="0.2794" x2="-1.5748" y2="0.2794" width="0.1524" layer="21" curve="-180"/>
+<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
+<wire x1="-0.6604" y1="-0.508" x2="0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="-0.508" x2="0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="0.508" x2="-0.3048" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.3048" y1="0.508" x2="-0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.6604" y1="0.508" x2="-0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="-0.0508" y1="0.2794" x2="-0.2032" y2="0.2794" width="0" layer="51" curve="-180"/>
+<wire x1="-0.2032" y1="0.2794" x2="-0.0508" y2="0.2794" width="0" layer="51" curve="-180"/>
+<wire x1="0.3048" y1="0.5334" x2="-0.3048" y2="0.508" width="0.1524" layer="51" curve="-180"/>
+<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
+<package name="UDFN-4L_STM-L">
+<smd name="1" x="-0.4953" y="0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="2" x="-0.4953" y="-0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="3" x="0.4953" y="-0.2794" dx="0.762" dy="0.254" layer="1"/>
+<smd name="4" x="0.4953" y="0.2794" dx="0.762" dy="0.254" layer="1"/>
+<wire x1="-1.3716" y1="0.2794" x2="-1.5748" y2="0.2794" width="0.1524" layer="21" curve="-180"/>
+<wire x1="-1.5748" y1="0.2794" x2="-1.3716" y2="0.2794" width="0.1524" layer="21" curve="-180"/>
+<text x="-1.7272" y="-0.635" size="1.27" layer="21" ratio="6" rot="SR0">&gt;Value</text>
+<wire x1="-0.6604" y1="-0.508" x2="0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="-0.508" x2="0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="0.6604" y1="0.508" x2="-0.3048" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.3048" y1="0.508" x2="-0.6604" y2="0.508" width="0.1524" layer="51"/>
+<wire x1="-0.6604" y1="0.508" x2="-0.6604" y2="-0.508" width="0.1524" layer="51"/>
+<wire x1="-0.0508" y1="0.2794" x2="-0.2032" y2="0.2794" width="0" layer="51" curve="-180"/>
+<wire x1="-0.2032" y1="0.2794" x2="-0.0508" y2="0.2794" width="0" layer="51" curve="-180"/>
+<wire x1="0.3048" y1="0.5334" x2="-0.3048" y2="0.508" width="0.1524" layer="51" curve="-180"/>
+<text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+</package>
 </packages>
 <symbols>
 <symbol name="MAX15062AATA+T">
@@ -1753,6 +1806,18 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <text x="-5.08" y="-7.366" size="1.778" layer="96">&gt;VALUE</text>
 <pin name="2" x="5.08" y="0" length="short" direction="pas" rot="R180"/>
 <pin name="1" x="5.08" y="2.54" length="short" direction="pas" rot="R180"/>
+</symbol>
+<symbol name="STLM20DD9F">
+<pin name="VOUT" x="2.54" y="0" length="middle" direction="out"/>
+<pin name="NC" x="2.54" y="-2.54" length="middle" direction="nc"/>
+<pin name="GND" x="38.1" y="-2.54" length="middle" direction="pwr" rot="R180"/>
+<pin name="VCC" x="38.1" y="0" length="middle" direction="pwr" rot="R180"/>
+<wire x1="7.62" y1="5.08" x2="7.62" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="7.62" y1="-7.62" x2="33.02" y2="-7.62" width="0.1524" layer="94"/>
+<wire x1="33.02" y1="-7.62" x2="33.02" y2="5.08" width="0.1524" layer="94"/>
+<wire x1="33.02" y1="5.08" x2="7.62" y2="5.08" width="0.1524" layer="94"/>
+<text x="15.5956" y="9.1186" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
+<text x="14.9606" y="6.5786" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -2070,6 +2135,64 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </connects>
 <technologies>
 <technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="STLM20DD9F" prefix="U">
+<gates>
+<gate name="A" symbol="STLM20DD9F" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="UDFN-4L_STM">
+<connects>
+<connect gate="A" pin="GND" pad="3"/>
+<connect gate="A" pin="NC" pad="2"/>
+<connect gate="A" pin="VCC" pad="4"/>
+<connect gate="A" pin="VOUT" pad="1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="BUILT_BY" value="EMA_Jessica" constant="no"/>
+<attribute name="COPYRIGHT" value="Copyright (C) 2018 Accelerated Designs. All rights reserved" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="STLM20DD9F" constant="no"/>
+<attribute name="SOURCELIBRARY" value="Update_to_database_2020-11-24" constant="no"/>
+<attribute name="VENDOR" value="STMicroelectronics" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="UDFN-4L_STM-M" package="UDFN-4L_STM-M">
+<connects>
+<connect gate="A" pin="GND" pad="3"/>
+<connect gate="A" pin="NC" pad="2"/>
+<connect gate="A" pin="VCC" pad="4"/>
+<connect gate="A" pin="VOUT" pad="1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="BUILT_BY" value="EMA_Jessica" constant="no"/>
+<attribute name="COPYRIGHT" value="Copyright (C) 2018 Accelerated Designs. All rights reserved" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="STLM20DD9F" constant="no"/>
+<attribute name="SOURCELIBRARY" value="Update_to_database_2020-11-24" constant="no"/>
+<attribute name="VENDOR" value="STMicroelectronics" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="UDFN-4L_STM-L" package="UDFN-4L_STM-L">
+<connects>
+<connect gate="A" pin="GND" pad="3"/>
+<connect gate="A" pin="NC" pad="2"/>
+<connect gate="A" pin="VCC" pad="4"/>
+<connect gate="A" pin="VOUT" pad="1"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="BUILT_BY" value="EMA_Jessica" constant="no"/>
+<attribute name="COPYRIGHT" value="Copyright (C) 2018 Accelerated Designs. All rights reserved" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="STLM20DD9F" constant="no"/>
+<attribute name="SOURCELIBRARY" value="Update_to_database_2020-11-24" constant="no"/>
+<attribute name="VENDOR" value="STMicroelectronics" constant="no"/>
+</technology>
 </technologies>
 </device>
 </devices>
@@ -3160,6 +3283,16 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
 </part>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
+<part name="U6" library="power_dist" deviceset="STLM20DD9F" device="UDFN-4L_STM-L">
+<attribute name="MPN" value="STLM20DD9F"/>
+<attribute name="POPULATE" value="1"/>
+</part>
+<part name="P+8" library="supply1" deviceset="VCC" device=""/>
+<part name="GND9" library="supply1" deviceset="GND" device=""/>
+<part name="C21" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.1uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3724,6 +3857,22 @@ actual power switch.</text>
 <instance part="GND7" gate="1" x="-35.56" y="7.62" smashed="yes">
 <attribute name="VALUE" x="-38.1" y="5.08" size="1.778" layer="96"/>
 </instance>
+<instance part="U6" gate="A" x="134.62" y="-66.04" smashed="yes">
+<attribute name="NAME" x="150.2156" y="-56.9214" size="2.0828" layer="95" ratio="6" rot="SR0"/>
+<attribute name="VALUE" x="149.5806" y="-59.4614" size="2.0828" layer="96" ratio="6" rot="SR0"/>
+<attribute name="MPN" x="134.62" y="-66.04" size="1.778" layer="96" display="off"/>
+<attribute name="POPULATE" x="134.62" y="-66.04" size="1.778" layer="96" display="off"/>
+</instance>
+<instance part="P+8" gate="VCC" x="180.34" y="-45.72" smashed="yes">
+<attribute name="VALUE" x="177.8" y="-48.26" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="GND9" gate="1" x="180.34" y="-83.82" smashed="yes">
+<attribute name="VALUE" x="177.8" y="-86.36" size="1.778" layer="96"/>
+</instance>
+<instance part="C21" gate="G$1" x="180.34" y="-68.58" smashed="yes">
+<attribute name="NAME" x="182.88" y="-67.056" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="182.88" y="-70.104" size="1.016" layer="96" font="vector"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -3930,6 +4079,15 @@ actual power switch.</text>
 <pinref part="GND7" gate="1" pin="GND"/>
 <wire x1="-35.56" y1="12.7" x2="-35.56" y2="10.16" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="U6" gate="A" pin="GND"/>
+<wire x1="172.72" y1="-68.58" x2="172.72" y2="-71.12" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="-71.12" x2="180.34" y2="-71.12" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="-71.12" x2="180.34" y2="-81.28" width="0.1524" layer="91"/>
+<pinref part="GND9" gate="1" pin="GND"/>
+<pinref part="C21" gate="G$1" pin="P$2"/>
+<junction x="180.34" y="-71.12"/>
+</segment>
 </net>
 <net name="VCC" class="1">
 <segment>
@@ -4041,6 +4199,14 @@ actual power switch.</text>
 <pinref part="R9" gate="G$1" pin="P$2"/>
 <pinref part="P+13" gate="VCC" pin="VCC"/>
 <wire x1="208.28" y1="-20.32" x2="208.28" y2="-17.78" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U6" gate="A" pin="VCC"/>
+<wire x1="172.72" y1="-66.04" x2="180.34" y2="-66.04" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="-66.04" x2="180.34" y2="-48.26" width="0.1524" layer="91"/>
+<pinref part="P+8" gate="VCC" pin="VCC"/>
+<pinref part="C21" gate="G$1" pin="P$1"/>
+<junction x="180.34" y="-66.04"/>
 </segment>
 </net>
 <net name="NRST" class="0">
@@ -4541,6 +4707,12 @@ actual power switch.</text>
 <wire x1="-15.24" y1="-43.18" x2="-15.24" y2="-66.04" width="0.1524" layer="91"/>
 <label x="-17.78" y="-50.8" size="1.778" layer="95" rot="R90"/>
 </segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="PB11"/>
+<wire x1="482.6" y1="106.68" x2="482.6" y2="104.14" width="0.1524" layer="91"/>
+<wire x1="482.6" y1="104.14" x2="510.54" y2="104.14" width="0.1524" layer="91"/>
+<label x="502.92" y="104.14" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LTC_EN" class="0">
 <segment>
@@ -4649,7 +4821,7 @@ actual power switch.</text>
 <pinref part="U2" gate="G$1" pin="PA7"/>
 <wire x1="459.74" y1="106.68" x2="459.74" y2="96.52" width="0.1524" layer="91"/>
 <wire x1="459.74" y1="96.52" x2="441.96" y2="96.52" width="0.1524" layer="91"/>
-<label x="441.96" y="96.52" size="1.778" layer="95"/>
+<label x="436.88" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
 <pinref part="R13" gate="G$1" pin="P$2"/>
@@ -4791,6 +4963,19 @@ actual power switch.</text>
 <pinref part="U3" gate="A" pin="PROG"/>
 <wire x1="-12.7" y1="-35.56" x2="-35.56" y2="-35.56" width="0.1524" layer="91"/>
 <label x="-35.56" y="-35.56" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="FET_TEMP" class="0">
+<segment>
+<pinref part="U6" gate="A" pin="VOUT"/>
+<wire x1="137.16" y1="-66.04" x2="124.46" y2="-66.04" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="-66.04" x2="124.46" y2="-45.72" width="0.1524" layer="91"/>
+<label x="124.46" y="-50.8" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="PC4"/>
+<wire x1="462.28" y1="106.68" x2="462.28" y2="96.52" width="0.1524" layer="91"/>
+<label x="462.28" y="106.68" size="1.778" layer="95" rot="R270"/>
 </segment>
 </net>
 </nets>
