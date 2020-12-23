@@ -3293,6 +3293,12 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
 </part>
+<part name="DB_TEMP" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="DB_TIMER" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3872,6 +3878,14 @@ actual power switch.</text>
 <instance part="C16" gate="G$1" x="180.34" y="-68.58" smashed="yes">
 <attribute name="NAME" x="182.88" y="-67.056" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="182.88" y="-70.104" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="DB_TEMP" gate="G$1" x="337.82" y="35.56" smashed="yes">
+<attribute name="POPULATE" x="337.82" y="35.56" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="330.2" y="40.64" size="1.6764" layer="94"/>
+</instance>
+<instance part="DB_TIMER" gate="G$1" x="337.82" y="17.78" smashed="yes">
+<attribute name="POPULATE" x="337.82" y="17.78" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="330.2" y="22.86" size="1.6764" layer="94"/>
 </instance>
 </instances>
 <busses>
@@ -4713,6 +4727,11 @@ actual power switch.</text>
 <wire x1="482.6" y1="104.14" x2="510.54" y2="104.14" width="0.1524" layer="91"/>
 <label x="502.92" y="104.14" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="DB_TIMER" gate="G$1" pin="P$1"/>
+<wire x1="330.2" y1="17.78" x2="309.88" y2="17.78" width="0.1524" layer="91"/>
+<label x="312.42" y="17.78" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="LTC_EN" class="0">
 <segment>
@@ -4976,6 +4995,11 @@ actual power switch.</text>
 <pinref part="U2" gate="G$1" pin="PC4"/>
 <wire x1="462.28" y1="106.68" x2="462.28" y2="96.52" width="0.1524" layer="91"/>
 <label x="462.28" y="106.68" size="1.778" layer="95" rot="R270"/>
+</segment>
+<segment>
+<pinref part="DB_TEMP" gate="G$1" pin="P$1"/>
+<wire x1="330.2" y1="35.56" x2="299.72" y2="35.56" width="0.1524" layer="91"/>
+<label x="302.26" y="35.56" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
