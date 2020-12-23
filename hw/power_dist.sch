@@ -4149,9 +4149,9 @@ actual power switch.</text>
 <label x="431.8" y="10.16" size="1.778" layer="95" font="vector"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="PA15"/>
-<wire x1="482.6" y1="175.26" x2="482.6" y2="190.5" width="0.1524" layer="91"/>
-<label x="482.6" y="182.88" size="1.778" layer="95" rot="R90"/>
+<pinref part="U2" gate="G$1" pin="PA10"/>
+<wire x1="492.76" y1="142.24" x2="515.62" y2="142.24" width="0.1524" layer="91"/>
+<label x="508" y="142.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PWR_SW" class="0">
@@ -4178,9 +4178,9 @@ actual power switch.</text>
 <label x="431.8" y="-33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="PB12"/>
-<wire x1="492.76" y1="124.46" x2="523.24" y2="124.46" width="0.1524" layer="91"/>
-<label x="510.54" y="124.46" size="1.778" layer="95"/>
+<pinref part="U2" gate="G$1" pin="PB15"/>
+<wire x1="492.76" y1="132.08" x2="520.7" y2="132.08" width="0.1524" layer="91"/>
+<label x="502.92" y="132.08" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="+24V" class="0">
@@ -4747,9 +4747,9 @@ actual power switch.</text>
 <label x="200.66" y="180.34" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="PB13"/>
-<wire x1="492.76" y1="127" x2="523.24" y2="127" width="0.1524" layer="91"/>
-<label x="510.54" y="127" size="1.778" layer="95"/>
+<pinref part="U2" gate="G$1" pin="PA8"/>
+<wire x1="492.76" y1="137.16" x2="523.24" y2="137.16" width="0.1524" layer="91"/>
+<label x="502.92" y="137.16" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VSENSE" class="0">
@@ -4807,6 +4807,7 @@ actual power switch.</text>
 <approved hash="104,1,208.28,-33.02,D5,ANODE,N$14,,,"/>
 <approved hash="104,1,208.28,-38.1,D5,CATHODE,LED2,,,"/>
 <approved hash="104,1,205.74,15.24,U5,VEE,GND,,,"/>
+<approved hash="104,1,22.86,-25.4,U3,VCC,VSENSE_HIGH,,,"/>
 <approved hash="113,1,201.189,-35.56,D4,,,,,"/>
 <approved hash="113,1,208.809,-35.56,D5,,,,,"/>
 </errors>
