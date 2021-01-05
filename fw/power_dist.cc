@@ -454,11 +454,22 @@ void RunRev1() {
   DigitalOut override_pwr(OVERRIDE_PWR, 0);
   DigitalOut override_3v3(OVERRIDE_3V3, 1);
 
-  // We construct these merely to configure the pins.
-  AnalogIn vsamp_out_do_not_use(VSAMP_OUT);
-  AnalogIn vsamp_in_do_not_use(VSAMP_IN);
-  //  AnalogIn isamp_do_not_use(ISAMP);
+  // Initialize our analog in pins:
+  {
+    GPIO_InitTypeDef init = {};
+    init.Pin = GPIO_PIN_7;
+    init.Mode = GPIO_MODE_ANALOG;
+    init.Pull = {};
+    init.Speed = {};
+    init.Alternate = {};
+    HAL_GPIO_Init(GPIOA, &init);
 
+    init.Pin = GPIO_PIN_14;
+    HAL_GPIO_Init(GPIOB, &init);
+
+    init.Pin = 10;
+    HAL_GPIO_Init(GPIOB, &init);
+  }
 
   uint32_t last_can = 0;
 
@@ -486,15 +497,15 @@ void RunRev1() {
   auto old_time = timer.read_ms();
 
   // ADC Mapping:
-  // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN3
-  // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN3
+  // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
+  // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
   // ISAMP -> OPAMP3 -> ADC3/IN1
 
   ConfigureDAC(&timer);
 
   // Configure ADC (1/4), 2, s
-  ConfigureADC(ADC1, 2, &timer);
-  ConfigureADC(ADC2, 2, &timer);
+  ConfigureADC(ADC1, 13, &timer);
+  ConfigureADC(ADC2, 16, &timer);
   ConfigureADC(ADC3, 0, &timer);
 
   OpAmpBuffer opamp1(OPAMP1, 2);  // PA7 == VINP2
