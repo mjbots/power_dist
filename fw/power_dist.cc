@@ -74,8 +74,10 @@ void SetClock() {
     PeriphClkInit.PeriphClockSelection =
         RCC_PERIPHCLK_FDCAN |
         RCC_PERIPHCLK_I2C2 |
+        RCC_PERIPHCLK_ADC12 |
         RCC_PERIPHCLK_ADC345;
     PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_PCLK1;
+    PeriphClkInit.Adc12ClockSelection = RCC_ADC12CLKSOURCE_SYSCLK;
     PeriphClkInit.Adc345ClockSelection = RCC_ADC345CLKSOURCE_SYSCLK;
     PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
     if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
@@ -293,15 +295,118 @@ void RunRev0() {
 #endif
 
 #if POWER_DIST_HW_REV >= 1
+class OpAmpBuffer {
+ public:
+  OpAmpBuffer(OPAMP_TypeDef* opamp, int input_channel) {
+    ctx_.Instance = opamp;
+    ctx_.Init.PowerMode = OPAMP_POWERMODE_NORMAL;
+    ctx_.Init.Mode = OPAMP_FOLLOWER_MODE;
+    ctx_.Init.InvertingInput = {};  // N/A for follower
+    ctx_.Init.NonInvertingInput = MapInput(input_channel);
+    ctx_.Init.InternalOutput = ENABLE;
+    ctx_.Init.TimerControlledMuxmode = OPAMP_TIMERCONTROLLEDMUXMODE_DISABLE;
+    ctx_.Init.InvertingInputSecondary = {};
+    ctx_.Init.NonInvertingInputSecondary = {};
+    ctx_.Init.PgaConnect = {};
+    ctx_.Init.PgaGain = {};
+    ctx_.Init.UserTrimming = OPAMP_TRIMMING_FACTORY;
+    ctx_.Init.TrimmingValueP = {};
+    ctx_.Init.TrimmingValueN = {};
+
+    if (HAL_OPAMP_Init(&ctx_) != HAL_OK) {
+      mbed_die();
+    }
+
+    HAL_OPAMP_Start(&ctx_);
+  }
+
+  static int MapInput(int input_channel) {
+    switch (input_channel) {
+      case 0: return OPAMP_NONINVERTINGINPUT_IO0;
+      case 1: return OPAMP_NONINVERTINGINPUT_IO1;
+      case 2: return OPAMP_NONINVERTINGINPUT_IO2;
+      case 3: return OPAMP_NONINVERTINGINPUT_IO3;
+    }
+    return 0;
+  }
+
+  OPAMP_HandleTypeDef ctx_ = {};
+};
+
+void ConfigureDAC(fw::MillisecondTimer* timer) {
+  // ISAMP_BIAS is PA4 -> DAC1_OUT1
+  DAC1->MCR = (
+      (2 << DAC_MCR_HFSEL_Pos) | // High frequency mode
+      (3 << DAC_MCR_MODE1_Pos) | // on chip peripherals w/ buffer disabled
+      0);
+
+  DAC1->CR = (
+      (DAC_CR_EN1) | // enable channel 1
+      0);
+
+  // tWAKEUP is defined as max 7.5us
+  timer->wait_us(10);
+
+  // Write a half voltage.
+  DAC1->DHR12R1 = 2048;
+}
+
+void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer) {
+  // Disable it to ensure we are in a known state.
+  if (adc->CR & ADC_CR_ADEN) {
+    adc->CR |= ADC_CR_ADDIS;
+    while (adc->CR & ADC_CR_ADEN);
+  }
+
+  ADC12_COMMON->CCR = 0;  // no divisor
+  ADC345_COMMON->CCR = 0;  // no divisor
+
+  adc->CR &= ~ADC_CR_DEEPPWD;
+  adc->CR |= ADC_CR_ADVREGEN;
+  timer->wait_us(20);
+  adc->CR |= ADC_CR_ADCAL;
+  while (adc->CR & ADC_CR_ADCAL);
+  timer->wait_us(1);
+
+  adc->ISR |= ADC_ISR_ADRDY;
+  adc->CR |= ADC_CR_ADEN;
+  while (!(adc->ISR & ADC_ISR_ADRDY));
+
+  adc->ISR |= ADC_ISR_ADRDY;
+  adc->CFGR &= ~(ADC_CFGR_CONT);
+  adc->CFGR2 &= ~(
+      ADC_CFGR2_SMPTRIG |
+      ADC_CFGR2_BULB |
+      ADC_CFGR2_SWTRIG |
+      ADC_CFGR2_GCOMP |
+      ADC_CFGR2_ROVSM |
+      ADC_CFGR2_TROVS |
+      ADC_CFGR2_JOVSE |
+      ADC_CFGR2_ROVSE |
+      0);
+
+
+  adc->SQR1 =
+      (0 << ADC_SQR1_L_Pos) | // length 1
+      (channel_sqr << ADC_SQR1_SQ1_Pos);
+  auto make_cycles = [](auto v) {
+                       return
+                           (v << 0) |
+                           (v << 3) |
+                           (v << 6) |
+                           (v << 9) |
+                           (v << 12) |
+                           (v << 15) |
+                           (v << 18) |
+                           (v << 21) |
+                           (v << 24);
+                     };
+  adc->SMPR1 = make_cycles(2);  // 12 ADC cycles
+  adc->SMPR2 = make_cycles(2);
+}
+
 void RunRev1() {
   micro::SizedPool<14000> pool;
-
-  // fw::FDCan::Filter filters[] = {
-  //   { 0x10005, 0xffffff, fw::FDCan::FilterMode::kMask,
-  //     fw::FDCan::FilterAction::kAccept,
-  //     fw::FDCan::FilterType::kExtended,
-  //   },
-  // };
 
   fw::MillisecondTimer timer;
 
@@ -314,9 +419,6 @@ void RunRev1() {
         options.fast_bitrate = 1000000;
         options.fdcan_frame = true;
         options.bitrate_switch = true;
-
-        // options.filter_begin = &filters[0];
-        // options.filter_end = &filters[0] + (sizeof(filters) / sizeof(filters[0]));
 
         return options;
       }());
@@ -337,16 +439,6 @@ void RunRev1() {
 
   fw::GitInfo git_info;
 
-  fw::Lm5066 lm5066(
-      &pool, &command_manager, &persistent_config, &telemetry_manager, &timer,
-      []() {
-        fw::Lm5066::Options options;
-        options.sda = PA_8;
-        options.scl = PA_9;
-        options.smba = PA_10;
-        return options;
-      }());
-
   telemetry_manager.Register("git", &git_info);
 
   persistent_config.Load();
@@ -358,15 +450,22 @@ void RunRev1() {
   DigitalOut switch_led(PWR_LED);
   DigitalIn power_switch(PWR_SW, PullUp);
 
-  DigitalOut pshdn(PSHDN, 1);
+  // We start overriding 3V3, but not overall power.
+  DigitalOut override_pwr(OVERRIDE_PWR, 0);
+  DigitalOut override_3v3(OVERRIDE_3V3, 1);
+
+  // We construct these merely to configure the pins.
+  AnalogIn vsamp_out_do_not_use(VSAMP_OUT);
+  AnalogIn vsamp_in_do_not_use(VSAMP_IN);
+  //  AnalogIn isamp_do_not_use(ISAMP);
+
 
   uint32_t last_can = 0;
 
   char can_status_data[8] = {
     0, // switch status
     0, // lock time in 0.1s
-    0,
-    0,
+    0, 0,  // voltage
     0, 0, 0, 0,  // energy in uW*hr
   };
 
@@ -375,7 +474,9 @@ void RunRev1() {
   char& power_switch_status = can_status_data[0];
   uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
   int16_t& input_10mv = reinterpret_cast<int16_t&>(can_status_data[2]);
-  uint32_t& energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[4]);
+  int16_t& output_10mv = reinterpret_cast<int16_t&>(can_status_data[4]);
+  int16_t& isamp_out = reinterpret_cast<int16_t&>(can_status_data[6]);
+  // uint32_t& energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[4]);
 
   FDCAN_RxHeaderTypeDef can_rx_header;
 
@@ -383,6 +484,23 @@ void RunRev1() {
   multiplex_protocol.Start(nullptr);
 
   auto old_time = timer.read_ms();
+
+  // ADC Mapping:
+  // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN3
+  // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN3
+  // ISAMP -> OPAMP3 -> ADC3/IN1
+
+  ConfigureDAC(&timer);
+
+  // Configure ADC (1/4), 2, s
+  ConfigureADC(ADC1, 2, &timer);
+  ConfigureADC(ADC2, 2, &timer);
+  ConfigureADC(ADC3, 0, &timer);
+
+  OpAmpBuffer opamp1(OPAMP1, 2);  // PA7 == VINP2
+  OpAmpBuffer opamp2(OPAMP2, 1);  // PB14 == VINP1
+  // ConfigureOpAmpDifferentialAmplifier(OPAMP3);
+
 
   while (true) {
     const auto now = timer.read_ms() / 100;
@@ -398,9 +516,6 @@ void RunRev1() {
         fw::FDCan::SendOptions send_options;
         send_options.fdcan_frame = fw::FDCan::Override::kDisable;
         send_options.bitrate_switch = fw::FDCan::Override::kDisable;
-
-        energy_uW_hr = lm5066.status().energy_uW_hr;
-        input_10mv = lm5066.status().vin_10mv;
 
         can.Send(0x10004, std::string_view(can_status_data,
                                            sizeof(can_status_data)));
@@ -419,38 +534,42 @@ void RunRev1() {
 
     power_switch_status = (power_switch.read() == 0) ? 1 : 0;
 
+    // Sample the ADCs.
+    ADC1->CR |= ADC_CR_ADSTART;
+    ADC2->CR |= ADC_CR_ADSTART;
+    ADC3->CR |= ADC_CR_ADSTART;
+
+    while (((ADC1->ISR & ADC_ISR_EOC) == 0) ||
+           ((ADC2->ISR & ADC_ISR_EOC) == 0) ||
+           ((ADC3->ISR & ADC_ISR_EOC) == 0));
+
+    const uint16_t vsamp_out_raw = ADC1->DR;
+    const uint16_t vsamp_in_raw = ADC2->DR;
+    const uint16_t isamp_raw = ADC3->DR;
+
+    const float vsamp_out =
+        static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+    const float vsamp_in =
+        static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+
+    input_10mv = static_cast<int16_t>(vsamp_in * 100.0f);
+    output_10mv = static_cast<int16_t>(vsamp_out * 100.0f);
+    isamp_out = static_cast<int16_t>(isamp_raw);
+
     if (power_switch_status == 1) {
-      pshdn.write(0);
+      override_pwr.write(1);
       led2.write(0);
     } else if (lock_time == 0) {
-      pshdn.write(1);
+      override_pwr.write(0);
       led2.write(1);
     }
 
-    const auto& status = lm5066.status();
-    if (status.vout_10mv > 1000) {
-      // We are all the way on.
-      switch_led.write(0);
-    } else if (status.fault != fw::Lm5066::Fault::kNone) {
-      // We should be flashing a fault code.
-      const int code = static_cast<int>(status.fault);
+    // TODO Update the switch LED.
 
-      // The code is flashed every 5s at 2Hz, consisting of a fault
-      // code pulsed at 200ms pulses.
-      const int phase = (now % 50) / 2;
-      switch_led.write((phase < (code * 2) && (phase % 2) == 0) ? 0 : 1);
-    } else if (power_switch_status == 1 &&
-               status.device_off) {
-      // For some reason we are not on yet.  Flash a constant rate.
-      switch_led.write((((now / 3)) % 2 == 0) ? 0 : 1);
-    } else {
-      switch_led.write(1);
-    }
 
     const auto new_time = timer.read_ms();
     if (new_time != old_time) {
       telemetry_manager.PollMillisecond();
-      lm5066.PollMillisecond();
 
       old_time = new_time;
     }
@@ -468,6 +587,7 @@ int main(void) {
   SetClock();
 
   // We use ADC5 for VSAMP_OUT
+  __HAL_RCC_ADC12_CLK_ENABLE();
   __HAL_RCC_ADC345_CLK_ENABLE();
 
   DigitalIn hwrev0(HWREV_PIN0, PullUp);
