@@ -3136,7 +3136,6 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="GND14" library="supply1" deviceset="GND" device=""/>
 <part name="P+9" library="supply1" deviceset="VCC" device=""/>
-<part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="DB_G" library="precharge" deviceset="PAD" device="24AWG_PAD">
 <attribute name="POPULATE" value="0"/>
 </part>
@@ -3299,6 +3298,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="DB_TIMER" library="precharge" deviceset="PAD" device="24AWG_PAD">
 <attribute name="POPULATE" value="0"/>
 </part>
+<part name="GND27" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -3338,7 +3338,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <wire x1="353.06" y1="-91.44" x2="353.06" y2="55.88" width="0.1524" layer="90"/>
 <text x="358.14" y="40.64" size="7.62" layer="90" font="vector">INTERFACE</text>
 <text x="518.16" y="177.8" size="1.778" layer="91">PC13/PA15/PC6 Version
-110</text>
+101</text>
 <text x="500.38" y="40.64" size="1.778" layer="100" align="top-left">This circuit exists to keep the TPS
 disabled until the switch is closed, 
 but also to draw minimal quiescent 
@@ -3635,9 +3635,6 @@ actual power switch.</text>
 <instance part="P+9" gate="VCC" x="165.1" y="17.78" smashed="yes">
 <attribute name="VALUE" x="162.56" y="15.24" size="1.778" layer="96" rot="R90"/>
 </instance>
-<instance part="GND23" gate="1" x="497.84" y="119.38" smashed="yes">
-<attribute name="VALUE" x="495.3" y="116.84" size="1.778" layer="96"/>
-</instance>
 <instance part="DB_G" gate="G$1" x="322.58" y="-68.58" smashed="yes">
 <attribute name="POPULATE" x="322.58" y="-68.58" size="1.778" layer="96" font="vector" display="off"/>
 <attribute name="NAME" x="314.96" y="-63.5" size="1.6764" layer="94"/>
@@ -3887,6 +3884,9 @@ actual power switch.</text>
 <attribute name="POPULATE" x="337.82" y="17.78" size="1.778" layer="96" font="vector" display="off"/>
 <attribute name="NAME" x="330.2" y="22.86" size="1.6764" layer="94"/>
 </instance>
+<instance part="GND27" gate="1" x="490.22" y="180.34" smashed="yes">
+<attribute name="VALUE" x="487.68" y="177.8" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -3986,12 +3986,6 @@ actual power switch.</text>
 <wire x1="152.4" y1="-5.08" x2="162.56" y2="-5.08" width="0.1524" layer="91"/>
 <pinref part="GND14" gate="1" pin="GND"/>
 <wire x1="162.56" y1="-5.08" x2="162.56" y2="-15.24" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="PC6"/>
-<wire x1="492.76" y1="134.62" x2="497.84" y2="134.62" width="0.1524" layer="91"/>
-<pinref part="GND23" gate="1" pin="GND"/>
-<wire x1="497.84" y1="134.62" x2="497.84" y2="121.92" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="DB_G" gate="G$1" pin="P$1"/>
@@ -4101,6 +4095,13 @@ actual power switch.</text>
 <pinref part="GND9" gate="1" pin="GND"/>
 <pinref part="C16" gate="G$1" pin="P$2"/>
 <junction x="180.34" y="-71.12"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="PA15"/>
+<wire x1="482.6" y1="175.26" x2="482.6" y2="185.42" width="0.1524" layer="91"/>
+<wire x1="482.6" y1="185.42" x2="490.22" y2="185.42" width="0.1524" layer="91"/>
+<pinref part="GND27" gate="1" pin="GND"/>
+<wire x1="490.22" y1="185.42" x2="490.22" y2="182.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="1">

@@ -2023,7 +2023,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <element name="R7" library="mfpassives" package="R0603" value="47k 1%" x="32.35" y="38.3" smashed="yes">
 <attribute name="HOUSEPART" value="1" x="32.35" y="38.3" size="1.778" layer="27" display="off"/>
 <attribute name="MPN" value="" x="32.35" y="38.3" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="31.15" y="39.05" size="0.6" layer="25" font="vector" ratio="10"/>
+<attribute name="NAME" x="31.55" y="39.05" size="0.6" layer="25" font="vector" ratio="10"/>
 <attribute name="POPULATE" value="1" x="32.35" y="38.3" size="1.778" layer="27" display="off"/>
 <attribute name="TOLERANCE" value="" x="32.35" y="38.3" size="1.778" layer="27" display="off"/>
 <attribute name="URL" value="" x="32.35" y="38.3" size="1.778" layer="27" display="off"/>
@@ -2108,7 +2108,6 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="C4" pad="P$2"/>
 <contactref element="C2" pad="P$2"/>
 <contactref element="J3" pad="5"/>
-<contactref element="U2" pad="29"/>
 <contactref element="DB_G" pad="P$1"/>
 <via x="20.1" y="45.2" extent="1-16" drill="0.5"/>
 <via x="19.8" y="46.4" extent="1-16" drill="0.5"/>
@@ -2143,14 +2142,11 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="33.4" y="15" extent="1-16" drill="0.5"/>
 <via x="35.4" y="15" extent="1-16" drill="0.5"/>
 <via x="37.3" y="15" extent="1-16" drill="0.5"/>
-<via x="33.4" y="13.2" extent="1-16" drill="0.5"/>
 <via x="35.4" y="13.2" extent="1-16" drill="0.5"/>
 <via x="37.3" y="13.2" extent="1-16" drill="0.5"/>
 <via x="37.3" y="11.4" extent="1-16" drill="0.5"/>
 <via x="35.4" y="11.4" extent="1-16" drill="0.5"/>
 <via x="33.4" y="11.4" extent="1-16" drill="0.5"/>
-<wire x1="31.95" y1="13.95" x2="32.65" y2="13.95" width="0.254" layer="1"/>
-<wire x1="32.65" y1="13.95" x2="33.4" y2="13.2" width="0.254" layer="1"/>
 <wire x1="32.6" y1="5.14" x2="32.67" y2="5.07" width="0.254" layer="1"/>
 <via x="10" y="16.8" extent="1-16" drill="0.3048"/>
 <wire x1="10" y1="16.8" x2="14.54" y2="16.8" width="0.254" layer="1"/>
@@ -2274,6 +2270,62 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="44.8" y="8.4" extent="1-16" drill="0.3048"/>
 <wire x1="44.8" y1="8.4" x2="44.55" y2="8.4" width="0.254" layer="1"/>
 <wire x1="44.55" y1="8.4" x2="43.05" y2="9.9" width="0.254" layer="1"/>
+<contactref element="U2" pad="38"/>
+<wire x1="33.15" y1="9.75" x2="33.15" y2="11.15" width="0.1524" layer="1"/>
+<wire x1="33.15" y1="11.15" x2="33.4" y2="11.4" width="0.1524" layer="1"/>
+<wire x1="42.3" y1="40.45" x2="44.25" y2="45.8" width="0" layer="19" extent="1-1"/>
+<wire x1="42.1" y1="36.8" x2="42.3" y2="40.45" width="0" layer="19" extent="1-1"/>
+<wire x1="46.2" y1="38.35" x2="43.05" y2="36.85" width="0" layer="19" extent="1-1"/>
+<wire x1="34.85" y1="36.6" x2="42.1" y2="36.8" width="0" layer="19" extent="1-1"/>
+<wire x1="31.6" y1="36.7" x2="34.85" y2="36.6" width="0" layer="19" extent="1-1"/>
+<wire x1="30.15" y1="36.7" x2="30.85" y2="36.7" width="0" layer="19" extent="1-1"/>
+<wire x1="29.35" y1="38.3" x2="29.45" y2="36.7" width="0" layer="19" extent="1-1"/>
+<wire x1="38.1" y1="29.35" x2="34.85" y2="36" width="0" layer="19" extent="1-1"/>
+<wire x1="33.1" y1="27.95" x2="38.1" y2="29.35" width="0" layer="19" extent="1-1"/>
+<wire x1="28.75" y1="23.6" x2="33.1" y2="27.25" width="0" layer="19" extent="1-1"/>
+<wire x1="32.8" y1="20.2" x2="28.75" y2="23.6" width="0" layer="19" extent="1-1"/>
+<wire x1="34.2" y1="20.2" x2="32.8" y2="20.2" width="0" layer="19" extent="1-1"/>
+<wire x1="35.6" y1="19.45" x2="34.25" y2="19.45" width="0" layer="19" extent="1-1"/>
+<wire x1="37.2" y1="19.45" x2="35.6" y2="19.45" width="0" layer="19" extent="1-1"/>
+<wire x1="30.8" y1="17.3" x2="32.8" y2="19.45" width="0" layer="19" extent="1-1"/>
+<wire x1="33.4" y1="15" x2="30.8" y2="16.5" width="0" layer="19" extent="1-1"/>
+<wire x1="35.4" y1="15" x2="33.4" y2="15" width="0" layer="19" extent="1-1"/>
+<wire x1="35.4" y1="13.2" x2="35.4" y2="15" width="0" layer="19" extent="1-1"/>
+<wire x1="35.4" y1="11.4" x2="35.4" y2="13.2" width="0" layer="19" extent="1-1"/>
+<wire x1="37.3" y1="15" x2="35.4" y2="15" width="0" layer="19" extent="1-1"/>
+<wire x1="37.3" y1="13.2" x2="37.3" y2="15" width="0" layer="19" extent="1-1"/>
+<wire x1="37.3" y1="11.4" x2="37.3" y2="13.2" width="0" layer="19" extent="1-1"/>
+<wire x1="33.4" y1="11.4" x2="35.4" y2="11.4" width="0" layer="19" extent="1-1"/>
+<wire x1="27.7" y1="17" x2="30.8" y2="17.3" width="0" layer="19" extent="1-1"/>
+<wire x1="26.9" y1="17" x2="27.7" y2="17" width="0" layer="19" extent="1-1"/>
+<wire x1="27.45" y1="16.05" x2="27.7" y2="17" width="0" layer="19" extent="1-1"/>
+<wire x1="24.6" y1="13.265" x2="27.45" y2="16.05" width="0" layer="19" extent="1-1"/>
+<wire x1="21.15" y1="10.3" x2="23.3" y2="13.2" width="0" layer="19" extent="1-1"/>
+<wire x1="29.05" y1="9.9" x2="33.15" y2="9.75" width="0" layer="19" extent="1-1"/>
+<wire x1="28.85" y1="6.8" x2="29.05" y2="9.9" width="0" layer="19" extent="1-1"/>
+<wire x1="32.6" y1="5.14" x2="29.55" y2="6.8" width="0" layer="19" extent="1-1"/>
+<wire x1="42.35" y1="9.9" x2="37.3" y2="11.4" width="0" layer="19" extent="1-1"/>
+<wire x1="44.55" y1="13.85" x2="43.05" y2="9.9" width="0" layer="19" extent="1-1"/>
+<wire x1="21.65" y1="4.6" x2="21.15" y2="10.3" width="0" layer="19" extent="1-1"/>
+<wire x1="14.54" y1="16.8" x2="19.2" y2="11.995" width="0" layer="19" extent="1-1"/>
+<wire x1="16.6" y1="19.6" x2="14.54" y2="16.8" width="0" layer="19" extent="1-1"/>
+<wire x1="16.9" y1="26.8" x2="16.6" y2="19.6" width="0" layer="19" extent="1-1"/>
+<wire x1="16.9" y1="27.6" x2="16.9" y2="26.8" width="0" layer="19" extent="1-1"/>
+<wire x1="17.965" y1="27.2" x2="16.9" y2="26.8" width="0" layer="19" extent="1-1"/>
+<wire x1="8.8" y1="9.1" x2="10" y2="16.8" width="0" layer="19" extent="1-1"/>
+<wire x1="34" y1="44.86" x2="29.35" y2="38.3" width="0" layer="19" extent="1-1"/>
+<wire x1="20.1" y1="44" x2="28.65" y2="38.3" width="0" layer="19" extent="1-1"/>
+<wire x1="20.1" y1="45.2" x2="20.1" y2="44" width="0" layer="19" extent="1-1"/>
+<wire x1="19.15" y1="44.8" x2="20.1" y2="45.2" width="0" layer="19" extent="1-1"/>
+<wire x1="19.8" y1="46.4" x2="20.1" y2="45.2" width="0" layer="19" extent="1-1"/>
+<wire x1="19.8" y1="47.6" x2="19.8" y2="46.4" width="0" layer="19" extent="1-1"/>
+<wire x1="18.55" y1="47" x2="19.8" y2="46.4" width="0" layer="19" extent="1-1"/>
+<wire x1="14.8" y1="47.8" x2="18.55" y2="47" width="0" layer="19" extent="1-1"/>
+<wire x1="12.65" y1="49" x2="14.8" y2="47.8" width="0" layer="19" extent="1-1"/>
+<wire x1="8" y1="48.65" x2="11.85" y2="49" width="0" layer="19" extent="1-1"/>
+<wire x1="7.6" y1="47.6" x2="8" y2="48.65" width="0" layer="19" extent="1-1"/>
+<wire x1="6.4" y1="48" x2="7.6" y2="47.6" width="0" layer="19" extent="1-1"/>
+<wire x1="6.4" y1="49" x2="6.4" y2="48" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="VCC" class="1">
 <contactref element="J1" pad="6"/>
