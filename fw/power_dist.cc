@@ -334,10 +334,23 @@ class OpAmpBuffer {
 };
 
 void ConfigureDAC(fw::MillisecondTimer* timer) {
+  __HAL_RCC_DAC1_CLK_ENABLE();
+
+  // Initialize our gpio:
+  {
+    GPIO_InitTypeDef init = {};
+    init.Pin = GPIO_PIN_4;
+    init.Mode = GPIO_MODE_ANALOG;
+    init.Pull = {};
+    init.Speed = {};
+    init.Alternate = {};
+    HAL_GPIO_Init(GPIOA, &init);
+  }
+
   // ISAMP_BIAS is PA4 -> DAC1_OUT1
   DAC1->MCR = (
-      (2 << DAC_MCR_HFSEL_Pos) | // High frequency mode
-      (3 << DAC_MCR_MODE1_Pos) | // on chip peripherals w/ buffer disabled
+      (0 << DAC_MCR_HFSEL_Pos) | // High frequency mode disabled
+      (0 << DAC_MCR_MODE1_Pos) | // external pin with buffer enabled
       0);
 
   DAC1->CR = (
