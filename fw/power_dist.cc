@@ -301,14 +301,14 @@ class OpAmpInvertingAmplifier {
     ctx_.Instance = opamp;
     ctx_.Init.PowerMode = OPAMP_POWERMODE_NORMAL;
     ctx_.Init.Mode = OPAMP_PGA_MODE;
-    ctx_.Init.InvertingInput = OPAMP_INVERTINGINPUT_IO0;  // PB10
-    ctx_.Init.NonInvertingInput = OPAMP_NONINVERTINGINPUT_DAC;  // DAC4_CH1
+    ctx_.Init.InvertingInput = OPAMP_INVERTINGINPUT_IO1;  // PB1
+    ctx_.Init.NonInvertingInput = OPAMP_NONINVERTINGINPUT_DAC;  // DAC3_CH1
     ctx_.Init.InternalOutput = ENABLE;
     ctx_.Init.TimerControlledMuxmode = OPAMP_TIMERCONTROLLEDMUXMODE_DISABLE;
     ctx_.Init.InvertingInputSecondary = {};
     ctx_.Init.NonInvertingInputSecondary = {};
     ctx_.Init.PgaConnect = OPAMP_PGA_CONNECT_INVERTINGINPUT_IO0_BIAS;
-    ctx_.Init.PgaGain = OPAMP_PGA_GAIN_4_OR_MINUS_3;
+    ctx_.Init.PgaGain = OPAMP_PGA_GAIN_2_OR_MINUS_1;
     ctx_.Init.UserTrimming = OPAMP_TRIMMING_FACTORY;
     ctx_.Init.TrimmingValueP = {};
     ctx_.Init.TrimmingValueN = {};
@@ -329,13 +329,18 @@ class OpAmpInvertingAmplifier {
 
 class OpAmpBuffer {
  public:
-  OpAmpBuffer(OPAMP_TypeDef* opamp, int input_channel) {
+  enum Output {
+    kInternal,
+    kExternal,
+  };
+
+  OpAmpBuffer(OPAMP_TypeDef* opamp, int input_channel, Output output = kInternal) {
     ctx_.Instance = opamp;
     ctx_.Init.PowerMode = OPAMP_POWERMODE_NORMAL;
     ctx_.Init.Mode = OPAMP_FOLLOWER_MODE;
     ctx_.Init.InvertingInput = {};  // N/A for follower
     ctx_.Init.NonInvertingInput = MapInput(input_channel);
-    ctx_.Init.InternalOutput = ENABLE;
+    ctx_.Init.InternalOutput = (output == kInternal) ? ENABLE : DISABLE;
     ctx_.Init.TimerControlledMuxmode = OPAMP_TIMERCONTROLLEDMUXMODE_DISABLE;
     ctx_.Init.InvertingInputSecondary = {};
     ctx_.Init.NonInvertingInputSecondary = {};
@@ -400,15 +405,15 @@ void ConfigureDAC1(fw::MillisecondTimer* timer) {
   DAC1->DHR12R1 = 2048;
 }
 
-void ConfigureDAC4(fw::MillisecondTimer* timer) {
-  __HAL_RCC_DAC4_CLK_ENABLE();
+void ConfigureDAC3(fw::MillisecondTimer* timer) {
+  __HAL_RCC_DAC3_CLK_ENABLE();
 
-  DAC4->MCR = (
+  DAC3->MCR = (
       (0 << DAC_MCR_HFSEL_Pos) | // High frequency mode disabled
       (3 << DAC_MCR_MODE1_Pos) | // internal with no buffer
       0);
 
-  DAC4->CR = (
+  DAC3->CR = (
       (DAC_CR_EN1) | // enable channel 1
       (DAC_CR_EN2) | // enable channel 2
       0);
@@ -417,8 +422,8 @@ void ConfigureDAC4(fw::MillisecondTimer* timer) {
   timer->wait_us(10);
 
   // Write a half voltage to channel 1 and 2.
-  DAC4->DHR12R1 = 2048;
-  DAC4->DHR12R2 = 2048;
+  DAC3->DHR12R1 = 2048;
+  DAC3->DHR12R2 = 2048;
 }
 
 void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer) {
@@ -541,7 +546,13 @@ void RunRev1() {
     init.Pin = GPIO_PIN_14;
     HAL_GPIO_Init(GPIOB, &init);
 
-    init.Pin = GPIO_PIN_10;
+    init.Pin = GPIO_PIN_0;
+    HAL_GPIO_Init(GPIOB, &init);
+
+    init.Pin = GPIO_PIN_1;
+    HAL_GPIO_Init(GPIOB, &init);
+
+    init.Pin = GPIO_PIN_11;
     HAL_GPIO_Init(GPIOB, &init);
   }
 
@@ -573,18 +584,21 @@ void RunRev1() {
   // ADC Mapping:
   // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
   // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
-  // ISAMP -> OPAMP4 -> ADC5/IN5
+  // ISAMP -> OPAMP3 -> PB1 -> OPAMP6 -> ADC4/IN17
 
   ConfigureDAC1(&timer);
-  ConfigureDAC4(&timer);
+  ConfigureDAC3(&timer);
 
   // Configure ADC (1/4), 2, s
   ConfigureADC(ADC1, 13, &timer);
   ConfigureADC(ADC2, 16, &timer);
-  ConfigureADC(ADC5, 5, &timer);
+  ConfigureADC(ADC3, 1, &timer);
+  ConfigureADC(ADC4, 17, &timer);
 
   OpAmpBuffer opamp1(OPAMP1, 2);  // PA7 == VINP2
   OpAmpBuffer opamp2(OPAMP2, 1);  // PB14 == VINP1
+  OpAmpBuffer opamp3(OPAMP3, 0, OpAmpBuffer::kExternal);  // PB0 == VINP0, output = PB1
+  OpAmpInvertingAmplifier opamp6(OPAMP6);
 
   // TODO: We're going to start out with our op-amp just passing
   // through the DAC4 in order to calibrate zero.
@@ -606,7 +620,6 @@ void RunRev1() {
   //   return zero_total / kAverageCount;
   // }();
 
-  OpAmpInvertingAmplifier opamp4(OPAMP4);
   // OpAmpBuffer opamp4(OPAMP4, 3);
 
   while (true) {
@@ -644,15 +657,19 @@ void RunRev1() {
     // Sample the ADCs.
     ADC1->CR |= ADC_CR_ADSTART;
     ADC2->CR |= ADC_CR_ADSTART;
-    ADC5->CR |= ADC_CR_ADSTART;
+    ADC3->CR |= ADC_CR_ADSTART;
+    ADC4->CR |= ADC_CR_ADSTART;
 
     while (((ADC1->ISR & ADC_ISR_EOC) == 0) ||
            ((ADC2->ISR & ADC_ISR_EOC) == 0) ||
-           ((ADC5->ISR & ADC_ISR_EOC) == 0));
+           ((ADC3->ISR & ADC_ISR_EOC) == 0) ||
+           ((ADC4->ISR & ADC_ISR_EOC) == 0));
 
     const uint16_t vsamp_out_raw = ADC1->DR;
     const uint16_t vsamp_in_raw = ADC2->DR;
-    const uint16_t isamp_raw = ADC5->DR;
+    const uint16_t isamp_buf = ADC3->DR;
+    (void) isamp_buf;
+    const uint16_t isamp_raw = ADC4->DR;
 
     const float vsamp_out =
         static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
