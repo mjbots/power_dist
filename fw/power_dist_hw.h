@@ -68,7 +68,12 @@ constexpr int kCompatibleHwRev[] = {
 
 #define CAN_TX PA_12
 #define CAN_RX PA_11
+#if POWER_DIST_HW_REV < 1
 #define CAN_SHDN PA_10
+#else
+#define CAN_SHDN PA_15
+#endif
+
 
 #if POWER_DIST_HW_REV < 1
 // Only reworked boards r2/r3/r3.1 boards have this divider, but

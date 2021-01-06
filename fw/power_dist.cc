@@ -295,6 +295,38 @@ void RunRev0() {
 #endif
 
 #if POWER_DIST_HW_REV >= 1
+class OpAmpInvertingAmplifier {
+ public:
+  OpAmpInvertingAmplifier(OPAMP_TypeDef* opamp) {
+    ctx_.Instance = opamp;
+    ctx_.Init.PowerMode = OPAMP_POWERMODE_NORMAL;
+    ctx_.Init.Mode = OPAMP_PGA_MODE;
+    ctx_.Init.InvertingInput = OPAMP_INVERTINGINPUT_IO0;  // PB10
+    ctx_.Init.NonInvertingInput = OPAMP_NONINVERTINGINPUT_DAC;  // DAC4_CH1
+    ctx_.Init.InternalOutput = ENABLE;
+    ctx_.Init.TimerControlledMuxmode = OPAMP_TIMERCONTROLLEDMUXMODE_DISABLE;
+    ctx_.Init.InvertingInputSecondary = {};
+    ctx_.Init.NonInvertingInputSecondary = {};
+    ctx_.Init.PgaConnect = OPAMP_PGA_CONNECT_INVERTINGINPUT_IO0_BIAS;
+    ctx_.Init.PgaGain = OPAMP_PGA_GAIN_4_OR_MINUS_3;
+    ctx_.Init.UserTrimming = OPAMP_TRIMMING_FACTORY;
+    ctx_.Init.TrimmingValueP = {};
+    ctx_.Init.TrimmingValueN = {};
+
+    if (HAL_OPAMP_Init(&ctx_) != HAL_OK) {
+      mbed_die();
+    }
+
+    HAL_OPAMP_Start(&ctx_);
+  }
+
+  ~OpAmpInvertingAmplifier() {
+    HAL_OPAMP_Stop(&ctx_);
+  }
+
+  OPAMP_HandleTypeDef ctx_ = {};
+};
+
 class OpAmpBuffer {
  public:
   OpAmpBuffer(OPAMP_TypeDef* opamp, int input_channel) {
@@ -320,6 +352,10 @@ class OpAmpBuffer {
     HAL_OPAMP_Start(&ctx_);
   }
 
+  ~OpAmpBuffer() {
+    HAL_OPAMP_Stop(&ctx_);
+  }
+
   static int MapInput(int input_channel) {
     switch (input_channel) {
       case 0: return OPAMP_NONINVERTINGINPUT_IO0;
@@ -333,7 +369,7 @@ class OpAmpBuffer {
   OPAMP_HandleTypeDef ctx_ = {};
 };
 
-void ConfigureDAC(fw::MillisecondTimer* timer) {
+void ConfigureDAC1(fw::MillisecondTimer* timer) {
   __HAL_RCC_DAC1_CLK_ENABLE();
 
   // Initialize our gpio:
@@ -364,6 +400,27 @@ void ConfigureDAC(fw::MillisecondTimer* timer) {
   DAC1->DHR12R1 = 2048;
 }
 
+void ConfigureDAC4(fw::MillisecondTimer* timer) {
+  __HAL_RCC_DAC4_CLK_ENABLE();
+
+  DAC4->MCR = (
+      (0 << DAC_MCR_HFSEL_Pos) | // High frequency mode disabled
+      (3 << DAC_MCR_MODE1_Pos) | // internal with no buffer
+      0);
+
+  DAC4->CR = (
+      (DAC_CR_EN1) | // enable channel 1
+      (DAC_CR_EN2) | // enable channel 2
+      0);
+
+  // tWAKEUP is defined as max 7.5us
+  timer->wait_us(10);
+
+  // Write a half voltage to channel 1 and 2.
+  DAC4->DHR12R1 = 2048;
+  DAC4->DHR12R2 = 2048;
+}
+
 void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer) {
   // Disable it to ensure we are in a known state.
   if (adc->CR & ADC_CR_ADEN) {
@@ -387,15 +444,17 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
 
   adc->ISR |= ADC_ISR_ADRDY;
   adc->CFGR &= ~(ADC_CFGR_CONT);
-  adc->CFGR2 &= ~(
-      ADC_CFGR2_SMPTRIG |
-      ADC_CFGR2_BULB |
-      ADC_CFGR2_SWTRIG |
-      ADC_CFGR2_GCOMP |
-      ADC_CFGR2_ROVSM |
-      ADC_CFGR2_TROVS |
-      ADC_CFGR2_JOVSE |
-      ADC_CFGR2_ROVSE |
+  adc->CFGR2 = (
+      (0 << ADC_CFGR2_SMPTRIG_Pos) |
+      (0 << ADC_CFGR2_BULB_Pos) |
+      (0 << ADC_CFGR2_SWTRIG_Pos) |
+      (0 << ADC_CFGR2_GCOMP_Pos) |
+      (0 << ADC_CFGR2_ROVSM_Pos) |
+      (0 << ADC_CFGR2_TROVS_Pos) |
+      (0 << ADC_CFGR2_JOVSE_Pos) |
+      (3 << ADC_CFGR2_OVSS_Pos) |  // 3 bit shift right
+      (2 << ADC_CFGR2_OVSR_Pos) |  // oversample 8x
+      (1 << ADC_CFGR2_ROVSE_Pos) | // enable regular oversampling
       0);
 
 
@@ -422,6 +481,8 @@ void RunRev1() {
   micro::SizedPool<14000> pool;
 
   fw::MillisecondTimer timer;
+
+  DigitalOut can_shdn(CAN_SHDN, 0);
 
   fw::FDCan can(
       [&]() {
@@ -480,7 +541,7 @@ void RunRev1() {
     init.Pin = GPIO_PIN_14;
     HAL_GPIO_Init(GPIOB, &init);
 
-    init.Pin = 10;
+    init.Pin = GPIO_PIN_10;
     HAL_GPIO_Init(GPIOB, &init);
   }
 
@@ -512,19 +573,41 @@ void RunRev1() {
   // ADC Mapping:
   // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
   // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
-  // ISAMP -> OPAMP3 -> ADC3/IN1
+  // ISAMP -> OPAMP4 -> ADC5/IN5
 
-  ConfigureDAC(&timer);
+  ConfigureDAC1(&timer);
+  ConfigureDAC4(&timer);
 
   // Configure ADC (1/4), 2, s
   ConfigureADC(ADC1, 13, &timer);
   ConfigureADC(ADC2, 16, &timer);
-  ConfigureADC(ADC3, 0, &timer);
+  ConfigureADC(ADC5, 5, &timer);
 
   OpAmpBuffer opamp1(OPAMP1, 2);  // PA7 == VINP2
   OpAmpBuffer opamp2(OPAMP2, 1);  // PB14 == VINP1
-  // ConfigureOpAmpDifferentialAmplifier(OPAMP3);
 
+  // TODO: We're going to start out with our op-amp just passing
+  // through the DAC4 in order to calibrate zero.
+  const uint16_t adc5_offset = 2017;
+  // [&]() {
+  //   OpAmpBuffer opamp4(OPAMP4, 3); // 3 is the DAC input
+
+  //   timer.wait_ms(1);
+
+  //   int16_t zero_total = 0;
+  //   const int kAverageCount = 4;
+  //   for (int i = 0; i < (kAverageCount + 1); i ++) {
+  //     ADC5->CR |= ADC_CR_ADSTART;
+  //     while ((ADC5->ISR & ADC_ISR_EOC) == 0);
+
+  //     if (i != 0) { zero_total += ADC5->DR; }
+  //   }
+
+  //   return zero_total / kAverageCount;
+  // }();
+
+  OpAmpInvertingAmplifier opamp4(OPAMP4);
+  // OpAmpBuffer opamp4(OPAMP4, 3);
 
   while (true) {
     const auto now = timer.read_ms() / 100;
@@ -561,24 +644,27 @@ void RunRev1() {
     // Sample the ADCs.
     ADC1->CR |= ADC_CR_ADSTART;
     ADC2->CR |= ADC_CR_ADSTART;
-    ADC3->CR |= ADC_CR_ADSTART;
+    ADC5->CR |= ADC_CR_ADSTART;
 
     while (((ADC1->ISR & ADC_ISR_EOC) == 0) ||
            ((ADC2->ISR & ADC_ISR_EOC) == 0) ||
-           ((ADC3->ISR & ADC_ISR_EOC) == 0));
+           ((ADC5->ISR & ADC_ISR_EOC) == 0));
 
     const uint16_t vsamp_out_raw = ADC1->DR;
     const uint16_t vsamp_in_raw = ADC2->DR;
-    const uint16_t isamp_raw = ADC3->DR;
+    const uint16_t isamp_raw = ADC5->DR;
 
     const float vsamp_out =
         static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
     const float vsamp_in =
         static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+    constexpr float V_per_A = 0.0005f * 8 * 3;
+    const float isamp =
+        ((static_cast<float>(isamp_raw) - adc5_offset) / 4096.0f * 3.3f) / V_per_A;
 
     input_10mv = static_cast<int16_t>(vsamp_in * 100.0f);
     output_10mv = static_cast<int16_t>(vsamp_out * 100.0f);
-    isamp_out = static_cast<int16_t>(isamp_raw);
+    isamp_out = static_cast<int16_t>(isamp * 100.0f);
 
     if (power_switch_status == 1) {
       override_pwr.write(1);
