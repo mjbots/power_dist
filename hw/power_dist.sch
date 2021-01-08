@@ -1654,6 +1654,18 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="0.3048" y1="0.5334" x2="-0.3048" y2="0.508" width="0.1524" layer="51" curve="-180"/>
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
 </package>
+<package name="DIODE_DO-214AB">
+<smd name="P$1" x="-3.105" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<smd name="P$2" x="3.105" y="-0.1" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<wire x1="-3.9" y1="3.2" x2="-3.4" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.4" y1="3.2" x2="3.9" y2="3.2" width="0.127" layer="21"/>
+<wire x1="3.9" y1="3.2" x2="3.9" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="3.9" y1="-3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-3.4" y1="-3.2" x2="-3.9" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-3.9" y1="-3.2" x2="-3.9" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.4" y1="3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
+<text x="-3.9" y="3.4" size="0.6" layer="25" ratio="10">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="MAX15062AATA+T">
@@ -1957,6 +1969,15 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MANUFACTURER_PART_NUMBER" value="SMBJ51CA-E3/52" constant="no"/>
 <attribute name="VENDOR" value="Vishay" constant="no"/>
 </technology>
+</technologies>
+</device>
+<device name="214AB" package="DIODE_DO-214AB">
+<connects>
+<connect gate="A" pin="1" pad="P$1"/>
+<connect gate="A" pin="2" pad="P$2"/>
+</connects>
+<technologies>
+<technology name=""/>
 </technologies>
 </device>
 </devices>
@@ -3093,8 +3114,8 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="P+5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
-<part name="D3" library="power_dist" deviceset="SMBJ51CA-E3/52" device="">
-<attribute name="MPN" value="SMBJ51CA-E3/52"/>
+<part name="D3" library="power_dist" deviceset="SMBJ51CA-E3/52" device="214AB" value="SMBJ51CA-E3/52214AB">
+<attribute name="MPN" value="SMC5K51A-M3/I"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="D8" library="power_dist" deviceset="FSV10150V" device="TO277-3L_ONS-L" value="FSV10150VTO277-3L_ONS-L">
@@ -3337,6 +3358,10 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="GND28" library="supply1" deviceset="GND" device=""/>
 <part name="R26" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
 <attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="D9" library="power_dist" deviceset="SMBJ51CA-E3/52" device="214AB" value="SMBJ51CA-E3/52214AB">
+<attribute name="MPN" value="SMC5K51A-M3/I"/>
+<attribute name="POPULATE" value="1"/>
 </part>
 </parts>
 <sheets>
@@ -3982,6 +4007,12 @@ actual power switch.</text>
 <attribute name="NAME" x="402.844" y="129.54" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
 <attribute name="VALUE" x="399.796" y="129.54" size="1.016" layer="96" font="vector" rot="R270"/>
 </instance>
+<instance part="D9" gate="A" x="-50.8" y="7.62" smashed="yes" rot="R90">
+<attribute name="VALUE" x="-45.2628" y="3.7338" size="3.4798" layer="96" ratio="10" rot="SR90"/>
+<attribute name="NAME" x="-53.4924" y="4.8006" size="3.4798" layer="95" ratio="10" rot="SR90"/>
+<attribute name="MPN" x="-50.8" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
+<attribute name="POPULATE" x="-50.8" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -4513,8 +4544,9 @@ actual power switch.</text>
 <wire x1="-63.5" y1="17.78" x2="-63.5" y2="27.94" width="0.1524" layer="91"/>
 <junction x="-63.5" y="27.94"/>
 <pinref part="R4" gate="A" pin="1"/>
-<wire x1="-63.5" y1="27.94" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="-63.5" y1="27.94" x2="-50.8" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="P$2"/>
+<wire x1="-50.8" y1="27.94" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="-35.56" y1="27.94" x2="-27.94" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="-27.94" y1="27.94" x2="-20.32" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="-27.94" y1="27.94" x2="-27.94" y2="-15.24" width="0.1524" layer="91"/>
@@ -4522,6 +4554,9 @@ actual power switch.</text>
 <pinref part="C12" gate="G$1" pin="P$1"/>
 <wire x1="-35.56" y1="17.78" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
 <junction x="-35.56" y="27.94"/>
+<pinref part="D9" gate="A" pin="1"/>
+<wire x1="-50.8" y1="17.78" x2="-50.8" y2="27.94" width="0.1524" layer="91"/>
+<junction x="-50.8" y="27.94"/>
 </segment>
 <segment>
 <pinref part="DB_VIN" gate="G$1" pin="P$1"/>
@@ -5044,8 +5079,13 @@ actual power switch.</text>
 </segment>
 <segment>
 <pinref part="D3" gate="A" pin="2"/>
-<wire x1="-63.5" y1="7.62" x2="-63.5" y2="0" width="0.1524" layer="91"/>
+<wire x1="-63.5" y1="7.62" x2="-63.5" y2="2.54" width="0.1524" layer="91"/>
 <label x="-66.04" y="-2.54" size="1.778" layer="95"/>
+<pinref part="D9" gate="A" pin="2"/>
+<wire x1="-63.5" y1="2.54" x2="-63.5" y2="0" width="0.1524" layer="91"/>
+<wire x1="-63.5" y1="2.54" x2="-50.8" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="-50.8" y1="2.54" x2="-50.8" y2="7.62" width="0.1524" layer="91"/>
+<junction x="-63.5" y="2.54"/>
 </segment>
 <segment>
 <pinref part="D8" gate="A" pin="ANODE"/>
