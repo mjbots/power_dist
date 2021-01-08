@@ -308,7 +308,7 @@ class OpAmpInvertingAmplifier {
     ctx_.Init.InvertingInputSecondary = {};
     ctx_.Init.NonInvertingInputSecondary = {};
     ctx_.Init.PgaConnect = OPAMP_PGA_CONNECT_INVERTINGINPUT_IO0_BIAS;
-    ctx_.Init.PgaGain = OPAMP_PGA_GAIN_4_OR_MINUS_3;
+    ctx_.Init.PgaGain = OPAMP_PGA_GAIN_8_OR_MINUS_7;
     ctx_.Init.UserTrimming = OPAMP_TRIMMING_FACTORY;
     ctx_.Init.TrimmingValueP = {};
     ctx_.Init.TrimmingValueN = {};
@@ -423,8 +423,30 @@ void ConfigureDAC4(fw::MillisecondTimer* timer) {
   timer->wait_us(10);
 
   // Write a half voltage to channel 1 and 2.
-  DAC4->DHR12R1 = 0;
+  DAC4->DHR12R1 = 2048;
   DAC4->DHR12R2 = 2048;
+}
+
+void ConfigureDAC3(fw::MillisecondTimer* timer) {
+  __HAL_RCC_DAC3_CLK_ENABLE();
+
+  DAC3->MCR = (
+      (0 << DAC_MCR_HFSEL_Pos) | // High frequency mode disabled
+      (3 << DAC_MCR_MODE1_Pos) | // internal with no buffer
+      (3 << DAC_MCR_MODE2_Pos) | // internal with no buffer
+      0);
+
+  DAC3->CR = (
+      (DAC_CR_EN1) | // enable channel 1
+      (DAC_CR_EN2) | // enable channel 2
+      0);
+
+  // tWAKEUP is defined as max 7.5us
+  timer->wait_us(10);
+
+  // Write a half voltage to channel 1 and 2.
+  DAC3->DHR12R1 = 2048;
+  DAC3->DHR12R2 = 2048;
 }
 
 void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer) {
@@ -458,8 +480,8 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
       (0 << ADC_CFGR2_ROVSM_Pos) |
       (0 << ADC_CFGR2_TROVS_Pos) |
       (0 << ADC_CFGR2_JOVSE_Pos) |
-      (3 << ADC_CFGR2_OVSS_Pos) |  // 3 bit shift right
-      (2 << ADC_CFGR2_OVSR_Pos) |  // oversample 8x
+      (5 << ADC_CFGR2_OVSS_Pos) |  // 5 bit shift right
+      (4 << ADC_CFGR2_OVSR_Pos) |  // oversample 32x
       (1 << ADC_CFGR2_ROVSE_Pos) | // enable regular oversampling
       0);
 
@@ -525,7 +547,7 @@ void RunRev1() {
 
 
   DigitalOut led1(DEBUG_LED1, 1);
-  DigitalOut led2(DEBUG_LED2, 1);
+  // DigitalOut led2(DEBUG_LED2, 1);
 
   DigitalOut switch_led(PWR_LED);
   DigitalIn power_switch(PWR_SW, PullUp);
@@ -541,6 +563,9 @@ void RunRev1() {
     init.Pull = {};
     init.Speed = {};
     init.Alternate = {};
+
+    init.Pin = GPIO_PIN_1;
+    HAL_GPIO_Init(GPIOA, &init);
 
     init.Pin = GPIO_PIN_7;
     HAL_GPIO_Init(GPIOA, &init);
@@ -592,9 +617,10 @@ void RunRev1() {
   // ADC Mapping:
   // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
   // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
-  // ISAMP -> OPAMP3 -> PB1 -> PB15 -> OPAMP5 -> ADC5/IN3
+  // ISAMP -> PB0 -> OPAMP3 -> PB1 -> PB15 -> OPAMP5 -> ADC5/IN3
 
   ConfigureDAC1(&timer);
+  ConfigureDAC3(&timer);
   ConfigureDAC4(&timer);
 
   // Configure ADC (1/4), 2, s
@@ -606,7 +632,6 @@ void RunRev1() {
   OpAmpBuffer opamp1(OPAMP1, 2);  // PA7 == VINP2
   OpAmpBuffer opamp2(OPAMP2, 1);  // PB14 == VINP1
   OpAmpBuffer opamp3(OPAMP3, 0, OpAmpBuffer::kExternal);  // PB0 == VINP0, output = PB1
-  // OpAmpBuffer opamp5(OPAMP5, 3, OpAmpBuffer::kExternal);  // DAC4 == VINP1 -> PA8
   OpAmpInvertingAmplifier opamp5(OPAMP5);  // PB15 == VINM0
 
   while (true) {
@@ -636,7 +661,6 @@ void RunRev1() {
           lock_time = static_cast<uint8_t>(can_command_data[1]);
         }
       }
-      led1.write(!((now % 50) == 0));
     }
 
     power_switch_status = (power_switch.read() == 0) ? 1 : 0;
@@ -672,10 +696,12 @@ void RunRev1() {
 
     if (power_switch_status == 1) {
       override_pwr.write(1);
-      led2.write(0);
+      led1.write(0);
+      lock_time = 3;
     } else if (lock_time == 0) {
       override_pwr.write(0);
-      led2.write(1);
+      override_3v3.write(0);
+      led1.write(1);
     }
 
     // TODO Update the switch LED.
