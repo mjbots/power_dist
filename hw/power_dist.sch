@@ -536,66 +536,6 @@
 <wire x1="-4.2" y1="-2.6" x2="-5.1" y2="-1.7" width="0.127" layer="25"/>
 <wire x1="-5.1" y1="1.7" x2="-5.1" y2="-1.7" width="0.127" layer="25"/>
 </package>
-<package name="QFN50P700X700X60-49N">
-<description>&lt;b&gt;UFQFPN48 - 48-lead, 7x7 mm, 0.5 mm pitch, ultra thin fine pitch quad flat package outline&lt;/b&gt;&lt;br&gt;
-</description>
-<smd name="1" x="-3.45" y="2.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="2" x="-3.45" y="2.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="3" x="-3.45" y="1.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="4" x="-3.45" y="1.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="5" x="-3.45" y="0.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="6" x="-3.45" y="0.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="7" x="-3.45" y="-0.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="8" x="-3.45" y="-0.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="9" x="-3.45" y="-1.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="10" x="-3.45" y="-1.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="11" x="-3.45" y="-2.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="12" x="-3.45" y="-2.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="13" x="-2.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="14" x="-2.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="15" x="-1.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="16" x="-1.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="17" x="-0.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="18" x="-0.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="19" x="0.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="20" x="0.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="21" x="1.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="22" x="1.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="23" x="2.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="24" x="2.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="25" x="3.45" y="-2.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="26" x="3.45" y="-2.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="27" x="3.45" y="-1.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="28" x="3.45" y="-1.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="29" x="3.45" y="-0.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="30" x="3.45" y="-0.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="31" x="3.45" y="0.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="32" x="3.45" y="0.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="33" x="3.45" y="1.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="34" x="3.45" y="1.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="35" x="3.45" y="2.25" dx="0.85" dy="0.3" layer="1"/>
-<smd name="36" x="3.45" y="2.75" dx="0.85" dy="0.3" layer="1"/>
-<smd name="37" x="2.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="38" x="2.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="39" x="1.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="40" x="1.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="41" x="0.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="42" x="0.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="43" x="-0.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="44" x="-0.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="45" x="-1.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="46" x="-1.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="47" x="-2.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="48" x="-2.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="49" x="0" y="0" dx="5.7" dy="5.7" layer="1" rot="R90"/>
-<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
-<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
-<wire x1="-3.5" y1="3.5" x2="3.5" y2="3.5" width="0.1" layer="21"/>
-<wire x1="3.5" y1="3.5" x2="3.5" y2="-3.5" width="0.1" layer="21"/>
-<wire x1="3.5" y1="-3.5" x2="-3.5" y2="-3.5" width="0.1" layer="21"/>
-<wire x1="-3.5" y1="-3.5" x2="-3.5" y2="3.5" width="0.1" layer="21"/>
-<wire x1="-3.5" y1="3" x2="-3" y2="3.5" width="0.1" layer="21"/>
-</package>
 <package name="JST_S6B-ZR-SM4A-TF(LF)(SN)">
 <smd name="4" x="-0.75" y="0" dx="0.7" dy="1.4" layer="1"/>
 <smd name="3" x="0.75" y="0" dx="0.7" dy="1.4" layer="1"/>
@@ -802,63 +742,6 @@
 <pin name="2" x="5.08" y="0" length="short" direction="pas" rot="R180"/>
 <pin name="1" x="5.08" y="2.54" length="short" direction="pas" rot="R180"/>
 </symbol>
-<symbol name="STM32G474CEU6">
-<wire x1="5.08" y1="17.78" x2="40.64" y2="17.78" width="0.254" layer="94"/>
-<wire x1="40.64" y1="-40.64" x2="40.64" y2="17.78" width="0.254" layer="94"/>
-<wire x1="40.64" y1="-40.64" x2="5.08" y2="-40.64" width="0.254" layer="94"/>
-<wire x1="5.08" y1="17.78" x2="5.08" y2="-40.64" width="0.254" layer="94"/>
-<text x="41.91" y="22.86" size="1.778" layer="95" align="center-left">&gt;NAME</text>
-<text x="41.91" y="20.32" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
-<pin name="VBAT" x="0" y="0" length="middle"/>
-<pin name="PC13" x="0" y="-2.54" length="middle"/>
-<pin name="PC14-OSC32_IN" x="0" y="-5.08" length="middle"/>
-<pin name="PC15-OSC32_OUT" x="0" y="-7.62" length="middle"/>
-<pin name="PF0-OSC_IN" x="0" y="-10.16" length="middle"/>
-<pin name="PF1-OSC_OUT" x="0" y="-12.7" length="middle"/>
-<pin name="PG10-NRST" x="0" y="-15.24" length="middle"/>
-<pin name="PA0" x="0" y="-17.78" length="middle"/>
-<pin name="PA1" x="0" y="-20.32" length="middle"/>
-<pin name="PA2" x="0" y="-22.86" length="middle"/>
-<pin name="PA3" x="0" y="-25.4" length="middle"/>
-<pin name="PA4" x="0" y="-27.94" length="middle"/>
-<pin name="PA5" x="7.62" y="-45.72" length="middle" rot="R90"/>
-<pin name="PA6" x="10.16" y="-45.72" length="middle" rot="R90"/>
-<pin name="PA7" x="12.7" y="-45.72" length="middle" rot="R90"/>
-<pin name="PB0" x="17.78" y="-45.72" length="middle" rot="R90"/>
-<pin name="PB1" x="20.32" y="-45.72" length="middle" rot="R90"/>
-<pin name="PB2" x="22.86" y="-45.72" length="middle" rot="R90"/>
-<pin name="VREF+" x="25.4" y="-45.72" length="middle" rot="R90"/>
-<pin name="VDDA" x="27.94" y="-45.72" length="middle" rot="R90"/>
-<pin name="PB10" x="30.48" y="-45.72" length="middle" rot="R90"/>
-<pin name="VDD_1" x="33.02" y="-45.72" length="middle" rot="R90"/>
-<pin name="VDD_2" x="45.72" y="-2.54" length="middle" rot="R180"/>
-<pin name="PA12" x="45.72" y="-5.08" length="middle" rot="R180"/>
-<pin name="PA11" x="45.72" y="-7.62" length="middle" rot="R180"/>
-<pin name="PA10" x="45.72" y="-10.16" length="middle" rot="R180"/>
-<pin name="PA9" x="45.72" y="-12.7" length="middle" rot="R180"/>
-<pin name="PA8" x="45.72" y="-15.24" length="middle" rot="R180"/>
-<pin name="PB15" x="45.72" y="-20.32" length="middle" rot="R180"/>
-<pin name="PB14" x="45.72" y="-22.86" length="middle" rot="R180"/>
-<pin name="PB13" x="45.72" y="-25.4" length="middle" rot="R180"/>
-<pin name="PB12" x="45.72" y="-27.94" length="middle" rot="R180"/>
-<pin name="PB11" x="35.56" y="-45.72" length="middle" rot="R90"/>
-<pin name="THERMALPAD" x="7.62" y="22.86" length="middle" rot="R270"/>
-<pin name="VDD_3" x="10.16" y="22.86" length="middle" rot="R270"/>
-<pin name="PB9" x="12.7" y="22.86" length="middle" rot="R270"/>
-<pin name="PB8-BOOT0" x="15.24" y="22.86" length="middle" rot="R270"/>
-<pin name="PB7" x="17.78" y="22.86" length="middle" rot="R270"/>
-<pin name="PB6" x="20.32" y="22.86" length="middle" rot="R270"/>
-<pin name="PB5" x="22.86" y="22.86" length="middle" rot="R270"/>
-<pin name="PB4" x="25.4" y="22.86" length="middle" rot="R270"/>
-<pin name="PB3" x="27.94" y="22.86" length="middle" rot="R270"/>
-<pin name="PA15" x="35.56" y="22.86" length="middle" rot="R270"/>
-<pin name="PA14" x="38.1" y="22.86" length="middle" rot="R270"/>
-<pin name="PA13" x="45.72" y="0" length="middle" rot="R180"/>
-<pin name="PC4" x="15.24" y="-45.72" length="middle" rot="R90"/>
-<pin name="PC6" x="45.72" y="-17.78" length="middle" rot="R180"/>
-<pin name="PC10" x="33.02" y="22.86" length="middle" rot="R270"/>
-<pin name="PC11" x="30.48" y="22.86" length="middle" rot="R270"/>
-</symbol>
 <symbol name="CON06">
 <wire x1="-5.08" y1="10.16" x2="-5.08" y2="-10.16" width="0.1524" layer="94"/>
 <wire x1="-5.08" y1="-10.16" x2="2.54" y2="-10.16" width="0.1524" layer="94"/>
@@ -931,78 +814,6 @@
 </connects>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="STM32G474CEU6" prefix="IC">
-<description>&lt;b&gt;STMICROELECTRONICS - STM32G474CEU6 - MCU, 32BIT, 170MHZ, UFQFPN-48&lt;/b&gt;&lt;p&gt;
-Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6.pdf"&gt; Datasheet &lt;/a&gt;</description>
-<gates>
-<gate name="G$1" symbol="STM32G474CEU6" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="QFN50P700X700X60-49N">
-<connects>
-<connect gate="G$1" pin="PA0" pad="8"/>
-<connect gate="G$1" pin="PA1" pad="9"/>
-<connect gate="G$1" pin="PA10" pad="32"/>
-<connect gate="G$1" pin="PA11" pad="33"/>
-<connect gate="G$1" pin="PA12" pad="34"/>
-<connect gate="G$1" pin="PA13" pad="36"/>
-<connect gate="G$1" pin="PA14" pad="37"/>
-<connect gate="G$1" pin="PA15" pad="38"/>
-<connect gate="G$1" pin="PA2" pad="10"/>
-<connect gate="G$1" pin="PA3" pad="11"/>
-<connect gate="G$1" pin="PA4" pad="12"/>
-<connect gate="G$1" pin="PA5" pad="13"/>
-<connect gate="G$1" pin="PA6" pad="14"/>
-<connect gate="G$1" pin="PA7" pad="15"/>
-<connect gate="G$1" pin="PA8" pad="30"/>
-<connect gate="G$1" pin="PA9" pad="31"/>
-<connect gate="G$1" pin="PB0" pad="17"/>
-<connect gate="G$1" pin="PB1" pad="18"/>
-<connect gate="G$1" pin="PB10" pad="22"/>
-<connect gate="G$1" pin="PB11" pad="24"/>
-<connect gate="G$1" pin="PB12" pad="25"/>
-<connect gate="G$1" pin="PB13" pad="26"/>
-<connect gate="G$1" pin="PB14" pad="27"/>
-<connect gate="G$1" pin="PB15" pad="28"/>
-<connect gate="G$1" pin="PB2" pad="19"/>
-<connect gate="G$1" pin="PB3" pad="41"/>
-<connect gate="G$1" pin="PB4" pad="42"/>
-<connect gate="G$1" pin="PB5" pad="43"/>
-<connect gate="G$1" pin="PB6" pad="44"/>
-<connect gate="G$1" pin="PB7" pad="45"/>
-<connect gate="G$1" pin="PB8-BOOT0" pad="46"/>
-<connect gate="G$1" pin="PB9" pad="47"/>
-<connect gate="G$1" pin="PC10" pad="39"/>
-<connect gate="G$1" pin="PC11" pad="40"/>
-<connect gate="G$1" pin="PC13" pad="2"/>
-<connect gate="G$1" pin="PC14-OSC32_IN" pad="3"/>
-<connect gate="G$1" pin="PC15-OSC32_OUT" pad="4"/>
-<connect gate="G$1" pin="PC4" pad="16"/>
-<connect gate="G$1" pin="PC6" pad="29"/>
-<connect gate="G$1" pin="PF0-OSC_IN" pad="5"/>
-<connect gate="G$1" pin="PF1-OSC_OUT" pad="6"/>
-<connect gate="G$1" pin="PG10-NRST" pad="7"/>
-<connect gate="G$1" pin="THERMALPAD" pad="49"/>
-<connect gate="G$1" pin="VBAT" pad="1"/>
-<connect gate="G$1" pin="VDDA" pad="21"/>
-<connect gate="G$1" pin="VDD_1" pad="23"/>
-<connect gate="G$1" pin="VDD_2" pad="35"/>
-<connect gate="G$1" pin="VDD_3" pad="48"/>
-<connect gate="G$1" pin="VREF+" pad="20"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="DESCRIPTION" value="STMICROELECTRONICS - STM32G474CEU6 - MCU, 32BIT, 170MHZ, UFQFPN-48" constant="no"/>
-<attribute name="HEIGHT" value="0.6mm" constant="no"/>
-<attribute name="MANUFACTURER_NAME" value="STMicroelectronics" constant="no"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="STM32G474CEU6" constant="no"/>
-<attribute name="MOUSER_PART_NUMBER" value="511-STM32G474CEU6" constant="no"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-STM32G474CEU6" constant="no"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -1394,7 +1205,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <package name="D2PAK_SOT404_NEX">
 <smd name="1" x="-2.54" y="-6.8454" dx="2.0066" dy="3.81" layer="1"/>
 <smd name="3" x="2.54" y="-6.8454" dx="2.0066" dy="3.81" layer="1"/>
-<smd name="2" x="0" y="4.254603125" dx="11.5062" dy="8.9916" layer="1"/>
+<smd name="2" x="0" y="4.254603125" dx="11.5062" dy="8.9916" layer="1" cream="no"/>
 <wire x1="-5.2832" y1="-7.8232" x2="-3.8862" y2="-7.8232" width="0.1524" layer="21"/>
 <wire x1="5.2832" y1="-7.8232" x2="5.2832" y2="-0.5842" width="0.1524" layer="21"/>
 <wire x1="3.8862" y1="-7.8232" x2="5.2832" y2="-7.8232" width="0.1524" layer="21"/>
@@ -1410,6 +1221,30 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="-4.5212" y1="-6.858" x2="-4.7752" y2="-6.858" width="0" layer="51" curve="-180"/>
 <wire x1="-4.7752" y1="-6.858" x2="-4.5212" y2="-6.858" width="0" layer="51" curve="-180"/>
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+<polygon width="0.127" layer="31">
+<vertex x="-5.55" y="8.55"/>
+<vertex x="-0.5" y="8.55"/>
+<vertex x="-0.5" y="4.55"/>
+<vertex x="-5.55" y="4.55"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.15" y="8.55"/>
+<vertex x="5.55" y="8.55"/>
+<vertex x="5.55" y="4.5"/>
+<vertex x="0.15" y="4.5"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="-5.55" y="4.1"/>
+<vertex x="-0.45" y="4.1"/>
+<vertex x="-0.45" y="0"/>
+<vertex x="-5.55" y="0"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.15" y="4.1"/>
+<vertex x="5.55" y="4.1"/>
+<vertex x="5.55" y="0"/>
+<vertex x="0.15" y="0"/>
+</polygon>
 </package>
 <package name="SHUNT3920">
 <smd name="1" x="-4.15" y="0" dx="6.2" dy="2.7" layer="1" rot="R90"/>
@@ -1666,6 +1501,90 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="-3.4" y1="3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
 <text x="-3.9" y="3.4" size="0.6" layer="25" ratio="10">&gt;NAME</text>
 </package>
+<package name="QFN50P700X700X60-49N">
+<description>&lt;b&gt;UFQFPN48 - 48-lead, 7x7 mm, 0.5 mm pitch, ultra thin fine pitch quad flat package outline&lt;/b&gt;&lt;br&gt;
+</description>
+<smd name="1" x="-3.45" y="2.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="2" x="-3.45" y="2.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="3" x="-3.45" y="1.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="4" x="-3.45" y="1.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="5" x="-3.45" y="0.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="6" x="-3.45" y="0.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="7" x="-3.45" y="-0.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="8" x="-3.45" y="-0.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="9" x="-3.45" y="-1.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="10" x="-3.45" y="-1.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="11" x="-3.45" y="-2.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="12" x="-3.45" y="-2.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="13" x="-2.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="14" x="-2.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="15" x="-1.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="16" x="-1.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="17" x="-0.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="18" x="-0.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="19" x="0.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="20" x="0.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="21" x="1.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="22" x="1.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="23" x="2.25" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="24" x="2.75" y="-3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="25" x="3.45" y="-2.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="26" x="3.45" y="-2.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="27" x="3.45" y="-1.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="28" x="3.45" y="-1.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="29" x="3.45" y="-0.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="30" x="3.45" y="-0.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="31" x="3.45" y="0.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="32" x="3.45" y="0.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="33" x="3.45" y="1.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="34" x="3.45" y="1.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="35" x="3.45" y="2.25" dx="0.85" dy="0.3" layer="1"/>
+<smd name="36" x="3.45" y="2.75" dx="0.85" dy="0.3" layer="1"/>
+<smd name="37" x="2.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="38" x="2.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="39" x="1.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="40" x="1.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="41" x="0.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="42" x="0.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="43" x="-0.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="44" x="-0.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="45" x="-1.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="46" x="-1.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="47" x="-2.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="48" x="-2.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
+<smd name="49" x="0" y="0" dx="5.7" dy="5.7" layer="1" rot="R90" cream="no"/>
+<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
+<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
+<wire x1="-3.5" y1="3.5" x2="3.5" y2="3.5" width="0.1" layer="21"/>
+<wire x1="3.5" y1="3.5" x2="3.5" y2="-3.5" width="0.1" layer="21"/>
+<wire x1="3.5" y1="-3.5" x2="-3.5" y2="-3.5" width="0.1" layer="21"/>
+<wire x1="-3.5" y1="-3.5" x2="-3.5" y2="3.5" width="0.1" layer="21"/>
+<wire x1="-3.5" y1="3" x2="-3" y2="3.5" width="0.1" layer="21"/>
+<polygon width="0.127" layer="31">
+<vertex x="-2.75" y="2.75"/>
+<vertex x="-0.25" y="2.75"/>
+<vertex x="-0.25" y="0.25"/>
+<vertex x="-2.75" y="0.25"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.25" y="2.75"/>
+<vertex x="2.7" y="2.75"/>
+<vertex x="2.7" y="0.25"/>
+<vertex x="0.25" y="0.25"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="-2.75" y="-0.25"/>
+<vertex x="-0.25" y="-0.25"/>
+<vertex x="-0.25" y="-2.7"/>
+<vertex x="-2.75" y="-2.7"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.25" y="-0.25"/>
+<vertex x="2.7" y="-0.25"/>
+<vertex x="2.7" y="-2.7"/>
+<vertex x="0.25" y="-2.7"/>
+</polygon>
+</package>
 </packages>
 <symbols>
 <symbol name="MAX15062AATA+T">
@@ -1830,6 +1749,63 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <wire x1="33.02" y1="5.08" x2="7.62" y2="5.08" width="0.1524" layer="94"/>
 <text x="15.5956" y="9.1186" size="2.0828" layer="95" ratio="6" rot="SR0">&gt;Name</text>
 <text x="14.9606" y="6.5786" size="2.0828" layer="96" ratio="6" rot="SR0">&gt;Value</text>
+</symbol>
+<symbol name="STM32G474CEU6">
+<wire x1="5.08" y1="17.78" x2="40.64" y2="17.78" width="0.254" layer="94"/>
+<wire x1="40.64" y1="-40.64" x2="40.64" y2="17.78" width="0.254" layer="94"/>
+<wire x1="40.64" y1="-40.64" x2="5.08" y2="-40.64" width="0.254" layer="94"/>
+<wire x1="5.08" y1="17.78" x2="5.08" y2="-40.64" width="0.254" layer="94"/>
+<text x="41.91" y="22.86" size="1.778" layer="95" align="center-left">&gt;NAME</text>
+<text x="41.91" y="20.32" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
+<pin name="VBAT" x="0" y="0" length="middle"/>
+<pin name="PC13" x="0" y="-2.54" length="middle"/>
+<pin name="PC14-OSC32_IN" x="0" y="-5.08" length="middle"/>
+<pin name="PC15-OSC32_OUT" x="0" y="-7.62" length="middle"/>
+<pin name="PF0-OSC_IN" x="0" y="-10.16" length="middle"/>
+<pin name="PF1-OSC_OUT" x="0" y="-12.7" length="middle"/>
+<pin name="PG10-NRST" x="0" y="-15.24" length="middle"/>
+<pin name="PA0" x="0" y="-17.78" length="middle"/>
+<pin name="PA1" x="0" y="-20.32" length="middle"/>
+<pin name="PA2" x="0" y="-22.86" length="middle"/>
+<pin name="PA3" x="0" y="-25.4" length="middle"/>
+<pin name="PA4" x="0" y="-27.94" length="middle"/>
+<pin name="PA5" x="7.62" y="-45.72" length="middle" rot="R90"/>
+<pin name="PA6" x="10.16" y="-45.72" length="middle" rot="R90"/>
+<pin name="PA7" x="12.7" y="-45.72" length="middle" rot="R90"/>
+<pin name="PB0" x="17.78" y="-45.72" length="middle" rot="R90"/>
+<pin name="PB1" x="20.32" y="-45.72" length="middle" rot="R90"/>
+<pin name="PB2" x="22.86" y="-45.72" length="middle" rot="R90"/>
+<pin name="VREF+" x="25.4" y="-45.72" length="middle" rot="R90"/>
+<pin name="VDDA" x="27.94" y="-45.72" length="middle" rot="R90"/>
+<pin name="PB10" x="30.48" y="-45.72" length="middle" rot="R90"/>
+<pin name="VDD_1" x="33.02" y="-45.72" length="middle" rot="R90"/>
+<pin name="VDD_2" x="45.72" y="-2.54" length="middle" rot="R180"/>
+<pin name="PA12" x="45.72" y="-5.08" length="middle" rot="R180"/>
+<pin name="PA11" x="45.72" y="-7.62" length="middle" rot="R180"/>
+<pin name="PA10" x="45.72" y="-10.16" length="middle" rot="R180"/>
+<pin name="PA9" x="45.72" y="-12.7" length="middle" rot="R180"/>
+<pin name="PA8" x="45.72" y="-15.24" length="middle" rot="R180"/>
+<pin name="PB15" x="45.72" y="-20.32" length="middle" rot="R180"/>
+<pin name="PB14" x="45.72" y="-22.86" length="middle" rot="R180"/>
+<pin name="PB13" x="45.72" y="-25.4" length="middle" rot="R180"/>
+<pin name="PB12" x="45.72" y="-27.94" length="middle" rot="R180"/>
+<pin name="PB11" x="35.56" y="-45.72" length="middle" rot="R90"/>
+<pin name="THERMALPAD" x="7.62" y="22.86" length="middle" rot="R270"/>
+<pin name="VDD_3" x="10.16" y="22.86" length="middle" rot="R270"/>
+<pin name="PB9" x="12.7" y="22.86" length="middle" rot="R270"/>
+<pin name="PB8-BOOT0" x="15.24" y="22.86" length="middle" rot="R270"/>
+<pin name="PB7" x="17.78" y="22.86" length="middle" rot="R270"/>
+<pin name="PB6" x="20.32" y="22.86" length="middle" rot="R270"/>
+<pin name="PB5" x="22.86" y="22.86" length="middle" rot="R270"/>
+<pin name="PB4" x="25.4" y="22.86" length="middle" rot="R270"/>
+<pin name="PB3" x="27.94" y="22.86" length="middle" rot="R270"/>
+<pin name="PA15" x="35.56" y="22.86" length="middle" rot="R270"/>
+<pin name="PA14" x="38.1" y="22.86" length="middle" rot="R270"/>
+<pin name="PA13" x="45.72" y="0" length="middle" rot="R180"/>
+<pin name="PC4" x="15.24" y="-45.72" length="middle" rot="R90"/>
+<pin name="PC6" x="45.72" y="-17.78" length="middle" rot="R180"/>
+<pin name="PC10" x="33.02" y="22.86" length="middle" rot="R270"/>
+<pin name="PC11" x="30.48" y="22.86" length="middle" rot="R270"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -2213,6 +2189,78 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MANUFACTURER_PART_NUMBER" value="STLM20DD9F" constant="no"/>
 <attribute name="SOURCELIBRARY" value="Update_to_database_2020-11-24" constant="no"/>
 <attribute name="VENDOR" value="STMicroelectronics" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="STM32G474CEU6" prefix="IC">
+<description>&lt;b&gt;STMICROELECTRONICS - STM32G474CEU6 - MCU, 32BIT, 170MHZ, UFQFPN-48&lt;/b&gt;&lt;p&gt;
+Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6.pdf"&gt; Datasheet &lt;/a&gt;</description>
+<gates>
+<gate name="G$1" symbol="STM32G474CEU6" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="QFN50P700X700X60-49N">
+<connects>
+<connect gate="G$1" pin="PA0" pad="8"/>
+<connect gate="G$1" pin="PA1" pad="9"/>
+<connect gate="G$1" pin="PA10" pad="32"/>
+<connect gate="G$1" pin="PA11" pad="33"/>
+<connect gate="G$1" pin="PA12" pad="34"/>
+<connect gate="G$1" pin="PA13" pad="36"/>
+<connect gate="G$1" pin="PA14" pad="37"/>
+<connect gate="G$1" pin="PA15" pad="38"/>
+<connect gate="G$1" pin="PA2" pad="10"/>
+<connect gate="G$1" pin="PA3" pad="11"/>
+<connect gate="G$1" pin="PA4" pad="12"/>
+<connect gate="G$1" pin="PA5" pad="13"/>
+<connect gate="G$1" pin="PA6" pad="14"/>
+<connect gate="G$1" pin="PA7" pad="15"/>
+<connect gate="G$1" pin="PA8" pad="30"/>
+<connect gate="G$1" pin="PA9" pad="31"/>
+<connect gate="G$1" pin="PB0" pad="17"/>
+<connect gate="G$1" pin="PB1" pad="18"/>
+<connect gate="G$1" pin="PB10" pad="22"/>
+<connect gate="G$1" pin="PB11" pad="24"/>
+<connect gate="G$1" pin="PB12" pad="25"/>
+<connect gate="G$1" pin="PB13" pad="26"/>
+<connect gate="G$1" pin="PB14" pad="27"/>
+<connect gate="G$1" pin="PB15" pad="28"/>
+<connect gate="G$1" pin="PB2" pad="19"/>
+<connect gate="G$1" pin="PB3" pad="41"/>
+<connect gate="G$1" pin="PB4" pad="42"/>
+<connect gate="G$1" pin="PB5" pad="43"/>
+<connect gate="G$1" pin="PB6" pad="44"/>
+<connect gate="G$1" pin="PB7" pad="45"/>
+<connect gate="G$1" pin="PB8-BOOT0" pad="46"/>
+<connect gate="G$1" pin="PB9" pad="47"/>
+<connect gate="G$1" pin="PC10" pad="39"/>
+<connect gate="G$1" pin="PC11" pad="40"/>
+<connect gate="G$1" pin="PC13" pad="2"/>
+<connect gate="G$1" pin="PC14-OSC32_IN" pad="3"/>
+<connect gate="G$1" pin="PC15-OSC32_OUT" pad="4"/>
+<connect gate="G$1" pin="PC4" pad="16"/>
+<connect gate="G$1" pin="PC6" pad="29"/>
+<connect gate="G$1" pin="PF0-OSC_IN" pad="5"/>
+<connect gate="G$1" pin="PF1-OSC_OUT" pad="6"/>
+<connect gate="G$1" pin="PG10-NRST" pad="7"/>
+<connect gate="G$1" pin="THERMALPAD" pad="49"/>
+<connect gate="G$1" pin="VBAT" pad="1"/>
+<connect gate="G$1" pin="VDDA" pad="21"/>
+<connect gate="G$1" pin="VDD_1" pad="23"/>
+<connect gate="G$1" pin="VDD_2" pad="35"/>
+<connect gate="G$1" pin="VDD_3" pad="48"/>
+<connect gate="G$1" pin="VREF+" pad="20"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="DESCRIPTION" value="STMICROELECTRONICS - STM32G474CEU6 - MCU, 32BIT, 170MHZ, UFQFPN-48" constant="no"/>
+<attribute name="HEIGHT" value="0.6mm" constant="no"/>
+<attribute name="MANUFACTURER_NAME" value="STMicroelectronics" constant="no"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="STM32G474CEU6" constant="no"/>
+<attribute name="MOUSER_PART_NUMBER" value="511-STM32G474CEU6" constant="no"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=511-STM32G474CEU6" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -3010,7 +3058,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MPN" value="XT30UPB-F"/>
 <attribute name="POPULATE" value="1"/>
 </part>
-<part name="U2" library="precharge" deviceset="STM32G474CEU6" device="">
+<part name="U2" library="power_dist" deviceset="STM32G474CEU6" device="">
 <attribute name="MF" value="ST"/>
 <attribute name="MPN" value="STM32G474CEU6"/>
 <attribute name="POPULATE" value="1"/>

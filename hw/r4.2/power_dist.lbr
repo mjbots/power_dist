@@ -7,7 +7,7 @@
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
+<grid distance="0.05" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.01" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -213,7 +213,7 @@
 <smd name="46" x="-1.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
 <smd name="47" x="-2.25" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
 <smd name="48" x="-2.75" y="3.45" dx="0.85" dy="0.3" layer="1" rot="R90"/>
-<smd name="49" x="0" y="0" dx="5.7" dy="5.7" layer="1" rot="R90"/>
+<smd name="49" x="0" y="0" dx="5.7" dy="5.7" layer="1" rot="R90" cream="no"/>
 <text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
 <text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
 <wire x1="-3.5" y1="3.5" x2="3.5" y2="3.5" width="0.1" layer="21"/>
@@ -221,6 +221,30 @@
 <wire x1="3.5" y1="-3.5" x2="-3.5" y2="-3.5" width="0.1" layer="21"/>
 <wire x1="-3.5" y1="-3.5" x2="-3.5" y2="3.5" width="0.1" layer="21"/>
 <wire x1="-3.5" y1="3" x2="-3" y2="3.5" width="0.1" layer="21"/>
+<polygon width="0.127" layer="31">
+<vertex x="-2.75" y="2.75"/>
+<vertex x="-0.25" y="2.75"/>
+<vertex x="-0.25" y="0.25"/>
+<vertex x="-2.75" y="0.25"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.25" y="2.75"/>
+<vertex x="2.7" y="2.75"/>
+<vertex x="2.7" y="0.25"/>
+<vertex x="0.25" y="0.25"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="-2.75" y="-0.25"/>
+<vertex x="-0.25" y="-0.25"/>
+<vertex x="-0.25" y="-2.7"/>
+<vertex x="-2.75" y="-2.7"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.25" y="-0.25"/>
+<vertex x="2.7" y="-0.25"/>
+<vertex x="2.7" y="-2.7"/>
+<vertex x="0.25" y="-2.7"/>
+</polygon>
 </package>
 <package name="M2.5MOUNT">
 <pad name="P$1" x="0" y="0" drill="2.6"/>
@@ -1114,7 +1138,7 @@
 <package name="D2PAK_SOT404_NEX">
 <smd name="1" x="-2.54" y="-6.8454" dx="2.0066" dy="3.81" layer="1"/>
 <smd name="3" x="2.54" y="-6.8454" dx="2.0066" dy="3.81" layer="1"/>
-<smd name="2" x="0" y="4.254603125" dx="11.5062" dy="8.9916" layer="1"/>
+<smd name="2" x="0" y="4.254603125" dx="11.5062" dy="8.9916" layer="1" cream="no"/>
 <wire x1="-5.2832" y1="-7.8232" x2="-3.8862" y2="-7.8232" width="0.1524" layer="21"/>
 <wire x1="5.2832" y1="-7.8232" x2="5.2832" y2="-0.5842" width="0.1524" layer="21"/>
 <wire x1="3.8862" y1="-7.8232" x2="5.2832" y2="-7.8232" width="0.1524" layer="21"/>
@@ -1130,6 +1154,30 @@
 <wire x1="-4.5212" y1="-6.858" x2="-4.7752" y2="-6.858" width="0" layer="51" curve="-180"/>
 <wire x1="-4.7752" y1="-6.858" x2="-4.5212" y2="-6.858" width="0" layer="51" curve="-180"/>
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
+<polygon width="0.127" layer="31">
+<vertex x="-5.55" y="8.55"/>
+<vertex x="-0.5" y="8.55"/>
+<vertex x="-0.5" y="4.55"/>
+<vertex x="-5.55" y="4.55"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.15" y="8.55"/>
+<vertex x="5.55" y="8.55"/>
+<vertex x="5.55" y="4.5"/>
+<vertex x="0.15" y="4.5"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="-5.55" y="4.1"/>
+<vertex x="-0.45" y="4.1"/>
+<vertex x="-0.45" y="0"/>
+<vertex x="-5.55" y="0"/>
+</polygon>
+<polygon width="0.127" layer="31">
+<vertex x="0.15" y="4.1"/>
+<vertex x="5.55" y="4.1"/>
+<vertex x="5.55" y="0"/>
+<vertex x="0.15" y="0"/>
+</polygon>
 </package>
 <package name="SHUNT3920">
 <smd name="1" x="-4.15" y="0" dx="6.2" dy="2.7" layer="1" rot="R90"/>
