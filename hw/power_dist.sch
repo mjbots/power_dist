@@ -3348,7 +3348,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="C12" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value=".1uF 100V">
 <attribute name="HOUSEPART" value="1"/>
-<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
+<attribute name="MPN" value="GRM188R72A104KA35D"/>
 </part>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="U6" library="power_dist" deviceset="STLM20DD9F" device="UDFN-4L_STM-L">
