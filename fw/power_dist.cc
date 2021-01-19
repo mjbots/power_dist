@@ -37,6 +37,11 @@ namespace multiplex = mjlib::multiplex;
 
 namespace {
 
+template <typename T>
+void Store(T& out, T value) {
+  std::memcpy(&out, &value, sizeof(value));
+}
+
 const uint32_t kPrechargeMs = 100;
 const float kMaxPrechargedVoltage = 10.0f;
 
@@ -47,7 +52,8 @@ enum State {
   kFault,
 };
 
-void SetClock() {
+#if POWER_DIST_HW_REV < 1
+void SetClock0() {
   // RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
@@ -88,6 +94,43 @@ void SetClock() {
 
   SystemCoreClockUpdate();
 }
+#endif
+
+#if POWER_DIST_HW_REV >= 2
+void SetClock2() {
+  RCC_ClkInitTypeDef RCC_ClkInitStruct;
+
+  RCC_ClkInitStruct.ClockType = (
+      RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 |
+      RCC_CLOCKTYPE_PCLK2);
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1; // 170 MHz
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;  // 85 MHz
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;  // 85 MHz
+
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_6) != HAL_OK) {
+    return;
+  }
+
+  {
+    RCC_PeriphCLKInitTypeDef PeriphClkInit = {};
+
+    PeriphClkInit.PeriphClockSelection =
+        RCC_PERIPHCLK_FDCAN |
+        RCC_PERIPHCLK_ADC12 |
+        RCC_PERIPHCLK_ADC345;
+    PeriphClkInit.FdcanClockSelection = RCC_FDCANCLKSOURCE_PCLK1;
+    PeriphClkInit.Adc12ClockSelection = RCC_ADC12CLKSOURCE_SYSCLK;
+    PeriphClkInit.Adc345ClockSelection = RCC_ADC345CLKSOURCE_SYSCLK;
+    if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+    {
+      mbed_die();
+    }
+  }
+
+  SystemCoreClockUpdate();
+}
+#endif
 
 #if POWER_DIST_HW_REV < 1
 void RunRev0() {
@@ -505,7 +548,7 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
   adc->SMPR2 = make_cycles(2);
 }
 
-void RunRev1() {
+void RunRev2() {
   micro::SizedPool<14000> pool;
 
   fw::MillisecondTimer timer;
@@ -518,7 +561,7 @@ void RunRev1() {
         options.td = CAN_TX;
         options.rd = CAN_RX;
         options.slow_bitrate = 1000000;
-        options.fast_bitrate = 1000000;
+        options.fast_bitrate = 5000000;
         options.fdcan_frame = true;
         options.bitrate_switch = true;
 
@@ -591,10 +634,11 @@ void RunRev1() {
 
   uint32_t last_can = 0;
 
-  char can_status_data[8] = {
+  char can_status_data[12] = {
     0, // switch status
     0, // lock time in 0.1s
     0, 0,  // voltage
+    0, 0,  // isamp_out
     0, 0, 0, 0,  // energy in uW*hr
   };
 
@@ -602,10 +646,12 @@ void RunRev1() {
 
   char& power_switch_status = can_status_data[0];
   uint8_t& lock_time = reinterpret_cast<uint8_t&>(can_status_data[1]);
-  int16_t& input_10mv = reinterpret_cast<int16_t&>(can_status_data[2]);
-  int16_t& output_10mv = reinterpret_cast<int16_t&>(can_status_data[4]);
-  int16_t& isamp_out = reinterpret_cast<int16_t&>(can_status_data[6]);
-  // uint32_t& energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[4]);
+  int16_t& out_input_10mV = reinterpret_cast<int16_t&>(can_status_data[2]);
+  int16_t& out_output_10mV = reinterpret_cast<int16_t&>(can_status_data[4]);
+  int16_t& out_isamp_10mA = reinterpret_cast<int16_t&>(can_status_data[6]);
+  uint32_t& out_energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[8]);
+
+  uint32_t energy_uW_hr = 0;
 
   FDCAN_RxHeaderTypeDef can_rx_header;
 
@@ -665,34 +711,7 @@ void RunRev1() {
 
     power_switch_status = (power_switch.read() == 0) ? 1 : 0;
 
-    // Sample the ADCs.
-    ADC1->CR |= ADC_CR_ADSTART;
-    ADC2->CR |= ADC_CR_ADSTART;
-    ADC3->CR |= ADC_CR_ADSTART;
-    ADC5->CR |= ADC_CR_ADSTART;
 
-    while (((ADC1->ISR & ADC_ISR_EOC) == 0) ||
-           ((ADC2->ISR & ADC_ISR_EOC) == 0) ||
-           ((ADC3->ISR & ADC_ISR_EOC) == 0) ||
-           ((ADC5->ISR & ADC_ISR_EOC) == 0));
-
-    const uint16_t vsamp_out_raw = ADC1->DR;
-    const uint16_t vsamp_in_raw = ADC2->DR;
-    const uint16_t isamp_in = ADC3->DR;
-    (void) isamp_in;
-    const uint16_t isamp_raw = ADC5->DR;
-
-    const float vsamp_out =
-        static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
-    const float vsamp_in =
-        static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
-    // constexpr float V_per_A = 0.0005f * 8 * 3;
-    // const float isamp =
-    //     ((static_cast<float>(isamp_raw) - adc5_offset) / 4096.0f * 3.3f) / V_per_A;
-
-    input_10mv = static_cast<int16_t>(vsamp_in * 100.0f);
-    output_10mv = static_cast<int16_t>(vsamp_out * 100.0f);
-    isamp_out = static_cast<int16_t>(isamp_raw);
 
     if (power_switch_status == 1) {
       override_pwr.write(1);
@@ -700,7 +719,7 @@ void RunRev1() {
       lock_time = 3;
     } else if (lock_time == 0) {
       override_pwr.write(0);
-      override_3v3.write(0);
+      // override_3v3.write(0);
       led1.write(1);
     }
 
@@ -712,6 +731,42 @@ void RunRev1() {
       telemetry_manager.PollMillisecond();
 
       old_time = new_time;
+
+      // Sample the ADCs.
+      ADC1->CR |= ADC_CR_ADSTART;
+      ADC2->CR |= ADC_CR_ADSTART;
+      ADC3->CR |= ADC_CR_ADSTART;
+      ADC5->CR |= ADC_CR_ADSTART;
+
+      while (((ADC1->ISR & ADC_ISR_EOC) == 0) ||
+             ((ADC2->ISR & ADC_ISR_EOC) == 0) ||
+             ((ADC3->ISR & ADC_ISR_EOC) == 0) ||
+             ((ADC5->ISR & ADC_ISR_EOC) == 0));
+
+      const uint16_t vsamp_out_raw = ADC1->DR;
+      const uint16_t vsamp_in_raw = ADC2->DR;
+      const uint16_t isamp_in = ADC3->DR;
+      (void) isamp_in;
+      const uint16_t isamp_raw = ADC5->DR;
+
+      const float vsamp_out =
+          static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+      const float vsamp_in =
+          static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+      constexpr float V_per_A = 0.0005f * 8 * 7;
+      const float isamp =
+          -((static_cast<float>(isamp_raw) - 1904) / 4096.0f * 3.3f) / V_per_A;
+
+      Store(out_input_10mV, static_cast<int16_t>(vsamp_in * 100.0f));
+      Store(out_output_10mV, static_cast<int16_t>(vsamp_out * 100.0f));
+      Store(out_isamp_10mA, static_cast<int16_t>(isamp * 100.0f));
+
+      if (vsamp_out > 4.0f) {
+        const float delta_energy_uW_hr = vsamp_in * isamp * 0.001f / 3600.0f * 1e6f;
+        energy_uW_hr += static_cast<int32_t>(delta_energy_uW_hr);
+      }
+
+      Store(out_energy_uW_hr, energy_uW_hr);
     }
   }
 }
@@ -722,9 +777,15 @@ void RunRev1() {
 ADC_TypeDef* const g_adc5 = ADC5;
 
 int main(void) {
+#if POWER_DIST_HW_REV < 1
   // Drop our speed down to nothing, because we don't really need to
   // go fast for this and we might as well save the battery.
-  SetClock();
+  SetClock0();
+#elif POWER_DIST_HW_REV >= 2
+  SetClock2();
+#else
+#error "Unsupported target"
+#endif
 
   // We use ADC5 for VSAMP_OUT
   __HAL_RCC_ADC12_CLK_ENABLE();
@@ -761,8 +822,10 @@ int main(void) {
 
 #if POWER_DIST_HW_REV < 1
   RunRev0();
+#elif POWER_DIST_HW_REV >= 2
+  RunRev2();
 #else
-  RunRev1();
+#error "Unsupported target"
 #endif
 }
 
