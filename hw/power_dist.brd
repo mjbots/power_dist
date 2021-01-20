@@ -1806,12 +1806,12 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="PACKAGE" value="MSOP-8 Linear Technology" x="37.8" y="28.4" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="PURCHASE-URL" value="https://pricing.snapeda.com/search/part/LT1787HVIMS8#PBF/?ref=eda" x="37.8" y="28.4" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C17" library="mfpassives" package="C0603" value="DNP" x="37.8" y="25.95" smashed="yes" rot="R180">
+<element name="C17" library="mfpassives" package="C0603" value="0.1uF" x="37.8" y="25.95" smashed="yes" rot="R180">
 <attribute name="DIELECTRIC" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="HOUSEPART" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MPN" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="HOUSEPART" value="1" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MPN" value="MF-CAP-0603-0.1uF" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="NAME" x="39.15" y="25.1" size="0.5" layer="25" font="vector" ratio="10" rot="R180"/>
-<attribute name="POPULATE" value="0" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="POPULATE" value="1" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="TOLERANCE" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="URL" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VOLTAGE" value="" x="37.8" y="25.95" size="1.778" layer="27" rot="R180" display="off"/>

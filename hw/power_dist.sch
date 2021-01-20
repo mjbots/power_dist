@@ -3116,8 +3116,9 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="U5" library="LT1787HVIMS8PBF" deviceset="LT1787HVIMS8PBF" device=""/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
-<part name="C17" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="DNP">
-<attribute name="POPULATE" value="0"/>
+<part name="C17" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.1uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
 </part>
 <part name="C20" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.1uF">
 <attribute name="HOUSEPART" value="1"/>
