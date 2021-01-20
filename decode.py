@@ -38,9 +38,9 @@ def main():
         switch, lock_time, input_10mV, output_10mV, isamp_10mA, energy_uW_hr = \
             PACKET.unpack(bytes.fromhex(fields[2].decode('latin1')))
 
-        print(f"sw: {switch}  lock: {lock_time}  input: {input_10mV / 100} " +
-              f"output: {output_10mV / 100}  isamp: {isamp_10mA / 100} " +
-              f"energy Whr: {energy_uW_hr / 1e6}")
+        print(f"sw: {switch}  lock: {lock_time}  input: {input_10mV / 100:.3f} " +
+              f"output: {output_10mV / 100:.3f}  isamp: {isamp_10mA / 100:6.3f} " +
+              f"energy Whr: {energy_uW_hr / 1e6:.5f}")
 
 
 

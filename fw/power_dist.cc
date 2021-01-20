@@ -660,16 +660,18 @@ void RunRev2() {
 
   auto old_time = timer.read_ms();
 
-  // ADC Mapping:
-  // VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
-  // VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
-  // ISAMP -> PB0 -> OPAMP3 -> PB1 -> PB15 -> OPAMP5 -> ADC5/IN3
+  // Analog Mappings:
+  //  VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
+  //  VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
+  //  ISAMP -> PB0 -> OPAMP3 -> PB1 -> ADC3/IN1 -> PB15 -> OPAMP5 -> PA8 -> ADC5/IN1
+  //  DAC1 -> PA4 -> ISAMP_BIAS -> PA1 -> ADC12_IN2
+  //  DAC3 -> internal
+  //  DAC4 -> internal -> OPAMP5/VINP
 
   ConfigureDAC1(&timer);
   ConfigureDAC3(&timer);
   ConfigureDAC4(&timer);
 
-  // Configure ADC (1/4), 2, s
   ConfigureADC(ADC1, 13, &timer);
   ConfigureADC(ADC2, 16, &timer);
   ConfigureADC(ADC3, 1, &timer);
@@ -679,6 +681,14 @@ void RunRev2() {
   OpAmpBuffer opamp2(OPAMP2, 1);  // PB14 == VINP1
   OpAmpBuffer opamp3(OPAMP3, 0, OpAmpBuffer::kExternal);  // PB0 == VINP0, output = PB1
   OpAmpInvertingAmplifier opamp5(OPAMP5);  // PB15 == VINM0
+
+  timer.wait_us(200);
+
+  // Read ADC5 while hopefully the switch is still off.
+  ADC5->CR |= ADC_CR_ADSTART;
+  while ((ADC5->ISR & ADC_ISR_EOC) == 0);
+  const uint16_t isamp_offset = ADC5->DR;
+
 
   while (true) {
     const auto now = timer.read_ms() / 100;
@@ -745,9 +755,9 @@ void RunRev2() {
 
       const uint16_t vsamp_out_raw = ADC1->DR;
       const uint16_t vsamp_in_raw = ADC2->DR;
-      const uint16_t isamp_in = ADC3->DR;
-      (void) isamp_in;
-      const uint16_t isamp_raw = ADC5->DR;
+      const uint16_t isamp_in_raw = ADC3->DR;
+      (void) isamp_in_raw;
+      const uint16_t isamp_in = ADC5->DR;
 
       const float vsamp_out =
           static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
@@ -755,7 +765,7 @@ void RunRev2() {
           static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
       constexpr float V_per_A = 0.0005f * 8 * 7;
       const float isamp =
-          -((static_cast<float>(isamp_raw) - 1904) / 4096.0f * 3.3f) / V_per_A;
+          -((static_cast<float>(isamp_in) - isamp_offset) / 4096.0f * 3.3f) / V_per_A;
 
       Store(out_input_10mV, static_cast<int16_t>(vsamp_in * 100.0f));
       Store(out_output_10mV, static_cast<int16_t>(vsamp_out * 100.0f));
