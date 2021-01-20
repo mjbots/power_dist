@@ -159,7 +159,7 @@ void RunRev0() {
   DigitalOut led2(DEBUG_LED2, 0);
 
   DigitalOut switch_led(PWR_LED);
-  DigitalIn power_switch(PWR_SW, PullUp);
+  DigitalIn power_switch(PWR_SW, PullDown);
 
   DigitalOut fet_precharge(FET_PRECHARGE);
   DigitalOut fet_main(FET_MAIN);
@@ -286,7 +286,7 @@ void RunRev0() {
       }
     }
 
-    power_switch_status = (power_switch.read() == 0) ? 1 : 0;
+    power_switch_status = (power_switch.read() == 0) ? 0 : 1;
 
     // Sample the ADC.
     ADC5->CR |= ADC_CR_ADSTART;
@@ -548,6 +548,20 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
   adc->SMPR2 = make_cycles(2);
 }
 
+uint16_t SampleAdc(ADC_TypeDef* adc) {
+  adc->CR |= ADC_CR_ADSTART;
+  while ((adc->ISR & ADC_ISR_EOC) == 0);
+  return adc->DR;
+}
+
+uint16_t SampleAdcAverage(ADC_TypeDef* adc, int count) {
+  uint32_t total = 0;
+  for (int i = 0; i < count; i++) {
+    total += SampleAdc(adc);
+  }
+  return total / count;
+}
+
 void RunRev2() {
   micro::SizedPool<14000> pool;
 
@@ -593,7 +607,7 @@ void RunRev2() {
   // DigitalOut led2(DEBUG_LED2, 1);
 
   DigitalOut switch_led(PWR_LED);
-  DigitalIn power_switch(PWR_SW, PullUp);
+  DigitalIn power_switch(PWR_SW);
 
   // We start overriding 3V3, but not overall power.
   DigitalOut override_pwr(OVERRIDE_PWR, 0);
@@ -634,12 +648,13 @@ void RunRev2() {
 
   uint32_t last_can = 0;
 
-  char can_status_data[12] = {
+  char can_status_data[14] = {
     0, // switch status
     0, // lock time in 0.1s
     0, 0,  // voltage
     0, 0,  // isamp_out
     0, 0, 0, 0,  // energy in uW*hr
+    0, 0,  // fet_temp
   };
 
   char can_command_data[8] = {};
@@ -650,6 +665,7 @@ void RunRev2() {
   int16_t& out_output_10mV = reinterpret_cast<int16_t&>(can_status_data[4]);
   int16_t& out_isamp_10mA = reinterpret_cast<int16_t&>(can_status_data[6]);
   uint32_t& out_energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[8]);
+  int16_t& out_fet_temp_C = reinterpret_cast<int16_t&>(can_status_data[12]);
 
   uint32_t energy_uW_hr = 0;
 
@@ -663,6 +679,7 @@ void RunRev2() {
   // Analog Mappings:
   //  VSAMP_OUT -> PA7 -> OPAMP1_VINP -> ADC1/IN13
   //  VSAMP_IN -> PB14 -> OPAMP2_VINP -> ADC2/IN16
+  //  FET_TEMP -> PC5 -> ADC2/IN5
   //  ISAMP -> PB0 -> OPAMP3 -> PB1 -> ADC3/IN1 -> PB15 -> OPAMP5 -> PA8 -> ADC5/IN1
   //  DAC1 -> PA4 -> ISAMP_BIAS -> PA1 -> ADC12_IN2
   //  DAC3 -> internal
@@ -682,12 +699,10 @@ void RunRev2() {
   OpAmpBuffer opamp3(OPAMP3, 0, OpAmpBuffer::kExternal);  // PB0 == VINP0, output = PB1
   OpAmpInvertingAmplifier opamp5(OPAMP5);  // PB15 == VINM0
 
-  timer.wait_us(200);
+  timer.wait_ms(20);
 
-  // Read ADC5 while hopefully the switch is still off.
-  ADC5->CR |= ADC_CR_ADSTART;
-  while ((ADC5->ISR & ADC_ISR_EOC) == 0);
-  const uint16_t isamp_offset = ADC5->DR;
+  // Read ADC5 before we start powering anything.
+  const uint16_t isamp_offset = SampleAdcAverage(ADC5, 64);
 
 
   while (true) {
@@ -719,16 +734,16 @@ void RunRev2() {
       }
     }
 
-    power_switch_status = (power_switch.read() == 0) ? 1 : 0;
-
-
+    power_switch_status = (power_switch.read() == 0) ? 0 : 1;
 
     if (power_switch_status == 1) {
       override_pwr.write(1);
       led1.write(0);
+      switch_led.write(1);
       lock_time = 3;
     } else if (lock_time == 0) {
       override_pwr.write(0);
+      switch_led.write(0);
       // override_3v3.write(0);
       led1.write(1);
     }
@@ -741,6 +756,10 @@ void RunRev2() {
       telemetry_manager.PollMillisecond();
 
       old_time = new_time;
+
+      ADC2->SQR1 =
+          (0 << ADC_SQR1_L_Pos) | // length 1
+          (16 << ADC_SQR1_SQ1_Pos);
 
       // Sample the ADCs.
       ADC1->CR |= ADC_CR_ADSTART;
@@ -767,9 +786,19 @@ void RunRev2() {
       const float isamp =
           -((static_cast<float>(isamp_in) - isamp_offset) / 4096.0f * 3.3f) / V_per_A;
 
+      ADC2->SQR1 =
+          (0 << ADC_SQR1_L_Pos) | // length 1
+          (5 << ADC_SQR1_SQ1_Pos);
+      const auto fet_temp_raw = SampleAdc(ADC2);
+
+      const float fet_temp_C =
+          ((static_cast<float>(fet_temp_raw) / 4096.0f * 3.3f) - 1.8663f) /
+          -0.01169f;
+
       Store(out_input_10mV, static_cast<int16_t>(vsamp_in * 100.0f));
       Store(out_output_10mV, static_cast<int16_t>(vsamp_out * 100.0f));
       Store(out_isamp_10mA, static_cast<int16_t>(isamp * 100.0f));
+      Store(out_fet_temp_C, static_cast<int16_t>(fet_temp_C));
 
       if (vsamp_out > 4.0f) {
         const float delta_energy_uW_hr = vsamp_in * isamp * 0.001f / 3600.0f * 1e6f;

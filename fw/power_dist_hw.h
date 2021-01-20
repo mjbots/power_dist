@@ -106,6 +106,7 @@ constexpr int kCompatibleHwRev[] = {
 #define OVERRIDE_3V3 PB_13
 #define TPS2490_FLT PA_5
 #define TSP2490_TIMER PB_11
+#define FET_TEMP PC_5
 
 #else
 #error "Unsupported target"
