@@ -2632,6 +2632,34 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <vertex x="-2.8" y="-0.85"/>
 </polygon>
 </package>
+<package name="SOT-23-3">
+<description>&lt;b&gt;Description:&lt;/b&gt; Standard SOT-23-3 footprint.&lt;br/&gt;</description>
+<smd name="P$1" x="-1" y="0.95" dx="0.9" dy="0.8" layer="1"/>
+<smd name="P$2" x="-1" y="-0.95" dx="0.9" dy="0.8" layer="1"/>
+<smd name="P$3" x="1" y="0" dx="0.9" dy="0.8" layer="1"/>
+<wire x1="-1.8" y1="1.6" x2="-1.8" y2="-1.6" width="0.127" layer="21"/>
+<wire x1="-1.8" y1="-1.6" x2="1.8" y2="-1.6" width="0.127" layer="21"/>
+<wire x1="1.8" y1="-1.6" x2="1.8" y2="1.6" width="0.127" layer="21"/>
+<wire x1="1.8" y1="1.6" x2="-1.8" y2="1.6" width="0.127" layer="21"/>
+<text x="-1.8" y="-2.88" size="1.016" layer="25" font="vector" ratio="16">&gt;NAME</text>
+<polygon width="0.127" layer="21">
+<vertex x="-1.6" y="2.2" curve="-90"/>
+<vertex x="-1.4" y="2.4" curve="-90"/>
+<vertex x="-1.2" y="2.2" curve="-90"/>
+<vertex x="-1.4" y="2" curve="-90"/>
+</polygon>
+</package>
+<package name="TO-252-3">
+<description>&lt;b&gt;Description:&lt;/b&gt; Footprint for TO-252-3 Standard.&lt;br/&gt;</description>
+<smd name="PAD" x="0" y="0" dx="6.7" dy="6.7" layer="1" rot="R270"/>
+<smd name="1" x="-6.65" y="2.3" dx="3" dy="1.6" layer="1"/>
+<smd name="2" x="-6.65" y="-2.3" dx="3" dy="1.6" layer="1"/>
+<wire x1="3.8" y1="3.8" x2="3.8" y2="-3.8" width="0.127" layer="21"/>
+<wire x1="3.8" y1="-3.8" x2="-8.6" y2="-3.8" width="0.127" layer="21"/>
+<wire x1="-8.6" y1="-3.8" x2="-8.6" y2="3.8" width="0.127" layer="21"/>
+<wire x1="-8.6" y1="3.8" x2="3.8" y2="3.8" width="0.127" layer="21"/>
+<text x="-8.6" y="4.2" size="1.016" layer="25" font="vector" ratio="16">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="DIODE">
@@ -2649,6 +2677,86 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <text x="-2.54" y="2.54" size="1.016" layer="96" font="vector">&gt;VALUE</text>
 <pin name="ANODE" x="-2.54" y="0" visible="off" length="short"/>
 <pin name="CATHODE" x="2.54" y="0" visible="off" length="short" rot="R180"/>
+</symbol>
+<symbol name="N-CHANNEL_FET">
+<description>&lt;b&gt;Description:&lt;/b&gt; Symbol for N-Channel Mosfets.&lt;br/&gt;</description>
+<pin name="GATE" x="-7.62" y="0" visible="off" length="short"/>
+<pin name="DRAIN" x="2.54" y="7.62" visible="off" length="short" rot="R270"/>
+<pin name="SOURCE" x="2.54" y="-7.62" visible="off" length="short" rot="R90"/>
+<circle x="0" y="0" radius="3.81845625" width="0.1524" layer="94"/>
+<text x="-5.08" y="0.254" size="1.016" layer="94" font="vector">G</text>
+<text x="2.794" y="3.81" size="1.016" layer="94" font="vector">D</text>
+<text x="2.794" y="-4.826" size="1.016" layer="94" font="vector">S</text>
+<text x="5.08" y="5.08" size="1.016" layer="95" font="vector" rot="R180" align="bottom-right">&gt;NAME</text>
+<text x="5.08" y="2.54" size="1.016" layer="96" font="vector">&gt;VALUE</text>
+<wire x1="-5.08" y1="0" x2="-1.778" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.778" y1="0" x2="-1.778" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-1.778" y1="0" x2="-1.778" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="5.08" x2="2.54" y2="1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="1.778" x2="-1.016" y2="1.778" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="1.016" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-5.08" x2="2.54" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-1.778" x2="0.762" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="0.762" y1="-1.778" x2="-1.016" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="-1.778" x2="-1.016" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="-1.778" x2="-1.016" y2="-1.016" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0.508" x2="-1.016" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0" x2="-1.016" y2="-0.508" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0" x2="0.762" y2="0" width="0.1524" layer="94"/>
+<wire x1="0.762" y1="0" x2="0.762" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="1.778" x2="2.54" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="2.032" y1="0.254" x2="3.048" y2="0.254" width="0.1524" layer="94"/>
+<polygon width="0.1524" layer="94">
+<vertex x="2.54" y="0.254"/>
+<vertex x="2.032" y="-0.508"/>
+<vertex x="3.048" y="-0.508"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="-1.016" y="0"/>
+<vertex x="-0.254" y="0.508"/>
+<vertex x="-0.254" y="-0.508"/>
+</polygon>
+</symbol>
+<symbol name="P-CHANNEL_FET">
+<description>&lt;b&gt;Description:&lt;/b&gt; Symbol for P-Channel Mosfets.&lt;br/&gt;</description>
+<pin name="GATE" x="-7.62" y="0" visible="off" length="short"/>
+<pin name="DRAIN" x="2.54" y="7.62" visible="off" length="short" rot="R270"/>
+<pin name="SOURCE" x="2.54" y="-7.62" visible="off" length="short" rot="R90"/>
+<circle x="0" y="0" radius="3.81845625" width="0.1524" layer="94"/>
+<text x="-5.08" y="0.254" size="1.016" layer="94" font="vector">G</text>
+<text x="2.794" y="3.81" size="1.016" layer="94" font="vector">D</text>
+<text x="2.794" y="-4.826" size="1.016" layer="94" font="vector">S</text>
+<text x="5.08" y="5.08" size="1.016" layer="95" font="vector" rot="R180" align="bottom-right">&gt;NAME</text>
+<text x="5.08" y="2.54" size="1.016" layer="96" font="vector">&gt;VALUE</text>
+<wire x1="-5.08" y1="0" x2="-1.778" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.778" y1="0" x2="-1.778" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-1.778" y1="0" x2="-1.778" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="5.08" x2="2.54" y2="1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="1.778" x2="-1.016" y2="1.778" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="2.54" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="1.778" x2="-1.016" y2="1.016" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-5.08" x2="2.54" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-1.778" x2="0.762" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="0.762" y1="-1.778" x2="-1.016" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="-1.778" x2="-1.016" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="-1.778" x2="-1.016" y2="-1.016" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0.508" x2="-1.016" y2="0" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0" x2="-1.016" y2="-0.508" width="0.1524" layer="94"/>
+<wire x1="-1.016" y1="0" x2="0.762" y2="0" width="0.1524" layer="94"/>
+<wire x1="0.762" y1="0" x2="0.762" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="1.778" x2="2.54" y2="-1.778" width="0.1524" layer="94"/>
+<wire x1="3.048" y1="-0.508" x2="2.032" y2="-0.508" width="0.1524" layer="94"/>
+<polygon width="0.1524" layer="94">
+<vertex x="2.54" y="-0.508"/>
+<vertex x="3.048" y="0.254"/>
+<vertex x="2.032" y="0.254"/>
+</polygon>
+<polygon width="0.1524" layer="94">
+<vertex x="-0.508" y="0.508"/>
+<vertex x="-0.508" y="-0.508"/>
+<vertex x="0.254" y="0"/>
+</polygon>
 </symbol>
 </symbols>
 <devicesets>
@@ -2705,6 +2813,83 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="POPULATE" value="1" constant="no"/>
 <attribute name="URL" value="https://factory.macrofab.com/part/MF-DIO-SOD123-BAT42" constant="no"/>
 <attribute name="VALUE" value="MF-DIO-SOD123-BAT42" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="N-CHANNEL_FET" prefix="U" uservalue="yes">
+<description>&lt;b&gt;Library:&lt;/b&gt;  MF_Discrete_Semiconductor&lt;br/&gt;
+&lt;b&gt;Description:&lt;/b&gt; Device for Single N-Channel Mosfet. Manufacture part number (MFG#) can be added via Attributes.&lt;br/&gt;</description>
+<gates>
+<gate name="G$1" symbol="N-CHANNEL_FET" x="0" y="0"/>
+</gates>
+<devices>
+<device name="_SOT-23-3" package="SOT-23-3">
+<connects>
+<connect gate="G$1" pin="DRAIN" pad="P$3"/>
+<connect gate="G$1" pin="GATE" pad="P$1"/>
+<connect gate="G$1" pin="SOURCE" pad="P$2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="HOUSEPART" value="NO" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="POPULATE" value="1" constant="no"/>
+<attribute name="URL" value="" constant="no"/>
+</technology>
+<technology name="_BSS138">
+<attribute name="HOUSEPART" value="YES" constant="no"/>
+<attribute name="MPN" value="MF-DSC-SOT233-BSS138" constant="no"/>
+<attribute name="POPULATE" value="1" constant="no"/>
+<attribute name="URL" value="https://factory.macrofab.com/part/MF-DSC-SOT233-BSS138" constant="no"/>
+<attribute name="VALUE" value="MF-DSC-SOT233-BSS138" constant="no"/>
+</technology>
+</technologies>
+</device>
+<device name="_TO-252-3" package="TO-252-3">
+<connects>
+<connect gate="G$1" pin="DRAIN" pad="PAD"/>
+<connect gate="G$1" pin="GATE" pad="1"/>
+<connect gate="G$1" pin="SOURCE" pad="2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="HOUSEPART" value="NO" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="POPULATE" value="1" constant="no"/>
+<attribute name="URL" value="" constant="no"/>
+</technology>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="P-CHANNEL_FET" prefix="U" uservalue="yes">
+<description>&lt;b&gt;Library:&lt;/b&gt;  MF_Discrete_Semiconductor&lt;br/&gt;
+&lt;b&gt;Description:&lt;/b&gt; Device for Single P-Channel Mosfet. Manufacture part number (MFG#) can be added via Attributes.&lt;br/&gt;</description>
+<gates>
+<gate name="G$1" symbol="P-CHANNEL_FET" x="0" y="0"/>
+</gates>
+<devices>
+<device name="_SOT-23-3" package="SOT-23-3">
+<connects>
+<connect gate="G$1" pin="DRAIN" pad="P$3"/>
+<connect gate="G$1" pin="GATE" pad="P$1"/>
+<connect gate="G$1" pin="SOURCE" pad="P$2"/>
+</connects>
+<technologies>
+<technology name="">
+<attribute name="HOUSEPART" value="NO" constant="no"/>
+<attribute name="MPN" value="" constant="no"/>
+<attribute name="POPULATE" value="1" constant="no"/>
+<attribute name="URL" value="" constant="no"/>
+</technology>
+<technology name="_BSS84">
+<attribute name="HOUSEPART" value="YES" constant="no"/>
+<attribute name="MPN" value="MF-DSC-SOT233-BSS84" constant="no"/>
+<attribute name="POPULATE" value="1" constant="no"/>
+<attribute name="URL" value="https://factory.macrofab.com/part/MF-DSC-SOT233-BSS84" constant="no"/>
+<attribute name="VALUE" value="MF-DSC-SOT233-BSS84" constant="no"/>
 </technology>
 </technologies>
 </device>
@@ -3247,7 +3432,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="R3" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
 <attribute name="HOUSEPART" value="1"/>
 </part>
-<part name="R16" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
+<part name="R16" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k">
 <attribute name="HOUSEPART" value="1"/>
 </part>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
@@ -3255,6 +3440,30 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="HOUSEPART" value="1"/>
 </part>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
+<part name="Q4" library="mfdiscretesemi" deviceset="N-CHANNEL_FET" device="_SOT-23-3">
+<attribute name="MPN" value="BSS123"/>
+</part>
+<part name="Q5" library="mfdiscretesemi" deviceset="P-CHANNEL_FET" device="_SOT-23-3">
+<attribute name="MPN" value="ZXMP10A13FTA"/>
+</part>
+<part name="R18" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k 1%">
+<attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="R19" library="mfpassives" deviceset="RESISTOR" device="_0603" value="499k 1%">
+<attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="GND23" library="supply1" deviceset="GND" device=""/>
+<part name="R20" library="mfpassives" deviceset="RESISTOR" device="_0603" value="47k 1%">
+<attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="R22" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
+<attribute name="HOUSEPART" value="1"/>
+</part>
+<part name="D6" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="3V ZENER">
+<attribute name="HOUSEPART" value=""/>
+<attribute name="MPN" value="MMSZ5223BT1G"/>
+<attribute name="URL" value=""/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -3824,7 +4033,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <attribute name="VALUE" x="419.1" y="111.76" size="1.778" layer="96"/>
 </instance>
 <instance part="R26" gate="G$1" x="401.32" y="132.08" smashed="yes" rot="R270">
-<attribute name="NAME" x="402.844" y="129.54" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
+<attribute name="NAME" x="398.78" y="136.144" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="399.796" y="129.54" size="1.016" layer="96" font="vector" rot="R270"/>
 </instance>
 <instance part="D9" gate="A" x="-50.8" y="7.62" smashed="yes" rot="R90">
@@ -3833,23 +4042,54 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <attribute name="MPN" x="-50.8" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
 <attribute name="POPULATE" x="-50.8" y="7.62" size="1.778" layer="96" rot="R90" display="off"/>
 </instance>
-<instance part="R3" gate="G$1" x="396.24" y="129.54" smashed="yes" rot="R270">
-<attribute name="NAME" x="397.764" y="127" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
-<attribute name="VALUE" x="394.716" y="127" size="1.016" layer="96" font="vector" rot="R270"/>
+<instance part="R3" gate="G$1" x="469.9" y="-58.42" smashed="yes" rot="R270">
+<attribute name="NAME" x="471.424" y="-60.96" size="1.016" layer="95" font="vector" rot="R270" align="top-left"/>
+<attribute name="VALUE" x="468.376" y="-60.96" size="1.016" layer="96" font="vector" rot="R270"/>
 </instance>
-<instance part="R16" gate="G$1" x="-43.18" y="-38.1" smashed="yes" rot="R180">
-<attribute name="NAME" x="-45.72" y="-39.624" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
-<attribute name="VALUE" x="-45.72" y="-36.576" size="1.016" layer="96" font="vector" rot="R180"/>
+<instance part="R16" gate="G$1" x="-68.58" y="-38.1" smashed="yes" rot="R180">
+<attribute name="NAME" x="-71.12" y="-39.624" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="-71.12" y="-36.576" size="1.016" layer="96" font="vector" rot="R180"/>
 </instance>
-<instance part="GND15" gate="1" x="-43.18" y="-48.26" smashed="yes">
-<attribute name="VALUE" x="-45.72" y="-50.8" size="1.778" layer="96"/>
+<instance part="GND15" gate="1" x="-68.58" y="-48.26" smashed="yes">
+<attribute name="VALUE" x="-71.12" y="-50.8" size="1.778" layer="96"/>
 </instance>
-<instance part="R17" gate="G$1" x="401.32" y="121.92" smashed="yes">
-<attribute name="NAME" x="403.86" y="123.444" size="1.016" layer="95" font="vector" align="top-left"/>
-<attribute name="VALUE" x="403.86" y="120.396" size="1.016" layer="96" font="vector"/>
+<instance part="R17" gate="G$1" x="474.98" y="-66.04" smashed="yes">
+<attribute name="NAME" x="477.52" y="-64.516" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="477.52" y="-67.564" size="1.016" layer="96" font="vector"/>
 </instance>
-<instance part="GND19" gate="1" x="401.32" y="111.76" smashed="yes">
-<attribute name="VALUE" x="398.78" y="109.22" size="1.778" layer="96"/>
+<instance part="GND19" gate="1" x="474.98" y="-76.2" smashed="yes">
+<attribute name="VALUE" x="472.44" y="-78.74" size="1.778" layer="96"/>
+</instance>
+<instance part="Q4" gate="G$1" x="-55.88" y="-30.48" smashed="yes">
+<attribute name="NAME" x="-50.8" y="-25.4" size="1.016" layer="95" font="vector" rot="R180" align="bottom-right"/>
+<attribute name="VALUE" x="-50.8" y="-27.94" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="Q5" gate="G$1" x="-43.18" y="-10.16" smashed="yes" rot="MR180">
+<attribute name="NAME" x="-38.1" y="-15.24" size="1.016" layer="95" font="vector" rot="MR0" align="bottom-right"/>
+<attribute name="VALUE" x="-38.1" y="-12.7" size="1.016" layer="96" font="vector" rot="MR180"/>
+</instance>
+<instance part="R18" gate="G$1" x="-40.64" y="-43.18" smashed="yes" rot="R180">
+<attribute name="NAME" x="-43.18" y="-44.704" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="-43.18" y="-41.656" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="R19" gate="G$1" x="-40.64" y="-25.4" smashed="yes" rot="R180">
+<attribute name="NAME" x="-43.18" y="-26.924" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="-43.18" y="-23.876" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="GND23" gate="1" x="-40.64" y="-53.34" smashed="yes">
+<attribute name="VALUE" x="-43.18" y="-55.88" size="1.778" layer="96"/>
+</instance>
+<instance part="R20" gate="G$1" x="-53.34" y="-5.08" smashed="yes" rot="R180">
+<attribute name="NAME" x="-55.88" y="-6.604" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="-55.88" y="-3.556" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="R22" gate="G$1" x="-53.34" y="-15.24" smashed="yes" rot="R180">
+<attribute name="NAME" x="-55.88" y="-16.764" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
+<attribute name="VALUE" x="-55.88" y="-13.716" size="1.016" layer="96" font="vector" rot="R180"/>
+</instance>
+<instance part="D6" gate="G$1" x="490.22" y="-66.04" smashed="yes" rot="R90">
+<attribute name="NAME" x="485.14" y="-68.58" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="487.68" y="-68.58" size="1.016" layer="96" font="vector" rot="R90"/>
 </instance>
 </instances>
 <busses>
@@ -4059,12 +4299,25 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <segment>
 <pinref part="R16" gate="G$1" pin="P$1"/>
 <pinref part="GND15" gate="1" pin="GND"/>
-<wire x1="-43.18" y1="-43.18" x2="-43.18" y2="-45.72" width="0.1524" layer="91"/>
+<wire x1="-68.58" y1="-43.18" x2="-68.58" y2="-45.72" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="GND19" gate="1" pin="GND"/>
 <pinref part="R17" gate="G$1" pin="P$2"/>
-<wire x1="401.32" y1="114.3" x2="401.32" y2="116.84" width="0.1524" layer="91"/>
+<wire x1="474.98" y1="-73.66" x2="474.98" y2="-71.12" width="0.1524" layer="91"/>
+<pinref part="D6" gate="G$1" pin="ANODE"/>
+<wire x1="474.98" y1="-73.66" x2="490.22" y2="-73.66" width="0.1524" layer="91"/>
+<wire x1="490.22" y1="-73.66" x2="490.22" y2="-68.58" width="0.1524" layer="91"/>
+<junction x="474.98" y="-73.66"/>
+</segment>
+<segment>
+<pinref part="R18" gate="G$1" pin="P$1"/>
+<pinref part="GND23" gate="1" pin="GND"/>
+<wire x1="-40.64" y1="-48.26" x2="-40.64" y2="-50.8" width="0.1524" layer="91"/>
+<pinref part="Q4" gate="G$1" pin="SOURCE"/>
+<wire x1="-53.34" y1="-38.1" x2="-53.34" y2="-50.8" width="0.1524" layer="91"/>
+<wire x1="-53.34" y1="-50.8" x2="-40.64" y2="-50.8" width="0.1524" layer="91"/>
+<junction x="-40.64" y="-50.8"/>
 </segment>
 </net>
 <net name="VCC" class="1">
@@ -4315,8 +4568,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 </segment>
 <segment>
 <pinref part="R3" gate="G$1" pin="P$2"/>
-<wire x1="391.16" y1="129.54" x2="383.54" y2="129.54" width="0.1524" layer="91"/>
-<label x="383.54" y="129.54" size="1.778" layer="95"/>
+<wire x1="464.82" y1="-58.42" x2="457.2" y2="-58.42" width="0.1524" layer="91"/>
+<label x="457.2" y="-58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PWR_LED" class="0">
@@ -4358,7 +4611,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <junction x="-63.5" y="27.94"/>
 <pinref part="R4" gate="A" pin="1"/>
 <wire x1="-63.5" y1="27.94" x2="-50.8" y2="27.94" width="0.1524" layer="91"/>
-<wire x1="-50.8" y1="27.94" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="-50.8" y1="27.94" x2="-40.64" y2="27.94" width="0.1524" layer="91"/>
+<wire x1="-40.64" y1="27.94" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
 <wire x1="-35.56" y1="27.94" x2="-20.32" y2="27.94" width="0.1524" layer="91"/>
 <pinref part="C12" gate="G$1" pin="P$1"/>
 <wire x1="-35.56" y1="17.78" x2="-35.56" y2="27.94" width="0.1524" layer="91"/>
@@ -4366,6 +4620,13 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="D9" gate="A" pin="1"/>
 <wire x1="-50.8" y1="17.78" x2="-50.8" y2="27.94" width="0.1524" layer="91"/>
 <junction x="-50.8" y="27.94"/>
+<pinref part="Q5" gate="G$1" pin="SOURCE"/>
+<wire x1="-40.64" y1="27.94" x2="-40.64" y2="0" width="0.1524" layer="91"/>
+<junction x="-40.64" y="27.94"/>
+<pinref part="R20" gate="G$1" pin="P$2"/>
+<wire x1="-40.64" y1="0" x2="-40.64" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="-53.34" y1="0" x2="-40.64" y2="0" width="0.1524" layer="91"/>
+<junction x="-40.64" y="0"/>
 </segment>
 <segment>
 <pinref part="DB_VIN" gate="G$1" pin="P$1"/>
@@ -4724,12 +4985,20 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <net name="SNS_PWR_SW" class="0">
 <segment>
 <pinref part="U2" gate="G$1" pin="PA2"/>
-<wire x1="447.04" y1="129.54" x2="401.32" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="447.04" y1="129.54" x2="406.4" y2="129.54" width="0.1524" layer="91"/>
 <label x="429.26" y="129.54" size="1.778" layer="95"/>
+</segment>
+<segment>
 <pinref part="R3" gate="G$1" pin="P$1"/>
 <pinref part="R17" gate="G$1" pin="P$1"/>
-<wire x1="401.32" y1="127" x2="401.32" y2="129.54" width="0.1524" layer="91"/>
-<junction x="401.32" y="129.54"/>
+<wire x1="474.98" y1="-60.96" x2="474.98" y2="-58.42" width="0.1524" layer="91"/>
+<wire x1="474.98" y1="-58.42" x2="490.22" y2="-58.42" width="0.1524" layer="91"/>
+<junction x="474.98" y="-58.42"/>
+<pinref part="D6" gate="G$1" pin="CATHODE"/>
+<wire x1="490.22" y1="-58.42" x2="490.22" y2="-63.5" width="0.1524" layer="91"/>
+<wire x1="490.22" y1="-58.42" x2="502.92" y2="-58.42" width="0.1524" layer="91"/>
+<junction x="490.22" y="-58.42"/>
+<label x="497.84" y="-58.42" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="VIN_SAMP" class="0">
@@ -4975,13 +5244,13 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 </net>
 <net name="TPS_EN" class="0">
 <segment>
-<wire x1="-12.7" y1="-30.48" x2="-43.18" y2="-30.48" width="0.1524" layer="91"/>
-<label x="-48.26" y="-27.94" size="1.778" layer="95"/>
-<pinref part="U3" gate="A" pin="EN"/>
+<label x="-73.66" y="-27.94" size="1.778" layer="95"/>
 <pinref part="R16" gate="G$1" pin="P$2"/>
-<wire x1="-43.18" y1="-30.48" x2="-45.72" y2="-30.48" width="0.1524" layer="91"/>
-<wire x1="-43.18" y1="-33.02" x2="-43.18" y2="-30.48" width="0.1524" layer="91"/>
-<junction x="-43.18" y="-30.48"/>
+<wire x1="-68.58" y1="-30.48" x2="-71.12" y2="-30.48" width="0.1524" layer="91"/>
+<wire x1="-68.58" y1="-33.02" x2="-68.58" y2="-30.48" width="0.1524" layer="91"/>
+<pinref part="Q4" gate="G$1" pin="GATE"/>
+<wire x1="-68.58" y1="-30.48" x2="-63.5" y2="-30.48" width="0.1524" layer="91"/>
+<junction x="-68.58" y="-30.48"/>
 </segment>
 <segment>
 <pinref part="U2" gate="G$1" pin="PC14-OSC32_IN"/>
@@ -4992,6 +5261,39 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <pinref part="DB_LEN" gate="G$1" pin="P$1"/>
 <wire x1="314.96" y1="-7.62" x2="304.8" y2="-7.62" width="0.1524" layer="91"/>
 <label x="307.34" y="-7.62" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$11" class="0">
+<segment>
+<pinref part="Q5" gate="G$1" pin="DRAIN"/>
+<pinref part="R19" gate="G$1" pin="P$2"/>
+<wire x1="-40.64" y1="-17.78" x2="-40.64" y2="-20.32" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$12" class="0">
+<segment>
+<pinref part="U3" gate="A" pin="EN"/>
+<pinref part="R19" gate="G$1" pin="P$1"/>
+<wire x1="-12.7" y1="-30.48" x2="-40.64" y2="-30.48" width="0.1524" layer="91"/>
+<pinref part="R18" gate="G$1" pin="P$2"/>
+<wire x1="-40.64" y1="-30.48" x2="-40.64" y2="-38.1" width="0.1524" layer="91"/>
+<junction x="-40.64" y="-30.48"/>
+</segment>
+</net>
+<net name="N$16" class="0">
+<segment>
+<pinref part="R20" gate="G$1" pin="P$1"/>
+<pinref part="R22" gate="G$1" pin="P$2"/>
+<pinref part="Q5" gate="G$1" pin="GATE"/>
+<wire x1="-53.34" y1="-10.16" x2="-50.8" y2="-10.16" width="0.1524" layer="91"/>
+<junction x="-53.34" y="-10.16"/>
+</segment>
+</net>
+<net name="N$13" class="0">
+<segment>
+<pinref part="R22" gate="G$1" pin="P$1"/>
+<pinref part="Q4" gate="G$1" pin="DRAIN"/>
+<wire x1="-53.34" y1="-20.32" x2="-53.34" y2="-22.86" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
@@ -5011,6 +5313,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <approved hash="104,1,22.86,-25.4,U3,VCC,VSENSE_HIGH,,,"/>
 <approved hash="113,1,201.189,-35.56,D4,,,,,"/>
 <approved hash="113,1,208.809,-35.56,D5,,,,,"/>
+<approved hash="113,1,-58.2041,-30.48,Q4,,,,,"/>
+<approved hash="113,1,-45.5041,-10.16,Q5,,,,,"/>
 </errors>
 </schematic>
 </drawing>
