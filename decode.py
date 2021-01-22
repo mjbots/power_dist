@@ -20,7 +20,7 @@ import struct
 
 def main():
     f = serial.Serial(port='/dev/fdcanusb')
-    PACKET = struct.Struct('<BBHHhIh')
+    PACKET = struct.Struct('<BBHHhIhhBB')
 
     while True:
         line = f.readline()
@@ -35,12 +35,15 @@ def main():
         if fields[1] != b'10004':
             continue
 
-        switch, lock_time, input_10mV, output_10mV, isamp_10mA, energy_uW_hr, fet_temp_C = \
+        (switch, lock_time, input_10mV, output_10mV,
+         isamp_10mA, energy_uW_hr, fet_temp_C, boot_time,
+         state, fault_code) = \
             PACKET.unpack(bytes.fromhex(fields[2].decode('latin1'))[0:PACKET.size])
 
         print(f"sw: {switch}  lock: {lock_time}  input: {input_10mV / 100:.3f} " +
               f"output: {output_10mV / 100:.3f}  isamp: {isamp_10mA / 100:6.3f} " +
-              f"energy Whr: {energy_uW_hr / 1e6:.5f}  fet_temp: {fet_temp_C:3d}")
+              f"energy Whr: {energy_uW_hr / 1e6:.5f}  fet_temp: {fet_temp_C:3d} " +
+              f"time: {boot_time}  state: {state}  fault: {fault_code}")
 
 
 

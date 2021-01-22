@@ -17,6 +17,7 @@
 #include "mjlib/base/assert.h"
 #include "mjlib/micro/async_exclusive.h"
 #include "mjlib/micro/async_stream.h"
+#include "mjlib/micro/callback_table.h"
 #include "mjlib/micro/command_manager.h"
 #include "mjlib/micro/persistent_config.h"
 #include "mjlib/micro/pool_ptr.h"
@@ -562,7 +563,12 @@ uint16_t SampleAdcAverage(ADC_TypeDef* adc, int count) {
   return total / count;
 }
 
+const int kShutdownTimeoutMs = 5000;
+
 void RunRev2() {
+  DigitalOut gpio1(GPIO1, 1);
+  DigitalOut gpio2(GPIO2, 0);
+
   micro::SizedPool<14000> pool;
 
   fw::MillisecondTimer timer;
@@ -603,15 +609,20 @@ void RunRev2() {
   persistent_config.Load();
 
 
+  State state = kPowerOff;
+
   DigitalOut led1(DEBUG_LED1, 1);
   // DigitalOut led2(DEBUG_LED2, 1);
 
   DigitalOut switch_led(PWR_LED);
   DigitalIn power_switch(PWR_SW);
+  InterruptIn tps2490_flt(TPS2490_FLT);
 
   // We start overriding 3V3, but not overall power.
   DigitalOut override_pwr(OVERRIDE_PWR, 0);
   DigitalOut override_3v3(OVERRIDE_3V3, 1);
+
+  int fault_code = 0;
 
   // Initialize our analog in pins:
   {
@@ -648,14 +659,20 @@ void RunRev2() {
 
   uint32_t last_can = 0;
 
-  char can_status_data[14] = {
+  char can_status_data[18] = {
     0, // switch status
     0, // lock time in 0.1s
     0, 0,  // voltage
     0, 0,  // isamp_out
     0, 0, 0, 0,  // energy in uW*hr
     0, 0,  // fet_temp
+    0, 0,  // boot time
+    0,  // state
+    0,  // fault
   };
+
+  int32_t shutdown_timer_ms = 0;
+  int32_t precharge_timeout_ms = 0;
 
   char can_command_data[8] = {};
 
@@ -666,6 +683,9 @@ void RunRev2() {
   int16_t& out_isamp_10mA = reinterpret_cast<int16_t&>(can_status_data[6]);
   uint32_t& out_energy_uW_hr = reinterpret_cast<uint32_t&>(can_status_data[8]);
   int16_t& out_fet_temp_C = reinterpret_cast<int16_t&>(can_status_data[12]);
+  uint16_t& out_boot_time = reinterpret_cast<uint16_t&>(can_status_data[14]);
+  int8_t& out_state = reinterpret_cast<int8_t&>(can_status_data[16]);
+  int8_t& out_fault_code = reinterpret_cast<int8_t&>(can_status_data[17]);
 
   uint32_t energy_uW_hr = 0;
 
@@ -704,6 +724,18 @@ void RunRev2() {
   // Read ADC5 before we start powering anything.
   const uint16_t isamp_offset = SampleAdcAverage(ADC5, 64);
 
+  auto callback = mjlib::micro::CallbackTable::MakeFunction(
+      [&]() {
+        gpio2.write(!gpio2.read());
+        if (state == kPrecharging || state == kPowerOn) {
+          fault_code = 3;
+          state = kFault;
+        }
+      });
+
+  tps2490_flt.fall(callback.raw_function);
+
+  gpio1.write(0);
 
   while (true) {
     const auto now = timer.read_ms() / 100;
@@ -736,26 +768,92 @@ void RunRev2() {
 
     power_switch_status = (power_switch.read() == 0) ? 0 : 1;
 
-    if (power_switch_status == 1) {
-      override_pwr.write(1);
-      led1.write(0);
-      switch_led.write(1);
-      lock_time = 3;
-    } else if (lock_time == 0) {
-      override_pwr.write(0);
-      switch_led.write(0);
-      // override_3v3.write(0);
-      led1.write(1);
+    // First take our actions.
+    switch (state) {
+      case kPowerOff: {
+        switch_led.write(0);
+        override_pwr.write(0);
+        led1.write(1);
+        override_3v3.write(shutdown_timer_ms > 0);
+        break;
+      }
+      case kPrecharging: {
+        override_pwr.write(1);
+        override_3v3.write(1);
+        switch_led.write((timer.read_ms() / 20) % 2);
+        led1.write(0);
+        break;
+      }
+      case kPowerOn: {
+        override_pwr.write(1);
+        override_3v3.write(1);
+        switch_led.write(1);
+        led1.write(0);
+        break;
+      }
+      case kFault: {
+        override_pwr.write(0);
+        override_3v3.write(1);
+        const int cycle = (timer.read_ms() / 200);
+        const bool on = (cycle % 2) && (cycle % 8) < (fault_code * 2);
+        switch_led.write(on ? 1 : 0);
+        led1.write(on ? 0 : 1);
+        break;
+      }
     }
 
-    // TODO Update the switch LED.
 
+    // Now see if we need to change.
+    switch (state) {
+      case kPowerOff: {
+        fault_code = 0;
+        if (power_switch_status == 1) {
+          precharge_timeout_ms = 80;
+          state = kPrecharging;
+        }
+        break;
+      }
+      case kPrecharging: {
+        fault_code = 0;
+        if (tps2490_flt.read() == 1) {
+          state = kPowerOn;
+        } else if (power_switch_status == 0) {
+          state = kPowerOff;
+        } else if (precharge_timeout_ms == 0) {
+          fault_code = 1;
+          state = kFault;
+        }
+        shutdown_timer_ms = kShutdownTimeoutMs;
+        break;
+      }
+      case kPowerOn: {
+        fault_code = 0;
+        if (tps2490_flt.read() == 0) {
+          state = kFault;
+          fault_code = 2;
+        } else if (power_switch_status == 0) {
+          state = kPowerOff;
+        }
+        shutdown_timer_ms = kShutdownTimeoutMs;
+        break;
+      }
+      case kFault: {
+        if (power_switch_status == 0) {
+          state = kPowerOff;
+        }
+        shutdown_timer_ms = kShutdownTimeoutMs;
+        break;
+      }
+    }
 
     const auto new_time = timer.read_ms();
     if (new_time != old_time) {
       telemetry_manager.PollMillisecond();
 
       old_time = new_time;
+
+      if (shutdown_timer_ms) { shutdown_timer_ms--; }
+      if (precharge_timeout_ms) { precharge_timeout_ms--; }
 
       ADC2->SQR1 =
           (0 << ADC_SQR1_L_Pos) | // length 1
@@ -806,6 +904,10 @@ void RunRev2() {
       }
 
       Store(out_energy_uW_hr, energy_uW_hr);
+      Store(out_boot_time, static_cast<uint16_t>(timer.read_ms() / 10));
+      Store(out_state, static_cast<int8_t>(state));
+      Store(out_fault_code, static_cast<int8_t>(fault_code));
+
     }
   }
 }
@@ -814,8 +916,11 @@ void RunRev2() {
 }
 
 ADC_TypeDef* const g_adc5 = ADC5;
+volatile uint32_t rcc_csr = 0;
 
 int main(void) {
+  rcc_csr = RCC->CSR;
+
 #if POWER_DIST_HW_REV < 1
   // Drop our speed down to nothing, because we don't really need to
   // go fast for this and we might as well save the battery.
