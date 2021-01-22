@@ -1561,28 +1561,28 @@
 <wire x1="-3.5" y1="-3.5" x2="-3.5" y2="3.5" width="0.1" layer="21"/>
 <wire x1="-3.5" y1="3" x2="-3" y2="3.5" width="0.1" layer="21"/>
 <polygon width="0.127" layer="31">
-<vertex x="-2.75" y="2.75"/>
-<vertex x="-0.25" y="2.75"/>
-<vertex x="-0.25" y="0.25"/>
-<vertex x="-2.75" y="0.25"/>
+<vertex x="-2.5" y="2.5"/>
+<vertex x="-0.5" y="2.5"/>
+<vertex x="-0.5" y="0.5"/>
+<vertex x="-2.5" y="0.5"/>
 </polygon>
 <polygon width="0.127" layer="31">
-<vertex x="0.25" y="2.75"/>
-<vertex x="2.7" y="2.75"/>
-<vertex x="2.7" y="0.25"/>
-<vertex x="0.25" y="0.25"/>
+<vertex x="0.5" y="2.5"/>
+<vertex x="2.5" y="2.5"/>
+<vertex x="2.5" y="0.5"/>
+<vertex x="0.5" y="0.5"/>
 </polygon>
 <polygon width="0.127" layer="31">
-<vertex x="-2.75" y="-0.25"/>
-<vertex x="-0.25" y="-0.25"/>
-<vertex x="-0.25" y="-2.7"/>
-<vertex x="-2.75" y="-2.7"/>
+<vertex x="-2.5" y="-0.5"/>
+<vertex x="-0.5" y="-0.5"/>
+<vertex x="-0.5" y="-2.5"/>
+<vertex x="-2.5" y="-2.5"/>
 </polygon>
 <polygon width="0.127" layer="31">
-<vertex x="0.25" y="-0.25"/>
-<vertex x="2.7" y="-0.25"/>
-<vertex x="2.7" y="-2.7"/>
-<vertex x="0.25" y="-2.7"/>
+<vertex x="0.5" y="-0.5"/>
+<vertex x="2.5" y="-0.5"/>
+<vertex x="2.5" y="-2.5"/>
+<vertex x="0.5" y="-2.5"/>
 </polygon>
 </package>
 </packages>
