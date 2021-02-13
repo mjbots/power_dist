@@ -3080,7 +3080,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="POPULATE" value="0"/>
 </part>
 <part name="P7" library="power_dist" deviceset="XT90" device="PW-M">
-<attribute name="POPULATE" value="0"/>
+<attribute name="POPULATE" value="1"/>
 </part>
 <part name="P1" library="precharge" deviceset="XT30" device="P">
 <attribute name="MF" value="AMASS"/>
@@ -3141,9 +3141,10 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-CAP-0603-1uF"/>
 </part>
-<part name="C10" library="mfpassives" deviceset="CAPACITOR_NP" device="_1206" value="10uF 50V">
-<attribute name="MF" value="TDK"/>
-<attribute name="MPN" value="C3216X7R1H106K160AE"/>
+<part name="C10" library="mfpassives" deviceset="CAPACITOR_NP" device="_1206" value="10uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MF" value=""/>
+<attribute name="MPN" value="MF-CAP-1206-10uF"/>
 </part>
 <part name="J1" library="precharge" deviceset="JST-ZH6" device="SMT_VERT">
 <attribute name="MF" value="JST"/>
@@ -3210,9 +3211,10 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <attribute name="MPN" value="CBC3225T330KR"/>
 <attribute name="POPULATE" value="1"/>
 </part>
-<part name="C4" library="mfpassives" deviceset="CAPACITOR_NP" device="_1206" value="10uF 50V">
-<attribute name="MF" value="TDK"/>
-<attribute name="MPN" value="C3216X7R1H106K160AE"/>
+<part name="C4" library="mfpassives" deviceset="CAPACITOR_NP" device="_1206" value="10uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MF" value=""/>
+<attribute name="MPN" value="MF-CAP-1206-10uF"/>
 </part>
 <part name="P+5" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
@@ -3299,7 +3301,10 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="R1" library="mfpassives" deviceset="RESISTOR" device="_0603" value="DNP">
 <attribute name="POPULATE" value="0"/>
 </part>
-<part name="U5" library="LT1787HVIMS8PBF" deviceset="LT1787HVIMS8PBF" device=""/>
+<part name="U5" library="LT1787HVIMS8PBF" deviceset="LT1787HVIMS8PBF" device="">
+<attribute name="MPN" value="LT1787HVIMS8"/>
+<attribute name="POPULATE" value="1"/>
+</part>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
 <part name="C17" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.1uF">
 <attribute name="HOUSEPART" value="1"/>
@@ -3312,30 +3317,37 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="R5" library="mfpassives" deviceset="RESISTOR" device="_0603" value="10">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-10"/>
 </part>
 <part name="R6" library="mfpassives" deviceset="RESISTOR" device="_0603" value="1k">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-1K"/>
 </part>
 <part name="C13" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="27nF">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="CL10B273KB8NNNC"/>
 </part>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="C14" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="10nF">
 <attribute name="HOUSEPART" value="1"/>
-<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
+<attribute name="MPN" value="MF-CAP-0603-0.01uF"/>
 </part>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
 <part name="R11" library="mfpassives" deviceset="RESISTOR" device="_0603" value="3M 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-073ML"/>
 </part>
 <part name="R12" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07200KL"/>
 </part>
 <part name="R13" library="mfpassives" deviceset="RESISTOR" device="_0603" value="3M 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-073ML"/>
 </part>
 <part name="R14" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07200KL"/>
 </part>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="P+6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
@@ -3346,6 +3358,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="D1" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="MF-DIO-SOD123-1N4148"/>
 <part name="R2" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-100K"/>
 </part>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="C19" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.01uF">
@@ -3368,16 +3381,21 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="DB_IS" library="precharge" deviceset="PAD" device="24AWG_PAD">
 <attribute name="POPULATE" value="0"/>
 </part>
-<part name="U3" library="TPS2490DGSR" deviceset="TPS2490DGSR" device=""/>
+<part name="U3" library="TPS2490DGSR" deviceset="TPS2490DGSR" device="">
+<attribute name="MPN" value="TPS2490DGSR"/>
+<attribute name="POPULATE" value="1"/>
+</part>
 <part name="R7" library="mfpassives" deviceset="RESISTOR" device="_0603" value="47k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-0747KL"/>
 </part>
 <part name="R8" library="mfpassives" deviceset="RESISTOR" device="_0603" value="6.8k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-076K8L"/>
 </part>
 <part name="C12" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value=".1uF 100V">
-<attribute name="HOUSEPART" value="1"/>
-<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="GRM188R72A104KA35D"/>
 </part>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="U6" library="power_dist" deviceset="STLM20DD9F" device="UDFN-4L_STM-L">
@@ -3399,6 +3417,7 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="GND27" library="supply1" deviceset="GND" device=""/>
 <part name="R21" library="mfpassives" deviceset="RESISTOR" device="_0603" value="33k">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="RC0603FR-0733KL"/>
 </part>
 <part name="P+17" library="supply1" deviceset="VCC" device=""/>
 <part name="DB_IBUF" library="precharge" deviceset="PAD" device="24AWG_PAD">
@@ -3413,9 +3432,11 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </part>
 <part name="R24" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
 </part>
 <part name="R25" library="mfpassives" deviceset="RESISTOR" device="_0603" value="DNP">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="POPULATE" value="0"/>
 </part>
 <part name="C23" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="DNP">
 <attribute name="HOUSEPART" value="1"/>
@@ -3424,20 +3445,24 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="GND28" library="supply1" deviceset="GND" device=""/>
 <part name="R26" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
 </part>
 <part name="D9" library="power_dist" deviceset="SMBJ51CA-E3/52" device="214AB" value="SMBJ51CA-E3/52214AB">
 <attribute name="MPN" value="SMC5K51A-M3/I"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="R3" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07200KL"/>
 </part>
 <part name="R16" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-100K"/>
 </part>
 <part name="GND15" library="supply1" deviceset="GND" device=""/>
 <part name="R17" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07200KL"/>
 </part>
 <part name="GND19" library="supply1" deviceset="GND" device=""/>
 <part name="Q4" library="mfdiscretesemi" deviceset="N-CHANNEL_FET" device="_SOT-23-3">
@@ -3446,22 +3471,26 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <part name="Q5" library="mfdiscretesemi" deviceset="P-CHANNEL_FET" device="_SOT-23-3">
 <attribute name="MPN" value="ZXMP10A13FTA"/>
 </part>
-<part name="R18" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<part name="R18" library="mfpassives" deviceset="RESISTOR" device="_0603" value="140k 1%">
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07140KL"/>
 </part>
 <part name="R19" library="mfpassives" deviceset="RESISTOR" device="_0603" value="499k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-07499KL"/>
 </part>
 <part name="GND23" library="supply1" deviceset="GND" device=""/>
 <part name="R20" library="mfpassives" deviceset="RESISTOR" device="_0603" value="47k 1%">
-<attribute name="HOUSEPART" value="1"/>
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="RC0603FR-0747KL"/>
 </part>
-<part name="R22" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
+<part name="R22" library="mfpassives" deviceset="RESISTOR" device="_0603" value="100k">
 <attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-100K"/>
 </part>
 <part name="D6" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="3V ZENER">
 <attribute name="HOUSEPART" value=""/>
-<attribute name="MPN" value="MMSZ5223BT1G"/>
+<attribute name="MPN" value="MMSZ4682T1G"/>
 <attribute name="URL" value=""/>
 </part>
 </parts>
@@ -3504,6 +3533,9 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <text x="358.14" y="40.64" size="7.62" layer="90" font="vector">INTERFACE</text>
 <text x="518.16" y="177.8" size="1.778" layer="91">PC13/PA15/PC6 Version
 101</text>
+<text x="-55.88" y="-10.16" size="1.778" layer="91" rot="R180">If this is revved, put a zener in 
+parallel with R20 so that R20 
+can be equal to R22.</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="-27.94" y="177.8" smashed="yes">
@@ -3850,6 +3882,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="U5" gate="A" x="205.74" y="22.86" smashed="yes">
 <attribute name="NAME" x="231.5054" y="31.98206875" size="2.083590625" layer="95" ratio="6" rot="SR0"/>
 <attribute name="VALUE" x="230.8931" y="29.4471" size="2.085490625" layer="96" ratio="6" rot="SR0"/>
+<attribute name="MPN" x="205.74" y="22.86" size="1.778" layer="96" display="off"/>
+<attribute name="POPULATE" x="205.74" y="22.86" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="GND10" gate="1" x="203.2" y="7.62" smashed="yes">
 <attribute name="VALUE" x="200.66" y="5.08" size="1.778" layer="96"/>
@@ -3955,6 +3989,8 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <instance part="U3" gate="A" x="5.08" y="-38.1" smashed="yes">
 <attribute name="NAME" x="-7.62" y="-21.86" size="2.0828" layer="95" ratio="10" rot="SR0"/>
 <attribute name="VALUE" x="-7.62" y="-57.34" size="2.0828" layer="96" ratio="10" rot="SR0"/>
+<attribute name="MPN" x="5.08" y="-38.1" size="1.778" layer="96" display="off"/>
+<attribute name="POPULATE" x="5.08" y="-38.1" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="R7" gate="G$1" x="43.18" y="-40.64" smashed="yes" rot="R180">
 <attribute name="NAME" x="40.64" y="-42.164" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
