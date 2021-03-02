@@ -144,7 +144,7 @@ enum class Register {
   kBootTime = 0x004,
   kOutputVoltage = 0x010,
   kOutputCurrent = 0x011,
-  kTemperature = 0x12,
+  kTemperature = 0x012,
   kEnergy = 0x013,
 };
 
@@ -562,10 +562,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       case Register::kEnergy: {
         const auto e = status_.energy_uW_hr;
         switch (type) {
-          case 0: return static_cast<int8_t>(e / 1000000);
-          case 1: return static_cast<int16_t>(e / 10000);
-          case 2: return static_cast<int32_t>(e);
-          case 3: return static_cast<float>(e) / 1000000.0f;
+          case 0: return Value(static_cast<int8_t>(e / 1000000));
+          case 1: return Value(static_cast<int16_t>(e / 10000));
+          case 2: return Value(static_cast<int32_t>(e));
+          case 3: return Value(static_cast<float>(e) / 1000000.0f);
         }
         MJ_ASSERT(false);
       }
