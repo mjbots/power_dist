@@ -1,4 +1,4 @@
-// Copyright 2020 Josh Pieper, jjp@pobox.com.
+// Copyright 2020-2021 Josh Pieper, jjp@pobox.com.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -26,15 +26,18 @@ struct GitInfo {
 
   std::array<uint8_t, 20> hash = {{}};
   bool dirty = false;
+  uint64_t timestamp = 0;
 
   template <typename Archive>
   void Serialize(Archive* a) {
     a->Visit(MJ_NVP(hash));
     a->Visit(MJ_NVP(dirty));
+    a->Visit(MJ_NVP(timestamp));
   }
 };
 
 extern char kGitHash[41];
 extern char kGitDirty[10];
+extern uint64_t kGitTimestamp;
 
 }

@@ -1,4 +1,4 @@
-// Copyright 2020 Josh Pieper, jjp@pobox.com.
+// Copyright 2020-2021 Josh Pieper, jjp@pobox.com.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,9 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <cstdint>
+
 namespace fw {
 
 char kGitHash[41] = BUILD_SCM_REVISION;
 char kGitDirty[10] = BUILD_SCM_STATUS;
+uint64_t kGitTimestamp = BUILD_TIMESTAMP;
 
 }

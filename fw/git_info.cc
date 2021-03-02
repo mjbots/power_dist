@@ -1,4 +1,4 @@
-// Copyright 2020 Josh Pieper, jjp@pobox.com.
+// Copyright 2020-2021 Josh Pieper, jjp@pobox.com.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -43,8 +43,10 @@ GitInfo::GitInfo() {
 
     dirty = kGitDirty[0] != '0';
   }
+  timestamp = kGitTimestamp;
 }
 
 char kGitHash[41] __attribute__((weak)) = {};
 char kGitDirty[10] __attribute__((weak)) = {};
+uint64_t kGitTimestamp __attribute__((weak)) = 0;
 }
