@@ -59,6 +59,11 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
     return properties;
   }
 
+  void Poll() {
+    Poll(&rx_header_, mjlib::base::string_span(
+             &ignored_data_[0], sizeof(ignored_data_)));
+  }
+
   bool Poll(FDCAN_RxHeaderTypeDef* header, mjlib::base::string_span data) {
     const bool got_data = fdcan_->Poll(header, data);
     if (!got_data) { return false; }
@@ -118,6 +123,9 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
   mjlib::base::string_span current_read_data_;
 
   char buf_[64] = {};
+
+  FDCAN_RxHeaderTypeDef rx_header_ = {};
+  char ignored_data_[64] = {};
 };
 
 }
