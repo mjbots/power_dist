@@ -496,7 +496,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
              return options;
            }()),
       fdcan_micro_server_(&can_),
-      multiplex_protocol_(&pool_, &fdcan_micro_server_, {}) {}
+      multiplex_protocol_(&pool_, &fdcan_micro_server_, {}) {
+    multiplex_protocol_.config()->id = 32;
+  }
 
   /// multiplex::MicroServer
 
