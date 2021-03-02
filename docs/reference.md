@@ -2,71 +2,134 @@ mjbots power dist reference
 
 # A. Operation #
 
-This documentation refers to the most recent (r3.1) version of the
+This documentation refers to the most recent (r4.3b) version of the
 board.
 
-The power dist board provides pre-charging, a soft power switch, and a
-power connector fanout for use in robotic applications.  The input can
-be directly connected to a battery or power supply.  The output can be
-connected to high capacitance loads.  When the switch is enabled, the
-board will first apply power through a limiting resistor to "charge
-up" the output capacitance for 100ms before connecting the low
-impedance source.
+The power dist board provides pre-charging, energy monitoring,
+over-current protection, a soft power switch, and a power connector
+fanout for use in robotic applications.  The input can be directly
+connected to a battery or power supply.  The output can be connected
+to high capacitance loads.
 
-Additionally, a 125 kbps CAN port allows robot software to monitor the
-state of the switch and request a "soft power down".
+Additionally, a CAN-FD port allows host software to monitor the state
+of the switch, input voltage, power, and energy, and request that
+shutdown be delayed to accomplish a "soft power down".
 
-## Specifications ##
+# A. Register command set #
 
-* Input voltage: 8-34V
-* Peak current: 90A
-* Continuous current: 45A
-* Quiescent current (off): 3mA
-* Dimensions: 45x70mm
-* Mass: 28.3g
-* Connectors:
-  * Input: Optional Amass XT90
-  * Output: 6x Amass XT30
-  * CAN: 2x JST-PH3
-  * Switch and LED: JST-PH4
-  * STM32 SWD: JST-ZH6
+The power_dist uses the same register framing and CAN-FD as the mjbots moteus controllers, with alternate definitions for the registers.  [moteus reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#a-register-command-set)
 
-## Mounting ##
+## A.2 ##
 
-4x M2.5 mounting holes are provided in a 64mm x 39mm rectangular
+The following additional mappings are provided.
+
+### A.2.a Energy (measured in W*hr) ###
+
+- int8 => 1 LSB => 1 W*hr
+- int16 => 1 LSB => 0.01 W*hr
+- int32 => 1 LSB => 0.000001 W*hr
+
+## Registers ##
+
+### 0x000 - State ###
+
+Mode: Read/write
+
+The current operational state of the power_dist.  Only some values may
+be written.
+
+- 0 => power off
+- 1 => precharging (read only)
+- 2 => power on
+- 3 => fault (read only)
+
+If power off is commanded over CAN, the device will not enter sleep,
+which differs from the behavior when power off is achived through the
+physical switch.
+
+### 0x001 - Fault Code ###
+
+Mode: Read only
+
+A 7 bit fault code.
+
+### 0x002 - Switch status ###
+
+Mode: Read only
+
+Zero if the switch is current turned off, non-zero otherwise.
+
+### 0x003 - Lock time ###
+
+Mode: Read/write
+
+Power will be maintained for this long after the switch has been
+turned off.
+
+### 0x004 - Boot time ###
+
+Mode: Read
+
+Time since the processor was powered.
+
+### 0x010 - Output Voltage ###
+
+Mode: Read only
+
+The current output voltage
+
+### 0x011 - Output Current ###
+
+Mode: Read only
+
+The current output current.
+
+### 0x012 - Temperature ###
+
+Mode: Read only
+
+The current output FET temperature.
+
+### 0x013 - Energy ###
+
+Mode: Read only
+
+Total energy provided to the downstream port since power was enabled.
+
+# B. diagnostic command set #
+
+All `tel` and `conf` class commands from [moteus
+reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#b-diagnostic-command-set)
+are supported.  In addition, the following diagnostic mode commands
+are available.
+
+## `d lock` ##
+
+Request that the lock time be set to the given number of seconds.
+
+```
+d lock <time_in_seconds>
+```
+
+
+# C. Mechanical / Electrical #
+
+## Mechanical ##
+
+4x M2.5 mounting holes are provided in a 74mm x 44mm rectangular
 pattern.
 
-# B. CAN protocol #
+## Pinout ##
 
-The power dist board emits the following CAN frame at 10Hz.
-
-* CAN ID: 0x10004
-* byte 0: Switch status (0 is off, 1 is on)
-* byte 1: Lock time in 0.1s intervals
-
-It listens for a frame of the following properties:
-
-* CAN ID: 0x10005
-* byte 0: Reserved, keep at 0
-* byte 1: Lock time in 0.1s intervals
-
-While the lock time is non-zero, the power switch will not turn off
-the output load until the count does reach zero.  An application which
-desires soft power down can periodically "kick" the lock interval to
-keep power applied, then stop doing so when it is ready for the power
-to turn off.
-
-# C. pinout #
-
-## XT-90 Input ##
+### XT-90 Input ###
 
 The XT-90 connector has a `-` and a `+` imprint on the housing.
 
-## XT-30 Output ##
+### XT-30 Output ###
 
 The XT-30 connectors have a `-` and a `+` imprint on the housing.
 
-## JST PH-4 Switch ##
+### JST PH-4 Switch ###
 
 Looking at the pins of the connector from the top with the mjbots logo
 right side up the pins are numbered from right to left.
@@ -76,7 +139,7 @@ right side up the pins are numbered from right to left.
  - 3 - SWP - Switch positive
  - 4 - SWG - Switch ground
 
-## JST PH-3 CAN ##
+### JST PH-3 CAN ###
 
 Looking at the pins of the connector with the mjbots logo right side
 up, the pins are numbered from the bottom to the top.
@@ -85,11 +148,25 @@ up, the pins are numbered from the bottom to the top.
  - 2 - CAN_L
  - 3 - GND
 
-NOTE: This ground IS NOT the same as the output ground.  DO NOT
-connect ground from the CAN connector to an output load.  `CAN_H` and
-`CAN_L` are fine to connect, just not ground.
+NOTE 1: CAN connections should be terminated by a 120 ohm resistor at
+both ends of a bus.  Some mjbots products have built in termination
+resistors, such as the pi3hat.  The fdcanusb has a software
+configurable termination resistor that is by default on.  The
+power_dist board has no termination resistors.  For very short runs,
+the system will work terminated only on one side.  However, when runs
+become longer than 0.5m, you will likely need to terminate both ends.
+This can be done by crimping a 120 ohm resistor into a JST PH3
+connector and connecting it to the open data connector.
 
-## JST ZH-6 SWD ##
+NOTE 2: Ground may not be necessary, only one path through ground in a
+system should exist to avoid ground loops.  In a typical robot
+application with a common ground, that role is filled by the power
+ground.  However, in desktop applications, it may be appropriate to
+connect the CAN ground if the device power supply is otherwise
+isolated.
+
+
+### JST ZH-6 SWD ###
 
 Looking at the pins of the connector with the mjbots logo right side
 up the pins are numbered 1 to 6 from top to bottom.
