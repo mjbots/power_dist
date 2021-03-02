@@ -51,6 +51,7 @@ mbed_binary(
     deps = [
         ":git_info",
         "@com_github_mjbots_mjlib//mjlib/base:assert",
+        "@com_github_mjbots_mjlib//mjlib/base:tokenizer",
         "@com_github_mjbots_mjlib//mjlib/base:limit",
         "@com_github_mjbots_mjlib//mjlib/base:string_span",
         "@com_github_mjbots_mjlib//mjlib/micro:async_exclusive",

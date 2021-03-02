@@ -15,6 +15,7 @@
 #include "mbed.h"
 
 #include "mjlib/base/assert.h"
+#include "mjlib/base/tokenizer.h"
 #include "mjlib/base/limit.h"
 #include "mjlib/micro/async_exclusive.h"
 #include "mjlib/micro/async_stream.h"
@@ -34,6 +35,7 @@
 #include "fw/power_dist_hw.h"
 #include "fw/stm32g4_flash.h"
 
+namespace base = mjlib::base;
 namespace micro = mjlib::micro;
 namespace multiplex = mjlib::multiplex;
 using Value = multiplex::MicroServer::Value;
@@ -629,6 +631,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   }
 
   void Setup() {
+    command_manager_.Register(
+        "p", std::bind(&PowerDist::HandleCommand, this,
+                       std::placeholders::_1, std::placeholders::_2));
+
     persistent_config_.Register("id", multiplex_protocol_.config(), [](){});
     telemetry_manager_.Register("git", &git_info_);
     telemetry_manager_.Register("power", &status_);
@@ -636,6 +642,36 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
     SetupAnalogGpio();
     SetupAnalog();
+  }
+
+  void HandleCommand(const std::string_view& message,
+                     const micro::CommandManager::Response& response) {
+    base::Tokenizer tokenizer(message, " ");
+    const auto cmd_text = tokenizer.next();
+    if (cmd_text == "lock") {
+      const auto time_100ms = tokenizer.next();
+      if (time_100ms.empty()) {
+        WriteMessage(response, "ERR invalid time\r\n");
+        return;
+      }
+
+      status_.lock_time_100ms =
+          std::strtol(time_100ms.data(), nullptr, 10);
+
+      WriteOk(response);
+      return;
+    }
+
+    WriteMessage(response, "ERR unknown command\r\n");
+  }
+
+  void WriteOk(const micro::CommandManager::Response& response) {
+    WriteMessage(response, "OK\r\n");
+  }
+
+  void WriteMessage(const micro::CommandManager::Response& response,
+                    const std::string_view& message) {
+    AsyncWrite(*response.stream, message, response.callback);
   }
 
   void Run() {
