@@ -15,6 +15,7 @@
 #include "mbed.h"
 
 #include "mjlib/base/assert.h"
+#include "mjlib/base/limit.h"
 #include "mjlib/micro/async_exclusive.h"
 #include "mjlib/micro/async_stream.h"
 #include "mjlib/micro/callback_table.h"
@@ -35,6 +36,8 @@
 
 namespace micro = mjlib::micro;
 namespace multiplex = mjlib::multiplex;
+using Value = multiplex::MicroServer::Value;
+using mjlib::base::Limit;
 
 namespace {
 
@@ -42,6 +45,106 @@ template <typename T>
 void Store(T& out, T value) {
   std::memcpy(&out, &value, sizeof(value));
 }
+
+template <typename T>
+Value IntMapping(T value, size_t type) {
+  switch (type) {
+    case 0: return static_cast<int8_t>(value);
+    case 1: return static_cast<int16_t>(value);
+    case 2: return static_cast<int32_t>(value);
+    case 3: return static_cast<float>(value);
+  }
+  MJ_ASSERT(false);
+  return static_cast<int8_t>(0);
+}
+
+template <typename T>
+Value ScaleSaturate(float value, float scale) {
+  if (!std::isfinite(value)) {
+    return std::numeric_limits<T>::min();
+  }
+
+  const float scaled = value / scale;
+  const auto max = std::numeric_limits<T>::max();
+  // We purposefully limit to +- max, rather than to min.  The minimum
+  // value for our two's complement types is reserved for NaN.
+  return Limit<T>(static_cast<T>(scaled), -max, max);
+}
+
+Value ScaleMapping(float value,
+                   float int8_scale, float int16_scale, float int32_scale,
+                   size_t type) {
+  switch (type) {
+    case 0: return ScaleSaturate<int8_t>(value, int8_scale);
+    case 1: return ScaleSaturate<int16_t>(value, int16_scale);
+    case 2: return ScaleSaturate<int32_t>(value, int32_scale);
+    case 3: return Value(value);
+  }
+  MJ_ASSERT(false);
+  return Value(static_cast<int8_t>(0));
+}
+
+Value ScaleTemperature(float value, size_t type) {
+  return ScaleMapping(value, 1.0f, 0.1f, 0.001f, type);
+}
+
+Value ScaleCurrent(float value, size_t type) {
+  // For now, current and temperature have identical scaling.
+  return ScaleTemperature(value, type);
+}
+
+Value ScaleVoltage(float value, size_t type) {
+  return ScaleMapping(value, 0.5f, 0.1f, 0.001f, type);
+}
+
+int8_t ReadIntMapping(Value value) {
+  return std::visit([](auto a) {
+      return static_cast<int8_t>(a);
+    }, value);
+}
+
+struct ValueScaler {
+  float int8_scale;
+  float int16_scale;
+  float int32_scale;
+
+  float operator()(int8_t value) const {
+    if (value == std::numeric_limits<int8_t>::min()) {
+      return std::numeric_limits<float>::quiet_NaN();
+    }
+    return value * int8_scale;
+  }
+
+  float operator()(int16_t value) const {
+    if (value == std::numeric_limits<int16_t>::min()) {
+      return std::numeric_limits<float>::quiet_NaN();
+    }
+    return value * int16_scale;
+  }
+
+  float operator()(int32_t value) const {
+    if (value == std::numeric_limits<int32_t>::min()) {
+      return std::numeric_limits<float>::quiet_NaN();
+    }
+    return value * int32_scale;
+  }
+
+  float operator()(float value) const {
+    return value;
+  }
+};
+
+enum class Register {
+  kState = 0x000,
+  kFaultCode = 0x001,
+  kSwitchStatus = 0x002,
+  kLockTime = 0x003,
+  kBootTime = 0x004,
+  kOutputVoltage = 0x010,
+  kOutputCurrent = 0x011,
+  kTemperature = 0x12,
+  kEnergy = 0x013,
+};
 
 enum State {
   kPowerOff,
@@ -336,7 +439,7 @@ uint16_t SampleAdcAverage(ADC_TypeDef* adc, int count) {
 
 const int kShutdownTimeoutMs = 5000;
 
-class PowerDist {
+class PowerDist : public mjlib::multiplex::MicroServer::Server {
  public:
   struct Status {
     State state = kPowerOff;
@@ -394,6 +497,82 @@ class PowerDist {
            }()),
       fdcan_micro_server_(&can_),
       multiplex_protocol_(&pool_, &fdcan_micro_server_, {}) {}
+
+  /// multiplex::MicroServer
+
+  uint32_t Write(multiplex::MicroServer::Register reg,
+                 const Value& value) override {
+    switch (static_cast<Register>(reg)) {
+      case Register::kState: {
+        // TODO: For now, mark as not writeable.
+        return 2;
+      }
+      case Register::kLockTime: {
+        status_.lock_time_100ms = ReadIntMapping(value);
+        return 0;
+      }
+      case Register::kFaultCode:
+      case Register::kSwitchStatus:
+      case Register::kBootTime:
+      case Register::kOutputVoltage:
+      case Register::kOutputCurrent:
+      case Register::kTemperature:
+      case Register::kEnergy: {
+        // Not writeable.
+        return 2;
+      }
+    }
+
+    // This is an unknown register.
+    return 1;
+  }
+
+  multiplex::MicroServer::ReadResult Read(
+      multiplex::MicroServer::Register reg,
+      size_t type) const override {
+    switch (static_cast<Register>(reg)) {
+      case Register::kState: {
+        return IntMapping(static_cast<int8_t>(status_.state), type);
+      }
+      case Register::kFaultCode: {
+        return IntMapping(static_cast<int8_t>(status_.fault_code), type);
+      }
+      case Register::kSwitchStatus: {
+        return IntMapping(static_cast<int8_t>(status_.switch_status), type);
+      }
+      case Register::kLockTime: {
+        return IntMapping(static_cast<int8_t>(status_.lock_time_100ms), type);
+      }
+      case Register::kBootTime: {
+        return IntMapping(static_cast<int8_t>(0), type);
+      }
+      case Register::kOutputVoltage: {
+        return ScaleVoltage(status_.output_voltage_V, type);
+      }
+      case Register::kOutputCurrent: {
+        return ScaleCurrent(status_.output_current_A, type);
+      }
+      case Register::kTemperature: {
+        return ScaleTemperature(status_.fet_temp_C, type);
+      }
+      case Register::kEnergy: {
+        const auto e = status_.energy_uW_hr;
+        switch (type) {
+          case 0: return static_cast<int8_t>(e / 1000000);
+          case 1: return static_cast<int16_t>(e / 10000);
+          case 2: return static_cast<int32_t>(e);
+          case 3: return static_cast<float>(e) / 1000000.0f;
+        }
+        MJ_ASSERT(false);
+      }
+    }
+
+    // Unknown register.
+    return static_cast<uint32_t>(1);
+  }
+
+
+  /// Non-overriden methods
 
   void SetupAnalogGpio() {
     GPIO_InitTypeDef init = {};
@@ -461,7 +640,7 @@ class PowerDist {
     Setup();
 
     command_manager_.AsyncStart();
-    multiplex_protocol_.Start(nullptr);
+    multiplex_protocol_.Start(this);
 
     timer_.wait_ms(20);
 
