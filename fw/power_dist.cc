@@ -875,7 +875,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         if (status_.tps2490_fault == 0) {
           state = kFault;
           fault_code = 2;
-        } else if (power_switch_status == 0) {
+        } else if (power_switch_status == 0 &&
+                   status_.lock_time_100ms == 0) {
           state = kPowerOff;
         }
         shutdown_timeout_ms = kShutdownTimeoutMs;
