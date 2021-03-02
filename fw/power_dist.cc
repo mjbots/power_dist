@@ -808,7 +808,7 @@ void RunRev2() {
       case kPowerOff: {
         fault_code = 0;
         if (power_switch_status == 1) {
-          precharge_timeout_ms = 80;
+          precharge_timeout_ms = 100;
           state = kPrecharging;
         }
         break;
