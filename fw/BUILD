@@ -41,6 +41,8 @@ mbed_binary(
         "fdcan.cc",
         "fdcan.h",
         "fdcan_micro_server.h",
+        "firmware_info.cc",
+        "firmware_info.h",
         "lm5066.cc",
         "lm5066.h",
         "millisecond_timer.h",

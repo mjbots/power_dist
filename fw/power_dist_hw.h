@@ -20,6 +20,12 @@
 // r4.3, r4.3b is hw rev 2
 
 
+namespace fw {
+
+extern volatile uint8_t g_measured_hw_rev;
+
+}
+
 // The most recent version of the HW.
 #ifndef POWER_DIST_HW_REV
 // r4.3b silk

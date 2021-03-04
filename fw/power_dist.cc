@@ -29,6 +29,7 @@
 
 #include "fw/fdcan.h"
 #include "fw/fdcan_micro_server.h"
+#include "fw/firmware_info.h"
 #include "fw/git_info.h"
 #include "fw/lm5066.h"
 #include "fw/millisecond_timer.h"
@@ -916,6 +917,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   micro::PersistentConfig persistent_config_{
     pool_, command_manager_, flash_interface_};
   fw::GitInfo git_info_;
+  fw::FirmwareInfo firmware_info_{pool_, telemetry_manager_, 0, 0};
 
 
   DigitalOut led1_{DEBUG_LED1, 1};
@@ -948,6 +950,10 @@ void RunRev2() {
 ADC_TypeDef* const g_adc5 = ADC5;
 volatile uint32_t rcc_csr = 0;
 
+namespace fw {
+volatile uint8_t g_measured_hw_rev;
+}
+
 int main(void) {
   rcc_csr = RCC->CSR;
 
@@ -977,6 +983,8 @@ int main(void) {
     }
     return -1;
   }();
+
+  fw::g_measured_hw_rev = measured_hw_rev;
 
   // Check if the detected board revision level is in our compatible
   // set.
