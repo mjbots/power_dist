@@ -19,6 +19,9 @@ shutdown be delayed to accomplish a "soft power down".
 
 The power_dist uses the same register framing and CAN-FD as the mjbots moteus controllers, with alternate definitions for the registers.  [moteus reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#a-register-command-set)
 
+The default ID for the power_dist is '32', (which notably differs from
+the default id of 1 for the moteus controller).
+
 ## A.2 ##
 
 The following additional mappings are provided.
