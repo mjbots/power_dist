@@ -35,6 +35,7 @@
 #include "fw/millisecond_timer.h"
 #include "fw/power_dist_hw.h"
 #include "fw/stm32g4_flash.h"
+#include "fw/uuid.h"
 
 namespace base = mjlib::base;
 namespace micro = mjlib::micro;
@@ -916,6 +917,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   fw::Stm32G4Flash flash_interface_;
   micro::PersistentConfig persistent_config_{
     pool_, command_manager_, flash_interface_};
+  fw::Uuid uuid_{persistent_config_};
   fw::GitInfo git_info_;
   fw::FirmwareInfo firmware_info_{pool_, telemetry_manager_, 0, 0};
 

@@ -49,6 +49,7 @@ mbed_binary(
         "power_dist.cc",
         "power_dist_hw.h",
         "stm32g4_flash.h",
+        "uuid.h",
     ],
     deps = [
         ":git_info",
