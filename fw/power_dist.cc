@@ -101,9 +101,9 @@ Value ScaleVoltage(float value, size_t type) {
   return ScaleMapping(value, 0.5f, 0.1f, 0.001f, type);
 }
 
-int8_t ReadIntMapping(Value value) {
+int16_t ReadInt16Mapping(Value value) {
   return std::visit([](auto a) {
-      return static_cast<int8_t>(a);
+      return static_cast<int16_t>(a);
     }, value);
 }
 
@@ -514,7 +514,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         return 2;
       }
       case Register::kLockTime: {
-        status_.lock_time_100ms = ReadIntMapping(value);
+        status_.lock_time_100ms = ReadInt16Mapping(value);
         return 0;
       }
       case Register::kFaultCode:
@@ -547,10 +547,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         return IntMapping(static_cast<int8_t>(status_.switch_status), type);
       }
       case Register::kLockTime: {
-        return IntMapping(static_cast<int8_t>(status_.lock_time_100ms), type);
+        return IntMapping(static_cast<int16_t>(status_.lock_time_100ms), type);
       }
       case Register::kBootTime: {
-        return IntMapping(static_cast<int8_t>(0), type);
+        return IntMapping(static_cast<int16_t>(0), type);
       }
       case Register::kOutputVoltage: {
         return ScaleVoltage(status_.output_voltage_V, type);

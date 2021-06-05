@@ -67,7 +67,9 @@ Zero if the switch is current turned off, non-zero otherwise.
 Mode: Read/write
 
 Power will be maintained for this long after the switch has been
-turned off.
+turned off.  The maximum value is 3276.7s, all register scalings
+report in units of 100ms (thus int8 will not be able to command or
+monitor the full possible scale).
 
 ### 0x004 - Boot time ###
 
