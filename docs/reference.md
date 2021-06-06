@@ -108,12 +108,12 @@ reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#b-diagno
 are supported.  In addition, the following diagnostic mode commands
 are available.
 
-## `d lock` ##
+## `p lock` ##
 
-Request that the lock time be set to the given number of seconds.
+Request that the lock time be set.
 
 ```
-d lock <time_in_seconds>
+p lock <time_in_100ms>
 ```
 
 
