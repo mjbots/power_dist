@@ -182,3 +182,28 @@ up the pins are numbered 1 to 6 from top to bottom.
  - 4 - GND
  - 5 - SWCLK
  - 6 - 3.3V
+
+# D. Maintenance #
+
+## Building firmware ##
+
+Building is supported on Ubuntu 20.04 with the following command:
+
+```
+tools/bazel test //:target
+```
+
+## Flashing firmware ##
+
+A firmware image (.elf file), can be flashed from a linux PC using the
+6-pin SWD debug connector.
+
+```
+fw/flash.py optional/path/to/file.elf
+```
+
+## openocd ##
+
+As with moteus, a custom openocd may be required.  See:
+
+https://github.com/mjbots/moteus/blob/main/docs/reference.md#openocd
