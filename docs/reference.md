@@ -198,6 +198,15 @@ tools/bazel test //:target
 A firmware image (.elf file), can be flashed from a linux PC using the
 6-pin SWD debug connector.
 
+One time:
+
+```
+sudo apt install binutils-arm-none-eabi
+```
+
+Ensure that power is applied, the switch is turned on, and no loads
+are connected, then:
+
 ```
 fw/flash.py optional/path/to/file.elf
 ```
