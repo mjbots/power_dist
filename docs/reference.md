@@ -213,6 +213,6 @@ fw/flash.py optional/path/to/file.elf
 
 ## openocd ##
 
-As with moteus, a custom openocd may be required.  See:
+As with moteus, openocd 0.11.0 or newer is required, see:
 
 https://github.com/mjbots/moteus/blob/main/docs/reference.md#openocd
