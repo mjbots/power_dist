@@ -3959,6 +3959,10 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
 </part>
+<part name="DB_5" library="precharge" deviceset="PAD" device="24AWG_PAD">
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="P+22" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4653,6 +4657,13 @@ can be equal to R22.</text>
 <instance part="C26" gate="G$1" x="434.34" y="2.54" smashed="yes">
 <attribute name="NAME" x="436.88" y="4.064" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="436.88" y="1.016" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="DB_5" gate="G$1" x="322.58" y="-58.42" smashed="yes">
+<attribute name="POPULATE" x="322.58" y="-58.42" size="1.778" layer="96" font="vector" display="off"/>
+<attribute name="NAME" x="314.96" y="-53.34" size="1.6764" layer="94"/>
+</instance>
+<instance part="P+22" gate="1" x="299.72" y="-50.8" smashed="yes">
+<attribute name="VALUE" x="297.18" y="-55.88" size="1.778" layer="96" rot="R90"/>
 </instance>
 </instances>
 <busses>
@@ -5899,6 +5910,12 @@ can be equal to R22.</text>
 <pinref part="P+19" gate="1" pin="+5V"/>
 <pinref part="R23" gate="G$1" pin="P$1"/>
 <wire x1="360.68" y1="33.02" x2="360.68" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="P+22" gate="1" pin="+5V"/>
+<wire x1="299.72" y1="-53.34" x2="299.72" y2="-58.42" width="0.1524" layer="91"/>
+<pinref part="DB_5" gate="G$1" pin="P$1"/>
+<wire x1="299.72" y1="-58.42" x2="314.96" y2="-58.42" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VSW" class="0">
