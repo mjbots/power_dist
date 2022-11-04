@@ -3577,7 +3577,7 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <part name="GND18" library="supply1" deviceset="GND" device=""/>
 <part name="U4" library="precharge" deviceset="TCAN334G" device="">
 <attribute name="MF" value="TI"/>
-<attribute name="MPN" value="TCAN334GDR"/>
+<attribute name="MPN" value="TCAN1057AEVDRQ1"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="CAN1" library="precharge" deviceset="JST-PH3" device="SMT_VERT">
@@ -3934,6 +3934,31 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="MF" value="Samsung"/>
 <attribute name="MPN" value="CL31B226KPHNNNE"/>
 </part>
+<part name="P+19" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
+<part name="R23" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
+</part>
+<part name="R27" library="mfpassives" deviceset="RESISTOR" device="_0603" value="DNP">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="P+20" library="supply1" deviceset="VCC" device=""/>
+<part name="R28" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
+</part>
+<part name="R29" library="mfpassives" deviceset="RESISTOR" device="_0603" value="DNP">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
+<attribute name="POPULATE" value="0"/>
+</part>
+<part name="GND30" library="supply1" deviceset="GND" device=""/>
+<part name="C26" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="0.1uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-0.1uF"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -4124,7 +4149,7 @@ can be equal to R22.</text>
 <attribute name="MPN" x="457.2" y="12.7" size="1.778" layer="96" font="vector" rot="MR0" display="off"/>
 <attribute name="MF" x="457.2" y="12.7" size="1.778" layer="96" font="vector" rot="MR0" display="off"/>
 <attribute name="NAME" x="462.28" y="18.542" size="1.778" layer="95" rot="MR0"/>
-<attribute name="VALUE" x="462.28" y="2.794" size="1.778" layer="96" rot="MR0"/>
+<attribute name="VALUE" x="452.12" y="25.146" size="1.778" layer="96" rot="MR180"/>
 </instance>
 <instance part="CAN2" gate="A" x="482.6" y="12.7" smashed="yes" rot="MR0">
 <attribute name="POPULATE" x="482.6" y="12.7" size="1.778" layer="96" font="vector" rot="MR0" display="off"/>
@@ -4143,8 +4168,8 @@ can be equal to R22.</text>
 <attribute name="NAME" x="370.84" y="11.684" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="370.84" y="8.636" size="1.016" layer="96" font="vector"/>
 </instance>
-<instance part="P+1" gate="VCC" x="368.3" y="27.94" smashed="yes">
-<attribute name="VALUE" x="365.76" y="25.4" size="1.778" layer="96" rot="R90"/>
+<instance part="P+1" gate="VCC" x="368.3" y="35.56" smashed="yes">
+<attribute name="VALUE" x="365.76" y="33.02" size="1.778" layer="96" rot="R90"/>
 </instance>
 <instance part="R15" gate="G$1" x="429.26" y="-43.18" smashed="yes" rot="R180">
 <attribute name="NAME" x="426.72" y="-44.704" size="1.016" layer="95" font="vector" rot="R180" align="top-left"/>
@@ -4600,6 +4625,35 @@ can be equal to R22.</text>
 <attribute name="NAME" x="337.82" y="123.444" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="337.82" y="120.396" size="1.016" layer="96" font="vector"/>
 </instance>
+<instance part="P+19" gate="1" x="360.68" y="35.56" smashed="yes">
+<attribute name="VALUE" x="358.14" y="30.48" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="R23" gate="G$1" x="360.68" y="25.4" smashed="yes">
+<attribute name="NAME" x="356.616" y="22.86" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="363.22" y="23.876" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="R27" gate="G$1" x="368.3" y="25.4" smashed="yes">
+<attribute name="NAME" x="364.236" y="22.86" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="370.84" y="23.876" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="P+20" gate="VCC" x="439.42" y="35.56" smashed="yes">
+<attribute name="VALUE" x="436.88" y="33.02" size="1.778" layer="96" rot="R90"/>
+</instance>
+<instance part="R28" gate="G$1" x="439.42" y="25.4" smashed="yes">
+<attribute name="NAME" x="435.356" y="22.86" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="441.96" y="23.876" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="R29" gate="G$1" x="439.42" y="2.54" smashed="yes">
+<attribute name="NAME" x="435.356" y="0" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="441.96" y="1.016" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="GND30" gate="1" x="439.42" y="-7.62" smashed="yes">
+<attribute name="VALUE" x="436.88" y="-10.16" size="1.778" layer="96"/>
+</instance>
+<instance part="C26" gate="G$1" x="434.34" y="2.54" smashed="yes">
+<attribute name="NAME" x="436.88" y="4.064" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="436.88" y="1.016" size="1.016" layer="96" font="vector"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -4842,6 +4896,15 @@ can be equal to R22.</text>
 <pinref part="C25" gate="G$1" pin="P$2"/>
 <wire x1="335.28" y1="119.38" x2="335.28" y2="114.3" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="R29" gate="G$1" pin="P$2"/>
+<pinref part="GND30" gate="1" pin="GND"/>
+<wire x1="439.42" y1="-2.54" x2="439.42" y2="-5.08" width="0.1524" layer="91"/>
+<pinref part="C26" gate="G$1" pin="P$2"/>
+<wire x1="434.34" y1="0" x2="434.34" y2="-5.08" width="0.1524" layer="91"/>
+<wire x1="434.34" y1="-5.08" x2="439.42" y2="-5.08" width="0.1524" layer="91"/>
+<junction x="439.42" y="-5.08"/>
+</segment>
 </net>
 <net name="VCC" class="1">
 <segment>
@@ -4902,14 +4965,6 @@ can be equal to R22.</text>
 <junction x="480.06" y="93.98"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="VCC"/>
-<pinref part="C21" gate="G$1" pin="P$1"/>
-<wire x1="386.08" y1="12.7" x2="368.3" y2="12.7" width="0.1524" layer="91"/>
-<pinref part="P+1" gate="VCC" pin="VCC"/>
-<wire x1="368.3" y1="12.7" x2="368.3" y2="25.4" width="0.1524" layer="91"/>
-<junction x="368.3" y="12.7"/>
-</segment>
-<segment>
 <pinref part="P+21" gate="VCC" pin="VCC"/>
 <wire x1="441.96" y1="154.94" x2="441.96" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="U2" gate="G$1" pin="VBAT"/>
@@ -4962,6 +5017,16 @@ can be equal to R22.</text>
 <pinref part="C25" gate="G$1" pin="P$1"/>
 <wire x1="335.28" y1="124.46" x2="335.28" y2="129.54" width="0.1524" layer="91"/>
 <junction x="335.28" y="129.54"/>
+</segment>
+<segment>
+<pinref part="P+1" gate="VCC" pin="VCC"/>
+<pinref part="R27" gate="G$1" pin="P$1"/>
+<wire x1="368.3" y1="33.02" x2="368.3" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="R28" gate="G$1" pin="P$1"/>
+<pinref part="P+20" gate="VCC" pin="VCC"/>
+<wire x1="439.42" y1="30.48" x2="439.42" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="NRST" class="0">
@@ -5061,18 +5126,6 @@ can be equal to R22.</text>
 <wire x1="452.12" y1="12.7" x2="477.52" y2="12.7" width="0.1524" layer="91"/>
 <junction x="452.12" y="12.7"/>
 <label x="429.26" y="12.7" size="1.778" layer="95" font="vector"/>
-</segment>
-</net>
-<net name="CAN_SHDN" class="0">
-<segment>
-<pinref part="U4" gate="G$1" pin="SHDN"/>
-<wire x1="421.64" y1="10.16" x2="439.42" y2="10.16" width="0.1524" layer="91"/>
-<label x="431.8" y="10.16" size="1.778" layer="95" font="vector"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="PA10"/>
-<wire x1="492.76" y1="142.24" x2="515.62" y2="142.24" width="0.1524" layer="91"/>
-<label x="508" y="142.24" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PWR_SW" class="0">
@@ -5842,6 +5895,11 @@ can be equal to R22.</text>
 <pinref part="U7" gate="G$1" pin="CE"/>
 <wire x1="271.78" y1="124.46" x2="274.32" y2="124.46" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<pinref part="P+19" gate="1" pin="+5V"/>
+<pinref part="R23" gate="G$1" pin="P$1"/>
+<wire x1="360.68" y1="33.02" x2="360.68" y2="30.48" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="VSW" class="0">
 <segment>
@@ -5858,6 +5916,34 @@ can be equal to R22.</text>
 <wire x1="302.26" y1="127" x2="312.42" y2="127" width="0.1524" layer="91"/>
 </segment>
 </net>
+<net name="N$17" class="1">
+<segment>
+<pinref part="R23" gate="G$1" pin="P$2"/>
+<pinref part="R27" gate="G$1" pin="P$2"/>
+<wire x1="360.68" y1="20.32" x2="368.3" y2="20.32" width="0.1524" layer="91"/>
+<pinref part="U4" gate="G$1" pin="VCC"/>
+<pinref part="C21" gate="G$1" pin="P$1"/>
+<wire x1="386.08" y1="12.7" x2="368.3" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="368.3" y1="20.32" x2="368.3" y2="12.7" width="0.1524" layer="91"/>
+<junction x="368.3" y="20.32"/>
+<junction x="368.3" y="12.7"/>
+</segment>
+</net>
+<net name="N$19" class="0">
+<segment>
+<pinref part="U4" gate="G$1" pin="SHDN"/>
+<wire x1="421.64" y1="10.16" x2="434.34" y2="10.16" width="0.1524" layer="91"/>
+<pinref part="R29" gate="G$1" pin="P$1"/>
+<wire x1="434.34" y1="10.16" x2="439.42" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="439.42" y1="7.62" x2="439.42" y2="10.16" width="0.1524" layer="91"/>
+<pinref part="R28" gate="G$1" pin="P$2"/>
+<wire x1="439.42" y1="20.32" x2="439.42" y2="10.16" width="0.1524" layer="91"/>
+<junction x="439.42" y="10.16"/>
+<pinref part="C26" gate="G$1" pin="P$1"/>
+<wire x1="434.34" y1="5.08" x2="434.34" y2="10.16" width="0.1524" layer="91"/>
+<junction x="434.34" y="10.16"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
@@ -5865,6 +5951,7 @@ can be equal to R22.</text>
 <approved hash="101,1,-27.94,172.72,U$1,1,,,,"/>
 <approved hash="101,1,-12.7,172.72,U$2,1,,,,"/>
 <approved hash="101,1,15.24,172.72,U$4,1,,,,"/>
+<approved hash="104,1,386.08,12.7,U4,VCC,N$17,,,"/>
 <approved hash="104,1,200.66,-33.02,D4,ANODE,N$8,,,"/>
 <approved hash="104,1,200.66,-38.1,D4,CATHODE,LED1,,,"/>
 <approved hash="104,1,208.28,-33.02,D5,ANODE,N$14,,,"/>
