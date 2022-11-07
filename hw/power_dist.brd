@@ -1957,10 +1957,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="VOLTAGE" value="" x="43.6" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="WATTAGE" value="" x="43.6" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
-<element name="C13" library="mfpassives" package="C0603" value="27nF" x="45.2" y="39.5" smashed="yes" rot="R270">
+<element name="C13" library="mfpassives" package="C0603" value="27nF 100uF" x="45.2" y="39.5" smashed="yes" rot="R270">
 <attribute name="DIELECTRIC" value="" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="HOUSEPART" value="0" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MPN" value="CL10B273KB8NNNC" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MPN" value="C0603C273K1RAC7867" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="NAME" x="46.09" y="40.17" size="0.6" layer="25" font="vector" ratio="10" rot="R270"/>
 <attribute name="POPULATE" value="1" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>
 <attribute name="TOLERANCE" value="" x="45.2" y="39.5" size="1.778" layer="27" rot="R270" display="off"/>

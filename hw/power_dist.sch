@@ -3723,9 +3723,9 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-RES-0603-1K"/>
 </part>
-<part name="C13" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="27nF">
+<part name="C13" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="27nF 100uF">
 <attribute name="HOUSEPART" value="0"/>
-<attribute name="MPN" value="CL10B273KB8NNNC"/>
+<attribute name="MPN" value="C0603C273K1RAC7867"/>
 </part>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="C14" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="10nF">
