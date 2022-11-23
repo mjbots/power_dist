@@ -1414,15 +1414,15 @@
 <text x="-3.2766" y="-0.635" size="1.27" layer="25" ratio="6" rot="SR0">&gt;Name</text>
 </package>
 <package name="DIODE_DO-214AB">
-<smd name="P$1" x="-3.105" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
-<smd name="P$2" x="3.105" y="-0.1" dx="3.2" dy="1.52" layer="1" rot="R90"/>
-<wire x1="-3.9" y1="3.2" x2="-3.4" y2="3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3.2" x2="3.9" y2="3.2" width="0.127" layer="21"/>
-<wire x1="3.9" y1="3.2" x2="3.9" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="3.9" y1="-3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="-3.2" x2="-3.9" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="-3.9" y1="-3.2" x2="-3.9" y2="3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
+<smd name="P$1" x="-3.305" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<smd name="P$2" x="3.305" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<wire x1="-4.2" y1="3.2" x2="-3.6" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="3.2" x2="4.2" y2="3.2" width="0.127" layer="21"/>
+<wire x1="4.2" y1="3.2" x2="4.2" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="4.2" y1="-3.2" x2="-3.6" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="-3.2" x2="-4.2" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-4.2" y1="-3.2" x2="-4.2" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="3.2" x2="-3.6" y2="-3.2" width="0.127" layer="21"/>
 <text x="-3.9" y="3.4" size="0.6" layer="25" ratio="10">&gt;NAME</text>
 </package>
 <package name="QFN50P700X700X60-49N">

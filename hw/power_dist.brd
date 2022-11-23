@@ -802,15 +802,15 @@
 <library name="power_dist">
 <packages>
 <package name="DIODE_DO-214AB">
-<smd name="P$1" x="-3.105" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
-<smd name="P$2" x="3.105" y="-0.1" dx="3.2" dy="1.52" layer="1" rot="R90"/>
-<wire x1="-3.9" y1="3.2" x2="-3.4" y2="3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3.2" x2="3.9" y2="3.2" width="0.127" layer="21"/>
-<wire x1="3.9" y1="3.2" x2="3.9" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="3.9" y1="-3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="-3.2" x2="-3.9" y2="-3.2" width="0.127" layer="21"/>
-<wire x1="-3.9" y1="-3.2" x2="-3.9" y2="3.2" width="0.127" layer="21"/>
-<wire x1="-3.4" y1="3.2" x2="-3.4" y2="-3.2" width="0.127" layer="21"/>
+<smd name="P$1" x="-3.305" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<smd name="P$2" x="3.305" y="0" dx="3.2" dy="1.52" layer="1" rot="R90"/>
+<wire x1="-4.2" y1="3.2" x2="-3.6" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="3.2" x2="4.2" y2="3.2" width="0.127" layer="21"/>
+<wire x1="4.2" y1="3.2" x2="4.2" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="4.2" y1="-3.2" x2="-3.6" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="-3.2" x2="-4.2" y2="-3.2" width="0.127" layer="21"/>
+<wire x1="-4.2" y1="-3.2" x2="-4.2" y2="3.2" width="0.127" layer="21"/>
+<wire x1="-3.6" y1="3.2" x2="-3.6" y2="-3.2" width="0.127" layer="21"/>
 <text x="-3.9" y="3.4" size="0.6" layer="25" ratio="10">&gt;NAME</text>
 </package>
 <package name="TO277-3L_ONS-L">
@@ -2209,10 +2209,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="VOLTAGE" value="" x="41" y="16.2" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="" x="41" y="16.2" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="D9" library="power_dist" package="DIODE_DO-214AB" value="SMBJ51CA-E3/52214AB" x="25.15" y="45.41" smashed="yes">
-<attribute name="MPN" value="SMC5K51A-M3/I" x="25.15" y="45.41" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="26.95" y="41.99" size="0.6" layer="25" ratio="10" rot="R180"/>
-<attribute name="POPULATE" value="1" x="25.15" y="45.41" size="1.778" layer="27" display="off"/>
+<element name="D9" library="power_dist" package="DIODE_DO-214AB" value="SMBJ51CA-E3/52214AB" x="25.1" y="45.41" smashed="yes">
+<attribute name="MPN" value="SMC5K51A-M3/I" x="25.1" y="45.41" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="26.9" y="41.99" size="0.6" layer="25" ratio="10" rot="R180"/>
+<attribute name="POPULATE" value="1" x="25.1" y="45.41" size="1.778" layer="27" display="off"/>
 </element>
 <element name="R3" library="mfpassives" package="R0603" value="200k 1%" x="50.4" y="48.85" smashed="yes" rot="R180">
 <attribute name="HOUSEPART" value="0" x="50.4" y="48.85" size="1.778" layer="27" rot="R180" display="off"/>
@@ -2634,8 +2634,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="19.2" y="47.79"/>
 </polygon>
 <via x="19.09" y="43.9" extent="1-16" drill="0.3048"/>
-<via x="19.83" y="43.9" extent="1-16" drill="0.3048"/>
-<via x="20.58" y="43.9" extent="1-16" drill="0.3048"/>
+<via x="19.81" y="43.9" extent="1-16" drill="0.3048"/>
+<via x="20.52" y="43.9" extent="1-16" drill="0.3048"/>
 <polygon width="0.1524" layer="1" thermals="no">
 <vertex x="19" y="45"/>
 <vertex x="20.4" y="45"/>
@@ -3538,9 +3538,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="42" y="19"/>
 <vertex x="19.8" y="19"/>
 </polygon>
-<via x="29.6" y="25.4" extent="1-16" drill="0.5"/>
-<via x="28.4" y="25.4" extent="1-16" drill="0.5"/>
-<via x="27.2" y="25.4" extent="1-16" drill="0.5"/>
+<via x="29.6" y="25.2" extent="1-16" drill="0.5"/>
+<via x="28.4" y="25.2" extent="1-16" drill="0.5"/>
+<via x="27.2" y="25.2" extent="1-16" drill="0.5"/>
 <via x="26.8" y="27.6" extent="1-16" drill="0.5"/>
 <via x="26.8" y="29" extent="1-16" drill="0.5"/>
 <contactref element="D9" pad="P$2"/>
