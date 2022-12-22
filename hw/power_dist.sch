@@ -2883,6 +2883,11 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 <smd name="2" x="-0.635" y="0" dx="1.27" dy="1.27" layer="1" stop="no" cream="no"/>
 <text x="-1.27" y="-2.032" size="1.27" layer="25" ratio="16">&gt;NAME</text>
 </package>
+<package name="SHORT_TOP-MEDIUM">
+<smd name="1" x="0.3175" y="0" dx="0.635" dy="0.635" layer="1" stop="no" cream="no"/>
+<smd name="2" x="-0.3175" y="0" dx="0.635" dy="0.635" layer="1" stop="no" cream="no"/>
+<text x="-1.27" y="-2.032" size="1.27" layer="25" ratio="16">&gt;NAME</text>
+</package>
 </packages>
 <symbols>
 <symbol name="SHORT-H">
@@ -2922,6 +2927,15 @@ Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/STM32G474CEU6
 </technologies>
 </device>
 <device name="BIG" package="SHORT_TOP-BIG">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="MEDIUM" package="SHORT_TOP-MEDIUM">
 <connects>
 <connect gate="G$1" pin="P$1" pad="1"/>
 <connect gate="G$1" pin="P$2" pad="2"/>
@@ -3751,7 +3765,7 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 </part>
 <part name="GND25" library="supply1" deviceset="GND" device=""/>
 <part name="P+6" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+24V" device=""/>
-<part name="SH1" library="shorts" deviceset="SHORT" device="BIG" value="SHORTBIG">
+<part name="SH1" library="shorts" deviceset="SHORT" device="MEDIUM" value="SHORTMEDIUM">
 <attribute name="POPULATE" value="0"/>
 </part>
 <part name="D2" library="mfdiscretesemi" deviceset="DIODES" device="_SOD-123" technology="_1N4148" value="MF-DIO-SOD123-1N4148"/>
@@ -3963,6 +3977,18 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="POPULATE" value="0"/>
 </part>
 <part name="P+22" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
+<part name="C27" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value=".1uF 100V">
+<attribute name="HOUSEPART" value="0"/>
+<attribute name="MPN" value="GRM188R72A104KA35D"/>
+</part>
+<part name="R30" library="mfpassives" deviceset="RESISTOR" device="_0603" value="0">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-RES-0603-0"/>
+</part>
+<part name="C28" library="mfpassives" deviceset="CAPACITOR_NP" device="_0603" value="1uF">
+<attribute name="HOUSEPART" value="1"/>
+<attribute name="MPN" value="MF-CAP-0603-1uF"/>
+</part>
 </parts>
 <sheets>
 <sheet>
@@ -4588,8 +4614,8 @@ can be equal to R22.</text>
 <attribute name="POPULATE" x="154.94" y="132.08" size="1.778" layer="96" display="off"/>
 <attribute name="MF" x="154.94" y="132.08" size="1.778" layer="96" display="off"/>
 </instance>
-<instance part="GND4" gate="1" x="208.28" y="111.76" smashed="yes">
-<attribute name="VALUE" x="205.74" y="109.22" size="1.778" layer="96"/>
+<instance part="GND4" gate="1" x="210.82" y="111.76" smashed="yes">
+<attribute name="VALUE" x="208.28" y="109.22" size="1.778" layer="96"/>
 </instance>
 <instance part="C4" gate="G$1" x="236.22" y="127" smashed="yes">
 <attribute name="MF" x="236.22" y="127" size="1.778" layer="96" display="off"/>
@@ -4665,6 +4691,18 @@ can be equal to R22.</text>
 <instance part="P+22" gate="1" x="299.72" y="-50.8" smashed="yes">
 <attribute name="VALUE" x="297.18" y="-55.88" size="1.778" layer="96" rot="R90"/>
 </instance>
+<instance part="C27" gate="G$1" x="124.46" y="116.84" smashed="yes">
+<attribute name="NAME" x="127" y="118.364" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="127" y="115.316" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="R30" gate="G$1" x="205.74" y="119.38" smashed="yes">
+<attribute name="NAME" x="201.676" y="116.84" size="1.016" layer="95" font="vector" rot="R90" align="top-left"/>
+<attribute name="VALUE" x="208.28" y="117.856" size="1.016" layer="96" font="vector"/>
+</instance>
+<instance part="C28" gate="G$1" x="360.68" y="10.16" smashed="yes">
+<attribute name="NAME" x="363.22" y="11.684" size="1.016" layer="95" font="vector" align="top-left"/>
+<attribute name="VALUE" x="363.22" y="8.636" size="1.016" layer="96" font="vector"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -4716,13 +4754,17 @@ can be equal to R22.</text>
 </segment>
 <segment>
 <pinref part="U4" gate="G$1" pin="GND"/>
-<wire x1="386.08" y1="15.24" x2="363.22" y2="15.24" width="0.1524" layer="91"/>
-<wire x1="363.22" y1="15.24" x2="363.22" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="386.08" y1="15.24" x2="358.14" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="358.14" y1="15.24" x2="358.14" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="GND12" gate="1" pin="GND"/>
-<wire x1="363.22" y1="-2.54" x2="368.3" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="358.14" y1="-2.54" x2="360.68" y2="-2.54" width="0.1524" layer="91"/>
 <pinref part="C21" gate="G$1" pin="P$2"/>
+<wire x1="360.68" y1="-2.54" x2="368.3" y2="-2.54" width="0.1524" layer="91"/>
 <wire x1="368.3" y1="-2.54" x2="368.3" y2="7.62" width="0.1524" layer="91"/>
 <junction x="368.3" y="-2.54"/>
+<pinref part="C28" gate="G$1" pin="P$2"/>
+<wire x1="360.68" y1="7.62" x2="360.68" y2="-2.54" width="0.1524" layer="91"/>
+<junction x="360.68" y="-2.54"/>
 </segment>
 <segment>
 <pinref part="U4" gate="G$1" pin="STB"/>
@@ -4740,13 +4782,9 @@ can be equal to R22.</text>
 <junction x="452.12" y="10.16"/>
 </segment>
 <segment>
-<pinref part="C3" gate="G$1" pin="P$2"/>
 <pinref part="GND5" gate="1" pin="GND"/>
+<pinref part="C3" gate="G$1" pin="P$2"/>
 <wire x1="142.24" y1="111.76" x2="142.24" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="C2" gate="G$1" pin="P$2"/>
-<wire x1="132.08" y1="114.3" x2="132.08" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="132.08" y1="109.22" x2="142.24" y2="109.22" width="0.1524" layer="91"/>
-<junction x="142.24" y="109.22"/>
 </segment>
 <segment>
 <pinref part="J3" gate="A" pin="5"/>
@@ -4885,17 +4923,19 @@ can be equal to R22.</text>
 </segment>
 <segment>
 <pinref part="U1" gate="A" pin="GND"/>
-<wire x1="203.2" y1="129.54" x2="208.28" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="203.2" y1="129.54" x2="210.82" y2="129.54" width="0.1524" layer="91"/>
 <pinref part="GND4" gate="1" pin="GND"/>
-<wire x1="208.28" y1="129.54" x2="208.28" y2="114.3" width="0.1524" layer="91"/>
-<wire x1="208.28" y1="114.3" x2="236.22" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="129.54" x2="210.82" y2="114.3" width="0.1524" layer="91"/>
+<wire x1="210.82" y1="114.3" x2="236.22" y2="114.3" width="0.1524" layer="91"/>
 <pinref part="C4" gate="G$1" pin="P$2"/>
 <wire x1="236.22" y1="114.3" x2="236.22" y2="124.46" width="0.1524" layer="91"/>
-<junction x="208.28" y="114.3"/>
+<junction x="210.82" y="114.3"/>
 <wire x1="236.22" y1="114.3" x2="246.38" y2="114.3" width="0.1524" layer="91"/>
 <junction x="236.22" y="114.3"/>
 <pinref part="C24" gate="G$1" pin="P$2"/>
 <wire x1="246.38" y1="114.3" x2="246.38" y2="124.46" width="0.1524" layer="91"/>
+<pinref part="R30" gate="G$1" pin="P$2"/>
+<wire x1="205.74" y1="114.3" x2="210.82" y2="114.3" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="U7" gate="G$1" pin="GND"/>
@@ -5186,6 +5226,10 @@ can be equal to R22.</text>
 <pinref part="U1" gate="A" pin="VIN"/>
 <wire x1="157.48" y1="132.08" x2="134.62" y2="132.08" width="0.1524" layer="91"/>
 <junction x="134.62" y="132.08"/>
+<wire x1="132.08" y1="127" x2="124.46" y2="127" width="0.1524" layer="91"/>
+<junction x="132.08" y="127"/>
+<pinref part="C27" gate="G$1" pin="P$1"/>
+<wire x1="124.46" y1="127" x2="124.46" y2="119.38" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="P+5" gate="1" pin="+24V"/>
@@ -5679,6 +5723,16 @@ can be equal to R22.</text>
 <wire x1="101.6" y1="-27.94" x2="96.52" y2="-27.94" width="0.1524" layer="91"/>
 <label x="96.52" y="-33.02" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="C2" gate="G$1" pin="P$2"/>
+<wire x1="132.08" y1="114.3" x2="132.08" y2="111.76" width="0.1524" layer="91"/>
+<label x="129.54" y="106.68" size="1.778" layer="95"/>
+<pinref part="C27" gate="G$1" pin="P$2"/>
+<wire x1="132.08" y1="111.76" x2="132.08" y2="109.22" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="114.3" x2="124.46" y2="111.76" width="0.1524" layer="91"/>
+<wire x1="124.46" y1="111.76" x2="132.08" y2="111.76" width="0.1524" layer="91"/>
+<junction x="132.08" y="111.76"/>
+</segment>
 </net>
 <net name="3V3_EN" class="0">
 <segment>
@@ -5944,6 +5998,8 @@ can be equal to R22.</text>
 <wire x1="368.3" y1="20.32" x2="368.3" y2="12.7" width="0.1524" layer="91"/>
 <junction x="368.3" y="20.32"/>
 <junction x="368.3" y="12.7"/>
+<pinref part="C28" gate="G$1" pin="P$1"/>
+<wire x1="360.68" y1="12.7" x2="368.3" y2="12.7" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$19" class="0">
@@ -5959,6 +6015,13 @@ can be equal to R22.</text>
 <pinref part="C26" gate="G$1" pin="P$1"/>
 <wire x1="434.34" y1="5.08" x2="434.34" y2="10.16" width="0.1524" layer="91"/>
 <junction x="434.34" y="10.16"/>
+</segment>
+</net>
+<net name="N$1" class="0">
+<segment>
+<pinref part="U1" gate="A" pin="MODE"/>
+<pinref part="R30" gate="G$1" pin="P$1"/>
+<wire x1="203.2" y1="124.46" x2="205.74" y2="124.46" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
