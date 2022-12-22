@@ -3967,7 +3967,7 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <sheets>
 <sheet>
 <plain>
-<text x="-78.74" y="218.44" size="5.08" layer="91">mjbots power dist r4.4
+<text x="-78.74" y="218.44" size="5.08" layer="91">mjbots power dist r4.5
 (c) 2022 mjbots Robotic Systems
 Licensed under the Apache 2.0 License
 https://www.apache.org/licenses/LICENSE-2.0</text>
