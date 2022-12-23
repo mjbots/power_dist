@@ -3747,17 +3747,17 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="MPN" value="MF-CAP-0603-0.01uF"/>
 </part>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
-<part name="R11" library="mfpassives" deviceset="RESISTOR" device="_0603" value="3M 1%">
+<part name="R11" library="mfpassives" deviceset="RESISTOR" device="_0603" value="4.7M 1%">
 <attribute name="HOUSEPART" value="0"/>
-<attribute name="MPN" value="RC0603FR-073ML"/>
+<attribute name="MPN" value="RC0603FR-074M7L"/>
 </part>
 <part name="R12" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
 <attribute name="HOUSEPART" value="0"/>
 <attribute name="MPN" value="RC0603FR-07200KL"/>
 </part>
-<part name="R13" library="mfpassives" deviceset="RESISTOR" device="_0603" value="3M 1%">
+<part name="R13" library="mfpassives" deviceset="RESISTOR" device="_0603" value="4.7M 1%">
 <attribute name="HOUSEPART" value="0"/>
-<attribute name="MPN" value="RC0603FR-073ML"/>
+<attribute name="MPN" value="RC0603FR-074M7L"/>
 </part>
 <part name="R14" library="mfpassives" deviceset="RESISTOR" device="_0603" value="200k 1%">
 <attribute name="HOUSEPART" value="0"/>
@@ -3989,6 +3989,7 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="HOUSEPART" value="1"/>
 <attribute name="MPN" value="MF-CAP-0603-1uF"/>
 </part>
+<part name="GND31" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4028,7 +4029,7 @@ https://www.apache.org/licenses/LICENSE-2.0</text>
 <wire x1="353.06" y1="-91.44" x2="353.06" y2="55.88" width="0.1524" layer="90"/>
 <text x="358.14" y="40.64" size="7.62" layer="90" font="vector">INTERFACE</text>
 <text x="518.16" y="177.8" size="1.778" layer="91">PC13/PA15/PC6 Version
-101</text>
+100</text>
 <text x="-55.88" y="-10.16" size="1.778" layer="91" rot="R180">If this is revved, put a zener in 
 parallel with R20 so that R20 
 can be equal to R22.</text>
@@ -4703,6 +4704,9 @@ can be equal to R22.</text>
 <attribute name="NAME" x="363.22" y="11.684" size="1.016" layer="95" font="vector" align="top-left"/>
 <attribute name="VALUE" x="363.22" y="8.636" size="1.016" layer="96" font="vector"/>
 </instance>
+<instance part="GND31" gate="1" x="535.94" y="132.08" smashed="yes">
+<attribute name="VALUE" x="533.4" y="129.54" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -4955,6 +4959,11 @@ can be equal to R22.</text>
 <wire x1="434.34" y1="0" x2="434.34" y2="-5.08" width="0.1524" layer="91"/>
 <wire x1="434.34" y1="-5.08" x2="439.42" y2="-5.08" width="0.1524" layer="91"/>
 <junction x="439.42" y="-5.08"/>
+</segment>
+<segment>
+<pinref part="U2" gate="G$1" pin="PC6"/>
+<pinref part="GND31" gate="1" pin="GND"/>
+<wire x1="492.76" y1="134.62" x2="535.94" y2="134.62" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VCC" class="1">
@@ -6039,7 +6048,6 @@ can be equal to R22.</text>
 <approved hash="104,1,205.74,15.24,U5,VEE,GND,,,"/>
 <approved hash="104,1,22.86,-25.4,U3,VCC,VSENSE_HIGH,,,"/>
 <approved hash="104,1,157.48,127,U1,VCC,N$4,,,"/>
-<approved hash="202,1,203.2,124.46,U1,MODE,,,,"/>
 <approved hash="113,1,201.189,-35.56,D4,,,,,"/>
 <approved hash="113,1,208.809,-35.56,D5,,,,,"/>
 <approved hash="113,1,-58.2041,-30.48,Q4,,,,,"/>
