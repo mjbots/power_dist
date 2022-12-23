@@ -378,8 +378,33 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
     while (adc->CR & ADC_CR_ADEN);
   }
 
-  ADC12_COMMON->CCR = 0;  // no divisor
-  ADC345_COMMON->CCR = 0;  // no divisor
+  // The prescaler must be at least 6x to be able to accurately read
+  // across all channels.  If it is too low, you'll see errors that
+  // look like quantization, but not in a particularly uniform way
+  // and not consistently across each of the channels.
+  auto map_adc_prescale = [](int prescale) {
+    if (prescale == 1) { return 0; }
+    if (prescale == 2) { return 1; }
+    if (prescale == 4) { return 2; }
+    if (prescale == 6) { return 3; }
+    if (prescale == 8) { return 4; }
+    if (prescale == 10) { return 5; }
+    if (prescale == 12) { return 6; }
+    if (prescale == 16) { return 7; }
+    if (prescale == 32) { return 8; }
+    if (prescale == 64) { return 9; }
+    if (prescale == 128) { return 10; }
+    if (prescale == 256) { return 11; }
+    MJ_ASSERT(false);
+    return 0;
+  };
+
+  constexpr int kAdcPrescale = 8;
+
+  ADC12_COMMON->CCR =
+      (map_adc_prescale(kAdcPrescale) << ADC_CCR_PRESC_Pos);
+  ADC345_COMMON->CCR =
+      (map_adc_prescale(kAdcPrescale) << ADC_CCR_PRESC_Pos);
 
   adc->CR &= ~ADC_CR_DEEPPWD;
   adc->CR |= ADC_CR_ADVREGEN;
@@ -423,7 +448,7 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
                            (v << 21) |
                            (v << 24);
                      };
-  adc->SMPR1 = make_cycles(2);  // 12 ADC cycles
+  adc->SMPR1 = make_cycles(2);  // 47 ADC cycles
   adc->SMPR2 = make_cycles(2);
 }
 
@@ -453,9 +478,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     int16_t lock_time_100ms = 0;
     int16_t boot_time_100ms = 0;
 
-    float output_voltage_V = 0.0;
-    float output_current_A = 0.0;
-    float fet_temp_C = 0.0;
+    float input_voltage_V = 0.0f;
+    float output_voltage_V = 0.0f;
+    float output_current_A = 0.0f;
+    float fet_temp_C = 0.0f;
     int32_t energy_uW_hr = 0;
 
     int32_t precharge_timeout_ms = 0;
@@ -472,6 +498,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       a->Visit(MJ_NVP(lock_time_100ms));
       a->Visit(MJ_NVP(boot_time_100ms));
 
+      a->Visit(MJ_NVP(input_voltage_V));
       a->Visit(MJ_NVP(output_voltage_V));
       a->Visit(MJ_NVP(output_current_A));
       a->Visit(MJ_NVP(fet_temp_C));
@@ -776,9 +803,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     const uint16_t isamp_in = ADC5->DR;
 
     const float vsamp_out =
-        static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+        static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / vsamp_divide_;
     const float vsamp_in =
-        static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / VSAMP_DIVIDE;
+        static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / vsamp_divide_;
     constexpr float V_per_A = 0.0005f * 8 * 7;
     const float isamp =
         -((static_cast<float>(isamp_in) -
@@ -798,6 +825,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       status_.energy_uW_hr += static_cast<int32_t>(delta_energy_uW_hr);
     }
 
+    status_.input_voltage_V = vsamp_in;
     status_.output_voltage_V = vsamp_out;
     status_.output_current_A = isamp;
     status_.fet_temp_C = fet_temp_C;
@@ -856,6 +884,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         if (power_switch_status == 1) {
           precharge_timeout_ms = 100;
           state = kPrecharging;
+
+          // Read ADC5 before we start powering anything.
+          status_.isamp_offset = SampleAdcAverage(ADC5, 64);
         }
         break;
       }
@@ -941,6 +972,11 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
   Status status_;
   uint32_t old_time_ = 0;
+
+  float vsamp_divide_ =
+              (fw::g_measured_hw_rev <= 2 ? (200.0f / (200.0f + 3000.0f)) :
+               (fw::g_measured_hw_rev == 3 ? (200.0f / (200.0f + 4700.0f)) :
+                1.0f));
 };
 
 void RunRev2() {

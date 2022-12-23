@@ -17,8 +17,8 @@
 // r2 and r3 silk is hw rev 0
 // r4.0, r4.1 silk is hw rev 1
 // r4.2 is hw rev 2, but is undistributed
-// r4.3, r4.3b is hw rev 2
-
+// r4.3, r4.3b, r4.4 is hw rev 2
+// r4.5 is hw rev 3
 
 namespace fw {
 
@@ -35,12 +35,13 @@ extern volatile uint8_t g_measured_hw_rev;
 constexpr int kHardwareInterlock[] = {
   0,   // r2, r3
   1,   // r4.0, r4.1
-  2,   // r4.3, r4.3b
+  2,   // r4.3, r4.3b, r4.4
+  3,   // r4.5
 };
 
 // This firmware is compatible with the following hardware revisions.
 constexpr int kCompatibleHwRev[] = {
-  2
+  2, 3
 };
 
 #define HWREV_PIN0 PC_6
@@ -60,8 +61,6 @@ constexpr int kCompatibleHwRev[] = {
 #define CAN_RX PA_11
 #define CAN_SHDN PA_10
 
-
-#define VSAMP_DIVIDE (200.0f / (200.0f + 3000.0f))
 
 #define GPIO1 PC_10
 #define GPIO2 PC_11
