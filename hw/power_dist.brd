@@ -2017,8 +2017,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="VOLTAGE" value="" x="44.55" y="11.6" size="1.778" layer="27" rot="R90" display="off"/>
 <attribute name="WATTAGE" value="" x="44.55" y="11.6" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="SH1" library="shorts" package="SHORT_TOP-MEDIUM" value="SHORTMEDIUM" x="19.23" y="45.22" smashed="yes" rot="R90">
-<attribute name="POPULATE" value="0" x="18.83" y="45.22" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="SH1" library="shorts" package="SHORT_TOP-MEDIUM" value="SHORTMEDIUM" x="19.14" y="45.2" smashed="yes" rot="R90">
+<attribute name="POPULATE" value="0" x="18.74" y="45.2" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
 <element name="D2" library="mfdiscretesemi" package="SOD-123" value="MF-DIO-SOD123-1N4148" x="45.6" y="48.8" smashed="yes">
 <attribute name="HOUSEPART" value="YES" x="45.6" y="48.8" size="1.778" layer="27" display="off"/>
@@ -2661,8 +2661,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="19.17" y1="45.7086" x2="19.15" y2="45.7286" width="0.1524" layer="1"/>
 <wire x1="19.15" y1="45.7286" x2="19.15" y2="45.94" width="0.1524" layer="1"/>
 <wire x1="19.15" y1="45.94" x2="19.15" y2="45.95" width="0.1524" layer="1"/>
-<wire x1="19.23" y1="45.5375" x2="19.15" y2="44.8555" width="0.1524" layer="1"/>
-<wire x1="19.15" y1="44.8555" x2="19.15" y2="45.7286" width="0.1524" layer="1"/>
+<wire x1="19.14" y1="45.5175" x2="19.15" y2="45.43225" width="0.1524" layer="1"/>
+<wire x1="19.15" y1="45.43225" x2="19.15" y2="45.7286" width="0.1524" layer="1"/>
 <via x="18.11" y="49.01" extent="1-16" drill="0.3048"/>
 <via x="18.89" y="49.02" extent="1-16" drill="0.3048"/>
 <via x="18.8" y="47.63" extent="1-16" drill="0.3048"/>
@@ -2847,7 +2847,6 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="47.5" y1="7.5" x2="45.8" y2="9.2" width="0.254" layer="2"/>
 <via x="45.8" y="9.2" extent="1-16" drill="0.3048"/>
 <contactref element="R21" pad="P$2"/>
-<wire x1="45.45" y1="14.1" x2="45.4" y2="14.15" width="0.3048" layer="1"/>
 <wire x1="43.94" y1="7.4" x2="44.65" y2="7.4" width="0.3048" layer="1"/>
 <via x="45.45" y="14.1" extent="1-16" drill="0.3048"/>
 <contactref element="U7" pad="4"/>
@@ -3132,16 +3131,15 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="39.65" y1="43" x2="40.2" y2="43" width="0.1524" layer="1"/>
 <contactref element="U1" pad="1"/>
 <contactref element="C27" pad="P$1"/>
-<wire x1="20.15" y1="42.4" x2="23.4" y2="39.15" width="0.8" layer="1"/>
+<wire x1="20.15" y1="42.4" x2="23.4" y2="39.15" width="1" layer="1"/>
 <wire x1="23.4" y1="39.15" x2="23.4" y2="37" width="0.8" layer="1"/>
 <wire x1="20.15" y1="42.4" x2="20.15" y2="44.24" width="0.8" layer="1"/>
 <wire x1="20.15" y1="44.24" x2="20.17" y2="44.26" width="0.8" layer="1"/>
-<wire x1="20.1625" y1="44.2525" x2="20.15" y2="44.24" width="0.5" layer="1"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="19.8" y="45.6"/>
-<vertex x="20.6" y="45.6"/>
+<vertex x="19.85" y="45.53"/>
+<vertex x="20.6" y="45.53"/>
 <vertex x="20.6" y="42"/>
-<vertex x="19.8" y="42"/>
+<vertex x="19.85" y="42"/>
 </polygon>
 <via x="28.4" y="31.2" extent="1-16" drill="0.5"/>
 <via x="27" y="31.2" extent="1-16" drill="0.5"/>
@@ -3700,17 +3698,11 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 </polygon>
 <contactref element="C2" pad="P$2"/>
 <contactref element="C27" pad="P$2"/>
-<wire x1="18.25" y1="42.4" x2="18.25" y2="40.75" width="0.8" layer="1"/>
-<wire x1="18.25" y1="40.75" x2="19.4" y2="39.6" width="0.8" layer="1"/>
-<wire x1="19.4" y1="39.6" x2="19.4" y2="30.8" width="0.8" layer="1"/>
-<wire x1="19.4" y1="30.8" x2="24.2" y2="26" width="0.8" layer="1"/>
-<wire x1="24.2" y1="26" x2="23.75" y2="25.55" width="0.8" layer="1"/>
-<wire x1="23.75" y1="25.55" x2="23.4" y2="25.55" width="0.8" layer="1"/>
 <wire x1="18.25" y1="42.4" x2="18.67" y2="42.82" width="0.8" layer="1"/>
 <wire x1="18.67" y1="42.82" x2="18.67" y2="44.26" width="0.8" layer="1"/>
 <wire x1="18.67" y1="44.26" x2="19.15" y2="44.74" width="0.6096" layer="1"/>
-<wire x1="19.15" y1="44.74" x2="19.15" y2="44.9025" width="0.5" layer="1"/>
-<wire x1="19.23" y1="44.9025" x2="19.15" y2="44.9025" width="0.1524" layer="1"/>
+<wire x1="19.15" y1="44.74" x2="19.15" y2="44.8825" width="0.5" layer="1"/>
+<wire x1="19.14" y1="44.8825" x2="19.15" y2="44.8825" width="0.1524" layer="1"/>
 <via x="25.6" y="29" extent="1-16" drill="0.5"/>
 <via x="24.4" y="29" extent="1-16" drill="0.5"/>
 <via x="23" y="29" extent="1-16" drill="0.5"/>
@@ -3745,6 +3737,17 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="72.8" y="2.8" extent="1-16" drill="0.5"/>
 <via x="64.2" y="3.8" extent="1-16" drill="0.5"/>
 <via x="65.2" y="3.8" extent="1-16" drill="0.5"/>
+<polygon width="0.1524" layer="1" thermals="no">
+<vertex x="17.8" y="42.6"/>
+<vertex x="19" y="42.6"/>
+<vertex x="19" y="41.4"/>
+<vertex x="20.2" y="40.2"/>
+<vertex x="20.2" y="32.8"/>
+<vertex x="24.6" y="28.4"/>
+<vertex x="18.8" y="28.4"/>
+<vertex x="18.8" y="39.4"/>
+<vertex x="17.8" y="40.4"/>
+</polygon>
 </signal>
 <signal name="3V3_EN">
 <contactref element="D2" pad="CATHODE"/>
@@ -4146,16 +4149,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <approved hash="19,1,ec5186ef5b60b545"/>
 <approved hash="19,1,b081eee4d89b3867"/>
 <approved hash="19,1,4c00a35cb1711afc"/>
-<approved hash="5,1,89bcfb09b1f623b3"/>
-<approved hash="19,1,0e776965ff66e06a"/>
-<approved hash="19,1,eac5eeec6ba35990"/>
-<approved hash="19,1,5aa16591ef893657"/>
-<approved hash="19,1,726e56feef30685a"/>
-<approved hash="19,1,7bc5947e67182cca"/>
-<approved hash="19,1,bc08aea902016d48"/>
-<approved hash="19,1,a0614449281f3824"/>
-<approved hash="19,1,c6d4d678fd6ad52c"/>
-<approved hash="19,1,9b42b9913267ec54"/>
+<approved hash="5,1,899bfb17b1742308"/>
+<approved hash="19,1,3dbe19751bb2e167"/>
 </errors>
 </board>
 </drawing>
