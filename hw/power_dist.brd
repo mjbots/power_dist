@@ -3,7 +3,7 @@
 <eagle version="9.6.0">
 <drawing>
 <settings>
-<setting alwaysvectorfont="yes"/>
+<setting alwaysvectorfont="no"/>
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
@@ -944,8 +944,8 @@
 </polygon>
 </package>
 <package name="XT90PW-M">
-<pad name="2" x="5.45" y="0" drill="3.7"/>
-<pad name="1" x="-5.45" y="0" drill="3.7"/>
+<pad name="2" x="5.45" y="0" drill="3.9"/>
+<pad name="1" x="-5.45" y="0" drill="3.9"/>
 <pad name="S1" x="-9.45" y="9.4" drill="2"/>
 <pad name="S2" x="9.45" y="9.4" drill="2"/>
 <wire x1="-10.4" y1="1" x2="-10.4" y2="23" width="0.127" layer="21"/>
