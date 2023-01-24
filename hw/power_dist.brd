@@ -2713,7 +2713,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="6.56" y="48.39" extent="1-16" drill="0.3048"/>
 <via x="6.56" y="47.59" extent="1-16" drill="0.3048"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="6" y="49.57"/>
+<vertex x="5.87" y="49.57"/>
 <vertex x="9" y="49.57"/>
 <vertex x="9" y="47.4"/>
 <vertex x="8.4" y="47.4"/>
@@ -2722,7 +2722,7 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="7.4" y="48.6"/>
 <vertex x="7" y="48.2"/>
 <vertex x="7" y="47"/>
-<vertex x="6" y="47"/>
+<vertex x="5.87" y="47"/>
 </polygon>
 <contactref element="C28" pad="P$2"/>
 <wire x1="21.16" y1="9.6" x2="21.16" y2="8.48" width="0.5" layer="1"/>
@@ -2768,6 +2768,16 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="36.9136" y1="25.0864" x2="37.4" y2="24.6" width="0.254" layer="1"/>
 <wire x1="37.4" y1="22" x2="38.69" y2="20.71" width="0.254" layer="1"/>
 <wire x1="37.4" y1="24.6" x2="37.4" y2="22" width="0.254" layer="1"/>
+<polygon width="0.1524" layer="1" thermals="no">
+<vertex x="5.88" y="47.2"/>
+<vertex x="7" y="47.2"/>
+<vertex x="7" y="46"/>
+<vertex x="6.6" y="45.6"/>
+<vertex x="6.6" y="42.8"/>
+<vertex x="5" y="42.8"/>
+<vertex x="5" y="44.4"/>
+<vertex x="5.88" y="45.28"/>
+</polygon>
 </signal>
 <signal name="VCC" class="1">
 <contactref element="J1" pad="6"/>
@@ -2858,10 +2868,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="8.2" y="41.4" extent="1-16" drill="0.3048"/>
 <wire x1="8.5041" y1="42.7459" x2="8.25" y2="43" width="0.6096" layer="1"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="7" y="45.4"/>
+<vertex x="7.07" y="45.4"/>
 <vertex x="8.8" y="45.4"/>
 <vertex x="8.8" y="41"/>
-<vertex x="7" y="41"/>
+<vertex x="7.07" y="41"/>
 </polygon>
 <contactref element="R27" pad="P$1"/>
 <contactref element="R28" pad="P$1"/>
