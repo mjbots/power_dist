@@ -3,7 +3,7 @@
 <eagle version="9.6.0">
 <drawing>
 <settings>
-<setting alwaysvectorfont="no"/>
+<setting alwaysvectorfont="yes"/>
 <setting keepoldvectorfont="yes"/>
 <setting verticaltext="up"/>
 </settings>
@@ -156,8 +156,8 @@
 <wire x1="80" y1="47.5" x2="77.5" y2="50" width="0" layer="20" curve="90"/>
 <wire x1="77.5" y1="50" x2="2.5" y2="50" width="0" layer="20"/>
 <wire x1="2.5" y1="50" x2="0" y2="47.5" width="0" layer="20" curve="90"/>
-<text x="51.5" y="3.4" size="1" layer="21" font="vector" align="top-left">power dist r4.5</text>
-<text x="51.5" y="1.8" size="0.8" layer="21" font="vector" ratio="10" align="top-left">(c) 2022</text>
+<text x="51.5" y="3.4" size="0.9" layer="21" font="vector" align="top-left">power dist r4.5b</text>
+<text x="51.5" y="1.8" size="0.8" layer="21" font="vector" ratio="10" align="top-left">(c) 2023</text>
 <polygon width="0.05" layer="25">
 <vertex x="51.12" y="5.91"/>
 <vertex x="51.21" y="6"/>
@@ -2305,17 +2305,17 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="POPULATE" value="1" x="51.63" y="47.18" size="1.778" layer="27" display="off"/>
 <attribute name="URL" value="" x="51.63" y="47.18" size="1.778" layer="27" display="off"/>
 </element>
-<element name="U7" library="XC9265A331MR-G" package="SOT95P280X130-5N" value="XC9265A331MR-G" x="9.77" y="46.37" smashed="yes" rot="R270">
-<attribute name="DESCRIPTION" value="Switching Voltage Regulators Ultra Low Power PFM DCDC Converter" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="HEIGHT" value="1.3mm" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MANUFACTURER_NAME" value="Torex" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="XC9265A331MR-G" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MF" value="Torex" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MOUSER_PART_NUMBER" value="865-XC9265A331MR-G" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Torex-Semiconductor/XC9265A331MR-G?qs=AsjdqWjXhJ9U1u7bKcUHSA%3D%3D" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="MPN" value="XC9265A331MR-G" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
-<attribute name="NAME" x="7.74" y="46.9" size="0.6" layer="25" ratio="10" rot="R270" align="top-left"/>
-<attribute name="POPULATE" value="1" x="28.37" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<element name="U7" library="XC9265A331MR-G" package="SOT95P280X130-5N" value="XC9265A331MR-G" x="8.97" y="46.37" smashed="yes" rot="R270">
+<attribute name="DESCRIPTION" value="Switching Voltage Regulators Ultra Low Power PFM DCDC Converter" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="HEIGHT" value="1.3mm" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MANUFACTURER_NAME" value="Torex" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="XC9265A331MR-G" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MF" value="Torex" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MOUSER_PART_NUMBER" value="865-XC9265A331MR-G" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.co.uk/ProductDetail/Torex-Semiconductor/XC9265A331MR-G?qs=AsjdqWjXhJ9U1u7bKcUHSA%3D%3D" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="MPN" value="XC9265A331MR-G" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
+<attribute name="NAME" x="6.94" y="46.9" size="0.6" layer="25" ratio="10" rot="R270" align="top-left"/>
+<attribute name="POPULATE" value="1" x="27.57" y="62.37" size="1.778" layer="27" rot="R270" display="off"/>
 </element>
 <element name="U1" library="power_dist" package="21-0487A_MXM" value="MAX15062AATA+T" x="19.21" y="46.19" smashed="yes" rot="R180">
 <attribute name="BUILT_BY" value="EMA_Jessica" x="27.81" y="26.39" size="1.778" layer="27" rot="R180" display="off"/>
@@ -2329,58 +2329,58 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <attribute name="SOURCELIBRARY" value="Maxim_DP_2018-06-12" x="27.81" y="26.39" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="VENDOR" value="Maxim Integrated Products" x="27.81" y="26.39" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="C4" library="mfpassives" package="C1206" value="10uF" x="12.8" y="46.8" smashed="yes" rot="R90">
-<attribute name="DIELECTRIC" value="" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="HOUSEPART" value="1" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MF" value="" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MPN" value="MF-CAP-1206-10uF" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="11.89" y="49.35" size="0.5" layer="25" font="vector" ratio="10"/>
-<attribute name="POPULATE" value="1" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="TOLERANCE" value="" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="URL" value="" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VOLTAGE" value="" x="0.2" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="C4" library="mfpassives" package="C1206" value="10uF" x="12" y="46.8" smashed="yes" rot="R90">
+<attribute name="DIELECTRIC" value="" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="HOUSEPART" value="1" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MF" value="" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MPN" value="MF-CAP-1206-10uF" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="NAME" x="11.09" y="49.35" size="0.5" layer="25" font="vector" ratio="10"/>
+<attribute name="POPULATE" value="1" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="TOLERANCE" value="" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="URL" value="" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="VOLTAGE" value="" x="-0.6" y="36" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="C24" library="mfpassives" package="C0402" value="1uF" x="10.21" y="49.02" smashed="yes" rot="R180">
-<attribute name="DIELECTRIC" value="" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="HOUSEPART" value="1" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MF" value="" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MPN" value="MF-CAP-0402-1uF" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="8.98" y="49.78" size="0.5" layer="25" font="vector" ratio="10" rot="R180"/>
-<attribute name="POPULATE" value="1" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="TOLERANCE" value="" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="URL" value="" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VOLTAGE" value="" x="15.01" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<element name="C24" library="mfpassives" package="C0402" value="1uF" x="9.41" y="49.02" smashed="yes" rot="R180">
+<attribute name="DIELECTRIC" value="" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="HOUSEPART" value="1" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MF" value="" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MPN" value="MF-CAP-0402-1uF" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="NAME" x="8.18" y="49.78" size="0.5" layer="25" font="vector" ratio="10" rot="R180"/>
+<attribute name="POPULATE" value="1" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="TOLERANCE" value="" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="URL" value="" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VOLTAGE" value="" x="14.21" y="35.62" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
-<element name="L1" library="controller" package="IND_BOURNS_SRN4018" value="SRN4018-220M" x="15.92" y="45.55" smashed="yes" rot="R90">
-<attribute name="MANUFACTURER_PART_NUMBER" value="74404042470" x="10.92" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MF" value="Wurth Electronics" x="10.92" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="MPN" value="74404042470" x="10.92" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="NAME" x="14.9934" y="42.605" size="0.6" layer="25" ratio="10" rot="SR0"/>
-<attribute name="POPULATE" value="1" x="10.92" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
-<attribute name="VENDOR" value="Wurth" x="10.92" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
+<element name="L1" library="controller" package="IND_BOURNS_SRN4018" value="SRN4018-220M" x="15.52" y="45.55" smashed="yes" rot="R90">
+<attribute name="MANUFACTURER_PART_NUMBER" value="74404042470" x="10.52" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MF" value="Wurth Electronics" x="10.52" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="MPN" value="74404042470" x="10.52" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="NAME" x="14.5934" y="42.605" size="0.6" layer="25" ratio="10" rot="SR0"/>
+<attribute name="POPULATE" value="1" x="10.52" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
+<attribute name="VENDOR" value="Wurth" x="10.52" y="40.95" size="1.778" layer="27" rot="R90" display="off"/>
 </element>
-<element name="L2" library="moteus_hp" package="IND_4024100_WRE" value="74404024100" x="11.8" y="43.2" smashed="yes">
-<attribute name="COPYRIGHT" value="Copyright (C) 2022 Ultra Librarian. All rights reserved." x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="DIGI-KEY_PART_NUMBER_1" value="732-5428-2-ND" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="DIGI-KEY_PART_NUMBER_2" value="732-5428-1-ND" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="DIGI-KEY_PART_NUMBER_3" value="732-5428-6-ND" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="74404024100" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="MF" value="Wurth Electronics" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="MFR_NAME" value="Wurth Electronics" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="MPN" value="74404024100" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
-<attribute name="NAME" x="13.5934" y="42.265" size="0.6" layer="27" ratio="10" rot="SR0"/>
-<attribute name="POPULATE" value="1" x="7.2" y="24.8" size="1.778" layer="27" display="off"/>
+<element name="L2" library="moteus_hp" package="IND_4024100_WRE" value="74404024100" x="11" y="43.2" smashed="yes">
+<attribute name="COPYRIGHT" value="Copyright (C) 2022 Ultra Librarian. All rights reserved." x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="DIGI-KEY_PART_NUMBER_1" value="732-5428-2-ND" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="DIGI-KEY_PART_NUMBER_2" value="732-5428-1-ND" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="DIGI-KEY_PART_NUMBER_3" value="732-5428-6-ND" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="MANUFACTURER_PART_NUMBER" value="74404024100" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="MF" value="Wurth Electronics" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="MFR_NAME" value="Wurth Electronics" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="MPN" value="74404024100" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
+<attribute name="NAME" x="12.7934" y="42.265" size="0.6" layer="27" ratio="10" rot="SR0"/>
+<attribute name="POPULATE" value="1" x="6.4" y="24.8" size="1.778" layer="27" display="off"/>
 </element>
-<element name="C25" library="mfpassives" package="C1206" value="22uF" x="7.8" y="42.8" smashed="yes" rot="R180">
-<attribute name="DIELECTRIC" value="" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="HOUSEPART" value="" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MF" value="Samsung" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="MPN" value="CL31B226KPHNNNE" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="NAME" x="5.4" y="44.1" size="0.6" layer="25" font="vector" ratio="10"/>
-<attribute name="POPULATE" value="1" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="TOLERANCE" value="" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="URL" value="" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
-<attribute name="VOLTAGE" value="" x="7.8" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<element name="C25" library="mfpassives" package="C1206" value="22uF" x="7" y="42.8" smashed="yes" rot="R180">
+<attribute name="DIELECTRIC" value="" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="HOUSEPART" value="" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MF" value="Samsung" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="MPN" value="CL31B226KPHNNNE" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="NAME" x="4.6" y="44.1" size="0.6" layer="25" font="vector" ratio="10"/>
+<attribute name="POPULATE" value="1" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="TOLERANCE" value="" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="URL" value="" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
+<attribute name="VOLTAGE" value="" x="7" y="42.8" size="1.778" layer="27" rot="R180" display="off"/>
 </element>
 <element name="R23" library="mfpassives" package="R0603" value="0" x="19.8" y="18" smashed="yes" rot="R270">
 <attribute name="HOUSEPART" value="1" x="19.8" y="18" size="1.778" layer="27" rot="R270" display="off"/>
@@ -2630,14 +2630,14 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="C24" pad="P$2"/>
 <contactref element="U7" pad="2"/>
 <contactref element="C25" pad="P$2"/>
-<via x="13.37" y="47.39" extent="1-16" drill="0.3048"/>
-<via x="7.32" y="43.22" extent="1-16" drill="0.3048"/>
-<via x="7.32" y="42.42" extent="1-16" drill="0.3048"/>
+<via x="12.57" y="47.39" extent="1-16" drill="0.3048"/>
+<via x="6.52" y="43.22" extent="1-16" drill="0.3048"/>
+<via x="6.52" y="42.42" extent="1-16" drill="0.3048"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="6" y="43.6"/>
-<vertex x="7.6" y="43.6"/>
-<vertex x="7.6" y="41.2"/>
-<vertex x="6" y="41.2"/>
+<vertex x="5.2" y="43.6"/>
+<vertex x="6.8" y="43.6"/>
+<vertex x="6.8" y="41.2"/>
+<vertex x="5.2" y="41.2"/>
 </polygon>
 <via x="23.5" y="17.2" extent="1-16" drill="0.3048"/>
 <wire x1="23.5" y1="17.2" x2="22.65" y2="17.2" width="0.4064" layer="1"/>
@@ -2679,10 +2679,10 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="17.8" y="48.8"/>
 </polygon>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="13.2" y="49.67"/>
+<vertex x="12.4" y="49.67"/>
 <vertex x="16.4" y="49.67"/>
 <vertex x="16.4" y="48"/>
-<vertex x="13.2" y="48"/>
+<vertex x="12.4" y="48"/>
 </polygon>
 <polygon width="0.1524" layer="1" thermals="no">
 <vertex x="32.4" y="20.2"/>
@@ -2694,35 +2694,35 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="33.4" y="19.2"/>
 <vertex x="32.4" y="19.2"/>
 </polygon>
-<via x="12.67" y="47.38" extent="1-16" drill="0.3048"/>
-<via x="7.32" y="41.62" extent="1-16" drill="0.3048"/>
-<via x="6.32" y="41.62" extent="1-16" drill="0.3048"/>
-<via x="13.16" y="48.99" extent="1-16" drill="0.3048"/>
+<via x="11.87" y="47.38" extent="1-16" drill="0.3048"/>
+<via x="6.52" y="41.62" extent="1-16" drill="0.3048"/>
+<via x="5.52" y="41.62" extent="1-16" drill="0.3048"/>
 <via x="12.36" y="48.99" extent="1-16" drill="0.3048"/>
-<via x="11.96" y="47.39" extent="1-16" drill="0.3048"/>
+<via x="11.56" y="48.99" extent="1-16" drill="0.3048"/>
+<via x="11.16" y="47.39" extent="1-16" drill="0.3048"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="11.6" y="49.8"/>
-<vertex x="14" y="49.8"/>
-<vertex x="14" y="48.2"/>
-<vertex x="13.8" y="48"/>
-<vertex x="13.8" y="47"/>
-<vertex x="11.6" y="47"/>
+<vertex x="10.8" y="49.8"/>
+<vertex x="13.2" y="49.8"/>
+<vertex x="13.2" y="48.2"/>
+<vertex x="13" y="48"/>
+<vertex x="13" y="47"/>
+<vertex x="10.8" y="47"/>
 </polygon>
-<via x="8.95" y="48.88" extent="1-16" drill="0.3048"/>
-<via x="8.21" y="48.87" extent="1-16" drill="0.3048"/>
-<via x="7.56" y="48.39" extent="1-16" drill="0.3048"/>
-<via x="7.56" y="47.59" extent="1-16" drill="0.3048"/>
+<via x="8.15" y="48.88" extent="1-16" drill="0.3048"/>
+<via x="7.41" y="48.87" extent="1-16" drill="0.3048"/>
+<via x="6.76" y="48.39" extent="1-16" drill="0.3048"/>
+<via x="6.76" y="47.59" extent="1-16" drill="0.3048"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="7" y="49.6"/>
-<vertex x="10" y="49.6"/>
-<vertex x="10" y="47.4"/>
-<vertex x="9.4" y="47.4"/>
-<vertex x="9.4" y="48.4"/>
-<vertex x="9.2" y="48.6"/>
+<vertex x="6.2" y="49.6"/>
+<vertex x="9.2" y="49.6"/>
+<vertex x="9.2" y="47.4"/>
+<vertex x="8.6" y="47.4"/>
+<vertex x="8.6" y="48.4"/>
 <vertex x="8.4" y="48.6"/>
-<vertex x="8" y="48.2"/>
-<vertex x="8" y="47"/>
-<vertex x="7" y="47"/>
+<vertex x="7.6" y="48.6"/>
+<vertex x="7.2" y="48.2"/>
+<vertex x="7.2" y="47"/>
+<vertex x="6.2" y="47"/>
 </polygon>
 <contactref element="C28" pad="P$2"/>
 <wire x1="21.16" y1="9.6" x2="21.16" y2="8.48" width="0.5" layer="1"/>
@@ -2852,16 +2852,16 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="U7" pad="4"/>
 <contactref element="L2" pad="1"/>
 <contactref element="C25" pad="P$1"/>
-<via x="8.4" y="43.4" extent="1-16" drill="0.3048"/>
-<via x="8.4" y="42.6" extent="1-16" drill="0.3048"/>
-<via x="8.4" y="41.8" extent="1-16" drill="0.3048"/>
-<via x="9.2" y="41.4" extent="1-16" drill="0.3048"/>
-<wire x1="9.3041" y1="42.7459" x2="9.25" y2="42.8" width="0.6096" layer="1"/>
+<via x="7.6" y="43.4" extent="1-16" drill="0.3048"/>
+<via x="7.6" y="42.6" extent="1-16" drill="0.3048"/>
+<via x="7.6" y="41.8" extent="1-16" drill="0.3048"/>
+<via x="8.4" y="41.4" extent="1-16" drill="0.3048"/>
+<wire x1="8.5041" y1="42.7459" x2="8.45" y2="42.8" width="0.6096" layer="1"/>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="8" y="45.4"/>
-<vertex x="9.8" y="45.4"/>
-<vertex x="9.8" y="41"/>
-<vertex x="8" y="41"/>
+<vertex x="7.2" y="45.4"/>
+<vertex x="9" y="45.4"/>
+<vertex x="9" y="41"/>
+<vertex x="7.2" y="41"/>
 </polygon>
 <contactref element="R27" pad="P$1"/>
 <contactref element="R28" pad="P$1"/>
@@ -2881,8 +2881,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <vertex x="32.8" y="17.6"/>
 <vertex x="32.4" y="18"/>
 </polygon>
-<wire x1="10.7459" y1="43.2" x2="10.2918" y2="42.7459" width="1" layer="1"/>
-<wire x1="10.2918" y1="42.7459" x2="9.3041" y2="42.7459" width="1" layer="1"/>
+<wire x1="9.9459" y1="43.2" x2="9.4918" y2="42.7459" width="1" layer="1"/>
+<wire x1="9.4918" y1="42.7459" x2="8.5041" y2="42.7459" width="1" layer="1"/>
 <via x="40" y="1.9" extent="1-16" drill="0.3048"/>
 <via x="40" y="1.1" extent="1-16" drill="0.3048"/>
 <via x="40.8" y="1.1" extent="1-16" drill="0.3048"/>
@@ -3762,13 +3762,13 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <contactref element="U1" pad="2"/>
 <via x="19.95681875" y="49.41" extent="1-16" drill="0.35"/>
 <wire x1="19.95681875" y1="49.41" x2="19.75681875" y2="49.61" width="0.254" layer="16"/>
-<wire x1="19.75681875" y1="49.61" x2="7.6" y2="49.61" width="0.254" layer="16"/>
-<wire x1="5.2" y1="43.8" x2="5.2" y2="41.2" width="0.254" layer="16"/>
-<wire x1="5.2" y1="41.2" x2="10.4" y2="36" width="0.254" layer="16"/>
-<wire x1="14.8" y1="36" x2="10.4" y2="36" width="0.254" layer="16"/>
+<wire x1="19.75681875" y1="49.61" x2="6.8" y2="49.61" width="0.254" layer="16"/>
+<wire x1="4.4" y1="43.8" x2="4.4" y2="41.2" width="0.254" layer="16"/>
+<wire x1="4.4" y1="41.2" x2="9.6" y2="36" width="0.254" layer="16"/>
+<wire x1="14.8" y1="36" x2="9.6" y2="36" width="0.254" layer="16"/>
 <wire x1="14.8" y1="36" x2="17.2" y2="33.6" width="0.254" layer="16"/>
 <via x="17.2" y="33.6" extent="1-16" drill="0.35"/>
-<wire x1="6.6" y1="45.2" x2="5.2" y2="43.8" width="0.254" layer="16"/>
+<wire x1="5.8" y1="45.2" x2="4.4" y2="43.8" width="0.254" layer="16"/>
 <wire x1="22.6" y1="18.75" x2="24.375" y2="18.75" width="0.3048" layer="1"/>
 <wire x1="24.375" y1="18.75" x2="24.525" y2="18.6" width="0.3048" layer="1"/>
 <wire x1="20.1625" y1="45.94" x2="20.1169" y2="45.8944" width="0.1524" layer="1"/>
@@ -3776,8 +3776,8 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="19.8368125" y1="45.8944" x2="19.49" y2="46.2412125" width="0.1524" layer="1"/>
 <wire x1="19.49" y1="48.94318125" x2="19.95681875" y2="49.41" width="0.1524" layer="1"/>
 <wire x1="19.49" y1="46.2412125" x2="19.49" y2="48.94318125" width="0.1524" layer="1"/>
-<wire x1="7.6" y1="49.61" x2="6.6" y2="48.61" width="0.254" layer="16"/>
-<wire x1="6.6" y1="48.61" x2="6.6" y2="45.2" width="0.254" layer="16"/>
+<wire x1="6.8" y1="49.61" x2="5.8" y2="48.61" width="0.254" layer="16"/>
+<wire x1="5.8" y1="48.61" x2="5.8" y2="45.2" width="0.254" layer="16"/>
 </signal>
 <signal name="3V3_OVERRIDE">
 <contactref element="D1" pad="ANODE"/>
@@ -4033,12 +4033,12 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <wire x1="19.8" y1="20" x2="15.6" y2="24.2" width="1" layer="1"/>
 <wire x1="11" y1="19.4" x2="11" y2="22.2" width="0.6" layer="1"/>
 <wire x1="11" y1="22.2" x2="15.6" y2="26.8" width="0.6" layer="1"/>
-<wire x1="15.574" y1="44.026" x2="15.92" y2="44.026" width="0.6096" layer="1"/>
-<wire x1="13.6594" y1="45.3406" x2="14.974" y2="44.026" width="0.6096" layer="1"/>
-<wire x1="14.974" y1="44.026" x2="15.574" y2="44.026" width="0.6096" layer="1"/>
+<wire x1="15.574" y1="44.026" x2="15.52" y2="44.026" width="0.6096" layer="1"/>
+<wire x1="12.8594" y1="45.3406" x2="14.174" y2="44.026" width="0.6096" layer="1"/>
+<wire x1="14.174" y1="44.026" x2="15.52" y2="44.026" width="0.6096" layer="1"/>
 <wire x1="16.4" y1="43.2" x2="15.574" y2="44.026" width="1" layer="1"/>
 <wire x1="16.4" y1="36.8" x2="16.4" y2="43.2" width="1" layer="1"/>
-<wire x1="15.92" y1="44.026" x2="15.174" y2="44.026" width="0.1524" layer="1"/>
+<wire x1="15.52" y1="44.026" x2="15.174" y2="44.026" width="0.1524" layer="1"/>
 <wire x1="15.174" y1="44.026" x2="14.4" y2="44.8" width="0.1524" layer="1"/>
 <wire x1="14.4" y1="44.8" x2="14.8" y2="45.2" width="0.254" layer="1"/>
 <via x="14.8" y="45.2" extent="1-16" drill="0.35"/>
@@ -4047,28 +4047,28 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <via x="20.2" y="47.4202" extent="1-16" drill="0.35"/>
 <wire x1="20.2" y1="47.4202" x2="20.2" y2="46.9775" width="0.254" layer="1"/>
 <wire x1="20.2" y1="46.9775" x2="20.1625" y2="46.94" width="0.1524" layer="1"/>
-<wire x1="10.72" y1="47.77" x2="10.72" y2="48.98" width="0.6096" layer="1"/>
-<wire x1="10.72" y1="48.98" x2="10.76" y2="49.02" width="0.6096" layer="1"/>
+<wire x1="9.92" y1="47.77" x2="9.92" y2="48.98" width="0.6096" layer="1"/>
+<wire x1="9.92" y1="48.98" x2="9.96" y2="49.02" width="0.6096" layer="1"/>
 <polygon width="0.1524" layer="1" thermals="no" rank="2">
-<vertex x="8.6" y="48.2"/>
-<vertex x="11" y="48.2"/>
-<vertex x="11" y="47"/>
-<vertex x="11.8" y="46.2"/>
-<vertex x="13.8" y="46.2"/>
+<vertex x="7.8" y="48.2"/>
+<vertex x="10.2" y="48.2"/>
+<vertex x="10.2" y="47"/>
+<vertex x="11" y="46.2"/>
+<vertex x="13" y="46.2"/>
 <vertex x="13.8" y="45.2"/>
-<vertex x="11.8" y="45.2"/>
-<vertex x="11.2" y="45.8"/>
-<vertex x="8.6" y="45.8"/>
+<vertex x="11" y="45.2"/>
+<vertex x="10.4" y="45.8"/>
+<vertex x="7.8" y="45.8"/>
 </polygon>
 <polygon width="0.1524" layer="1" thermals="no">
-<vertex x="12.4" y="46.2"/>
-<vertex x="13.6" y="46.2"/>
-<vertex x="14.2" y="45.6"/>
+<vertex x="11.6" y="46.2"/>
+<vertex x="12.8" y="46.2"/>
+<vertex x="13.4" y="45.6"/>
 <vertex x="14.8" y="45.6"/>
 <vertex x="16" y="44.4"/>
-<vertex x="14.2" y="44.4"/>
-<vertex x="13.6" y="45"/>
-<vertex x="12.4" y="45"/>
+<vertex x="13.4" y="44.4"/>
+<vertex x="12.8" y="45"/>
+<vertex x="11.6" y="45"/>
 </polygon>
 <wire x1="15.6" y1="24.2" x2="15.6" y2="26.8" width="1" layer="1"/>
 </signal>
@@ -4092,9 +4092,9 @@ This DRC check is for 4-Layer Standard Capability boards to be manufactured thro
 <signal name="N$18">
 <contactref element="U7" pad="5"/>
 <contactref element="L2" pad="2"/>
-<wire x1="12.8541" y1="43.2" x2="12.8541" y2="43.4" width="0.3" layer="1"/>
-<wire x1="12.8541" y1="43.4" x2="11.2841" y2="44.97" width="0.4" layer="1"/>
-<wire x1="11.2841" y1="44.97" x2="10.72" y2="44.97" width="0.4" layer="1"/>
+<wire x1="12.0541" y1="43.2" x2="12.0541" y2="43.4" width="0.3" layer="1"/>
+<wire x1="12.0541" y1="43.4" x2="10.4841" y2="44.97" width="0.4" layer="1"/>
+<wire x1="10.4841" y1="44.97" x2="9.92" y2="44.97" width="0.4" layer="1"/>
 </signal>
 <signal name="N$17" class="1">
 <contactref element="R23" pad="P$2"/>
