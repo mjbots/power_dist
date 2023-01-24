@@ -3655,9 +3655,9 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="MPN" value="PSMN3R7-100BSE"/>
 <attribute name="POPULATE" value="1"/>
 </part>
-<part name="C2" library="mfpassives" deviceset="CAPACITOR_NP" device="_0805" value="1uF 100V">
+<part name="C2" library="mfpassives" deviceset="CAPACITOR_NP" device="_1206" value="4.7uF 100V">
 <attribute name="MF" value="MURATA"/>
-<attribute name="MPN" value="GCM21BC72A105KE36L"/>
+<attribute name="MPN" value="GRJ31CC72A475KE01K"/>
 </part>
 <part name="R4" library="power_dist" deviceset="SENSE_RESISTOR" device="2512" value="0.5mOhm">
 <attribute name="MF" value="VISHAY DALE"/>
@@ -3908,8 +3908,14 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <attribute name="URL" value=""/>
 </part>
 <part name="U7" library="XC9265A331MR-G" deviceset="XC9265A331MR-G" device="">
-<attribute name="MF" value="Torex"/>
-<attribute name="MPN" value="XC9265A331MR-G"/>
+<attribute name="DESCRIPTION" value=""/>
+<attribute name="HEIGHT" value=""/>
+<attribute name="MANUFACTURER_NAME" value=""/>
+<attribute name="MANUFACTURER_PART_NUMBER" value=""/>
+<attribute name="MF" value=""/>
+<attribute name="MOUSER_PART_NUMBER" value=""/>
+<attribute name="MOUSER_PRICE-STOCK" value=""/>
+<attribute name="MPN" value="MF-REG-SOT235-3.3V-300mA"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="U1" library="power_dist" deviceset="MAX15062AATA+T" device="">
@@ -3939,8 +3945,14 @@ Source: &lt;a href="https://www.torexsemi.com/file/xc9265/XC9265.pdf"&gt; Datash
 <part name="P+4" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="GND29" library="supply1" deviceset="GND" device=""/>
 <part name="L2" library="moteus_hp" deviceset="74404024100" device="">
-<attribute name="MF" value="Wurth Electronics"/>
-<attribute name="MPN" value="74404024100"/>
+<attribute name="COPYRIGHT" value=""/>
+<attribute name="DIGI-KEY_PART_NUMBER_1" value=""/>
+<attribute name="DIGI-KEY_PART_NUMBER_2" value=""/>
+<attribute name="DIGI-KEY_PART_NUMBER_3" value=""/>
+<attribute name="MANUFACTURER_PART_NUMBER" value=""/>
+<attribute name="MF" value=""/>
+<attribute name="MFR_NAME" value=""/>
+<attribute name="MPN" value="MF-RES-0805-0"/>
 <attribute name="POPULATE" value="1"/>
 </part>
 <part name="P+18" library="supply1" deviceset="VCC" device=""/>
