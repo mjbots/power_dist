@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <numeric>
+
 #include "mbed.h"
 
 #include "mjlib/base/assert.h"
@@ -458,15 +460,8 @@ uint16_t SampleAdc(ADC_TypeDef* adc) {
   return adc->DR;
 }
 
-uint16_t SampleAdcAverage(ADC_TypeDef* adc, int count) {
-  uint32_t total = 0;
-  for (int i = 0; i < count; i++) {
-    total += SampleAdc(adc);
-  }
-  return total / count;
-}
-
 const int kShutdownTimeoutMs = 5000;
+const int kMinOffTimeMs = 500;
 
 class PowerDist : public mjlib::multiplex::MicroServer::Server {
  public:
@@ -476,7 +471,6 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     int8_t tps2490_fault = 0;
     int8_t switch_status = 0;
     int16_t lock_time_100ms = 0;
-    int16_t boot_time_100ms = 0;
 
     float input_voltage_V = 0.0f;
     float output_voltage_V = 0.0f;
@@ -487,7 +481,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     int32_t precharge_timeout_ms = 0;
     int32_t shutdown_timeout_ms = 0;
 
+    int32_t off_time_ms = 0;
+
     uint16_t isamp_offset = 0;
+    uint16_t isamp_average = 0;
 
     template <typename Archive>
     void Serialize(Archive* a) {
@@ -496,7 +493,6 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       a->Visit(MJ_NVP(tps2490_fault));
       a->Visit(MJ_NVP(switch_status));
       a->Visit(MJ_NVP(lock_time_100ms));
-      a->Visit(MJ_NVP(boot_time_100ms));
 
       a->Visit(MJ_NVP(input_voltage_V));
       a->Visit(MJ_NVP(output_voltage_V));
@@ -507,7 +503,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       a->Visit(MJ_NVP(precharge_timeout_ms));
       a->Visit(MJ_NVP(shutdown_timeout_ms));
 
+      a->Visit(MJ_NVP(off_time_ms));
+
       a->Visit(MJ_NVP(isamp_offset));
+      a->Visit(MJ_NVP(isamp_average));
     }
   };
 
@@ -711,9 +710,6 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
     timer_.wait_ms(20);
 
-    // Read ADC5 before we start powering anything.
-    status_.isamp_offset = SampleAdcAverage(ADC5, 64);
-
     auto callback = mjlib::micro::CallbackTable::MakeFunction(
         [this]() {
           this->gpio2_.write(!this->gpio2_.read());
@@ -758,6 +754,12 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   void PollMillisecond() {
     telemetry_manager_.PollMillisecond();
     UpdateMillisecondTimers();
+    if (status_.state == kPowerOff) {
+      status_.off_time_ms = std::min<int32_t>(
+          status_.off_time_ms + 1, kMinOffTimeMs);
+    } else {
+      status_.off_time_ms = 0;
+    }
   }
 
   void UpdateMillisecondTimers() {
@@ -829,6 +831,14 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     status_.output_voltage_V = vsamp_out;
     status_.output_current_A = isamp;
     status_.fet_temp_C = fet_temp_C;
+
+    isamp_sample_window_[isamp_sample_offset_] = isamp_in;
+    isamp_sample_offset_ = (isamp_sample_offset_ + 1) % isamp_sample_window_.size();
+    status_.isamp_average =
+        std::accumulate(isamp_sample_window_.begin(),
+                        isamp_sample_window_.end(),
+                        0) /
+        static_cast<float>(isamp_sample_window_.size());
   }
 
   void SetOutputsFromState() {
@@ -882,11 +892,17 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       case kPowerOff: {
         fault_code = 0;
         if (power_switch_status == 1) {
+          // We don't want to turn off if the user is trying to turn
+          // us back on.
+          shutdown_timeout_ms = kShutdownTimeoutMs;
+        }
+        if (power_switch_status == 1 &&
+            status_.off_time_ms == kMinOffTimeMs) {
           precharge_timeout_ms = 100;
           state = kPrecharging;
 
           // Read ADC5 before we start powering anything.
-          status_.isamp_offset = SampleAdcAverage(ADC5, 64);
+          status_.isamp_offset = status_.isamp_average;
         }
         break;
       }
@@ -971,6 +987,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   OpAmpInvertingAmplifier opamp5_{OPAMP5};  // PB15 == VINM0
 
   Status status_;
+
+  std::array<uint16_t, 16> isamp_sample_window_ = {};
+  int isamp_sample_offset_ = 0;
+
   uint32_t old_time_ = 0;
 
   float vsamp_divide_ =
