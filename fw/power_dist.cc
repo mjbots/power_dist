@@ -465,6 +465,15 @@ const int kMinOffTimeMs = 500;
 
 class PowerDist : public mjlib::multiplex::MicroServer::Server {
  public:
+  struct Config {
+    float current_sense_ohm = 0.0005f;
+
+    template <typename Archive>
+    void Serialize(Archive* a) {
+      a->Visit(MJ_NVP(current_sense_ohm));
+    }
+  };
+
   struct Status {
     State state = kPowerOff;
     int8_t fault_code = 0;
@@ -485,6 +494,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
     uint16_t isamp_offset = 0;
     uint16_t isamp_average = 0;
+
+    int8_t force_output = 0;
 
     template <typename Archive>
     void Serialize(Archive* a) {
@@ -507,6 +518,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
       a->Visit(MJ_NVP(isamp_offset));
       a->Visit(MJ_NVP(isamp_average));
+
+      a->Visit(MJ_NVP(force_output));
     }
   };
 
@@ -664,6 +677,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
                        std::placeholders::_1, std::placeholders::_2));
 
     persistent_config_.Register("id", multiplex_protocol_.config(), [](){});
+    persistent_config_.Register("power", &config_, [](){});
     telemetry_manager_.Register("git", &git_info_);
     telemetry_manager_.Register("power", &status_);
     persistent_config_.Load();
@@ -685,6 +699,21 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
       status_.lock_time_100ms =
           std::strtol(time_100ms.data(), nullptr, 10);
+
+      WriteOk(response);
+      return;
+    } else if (cmd_text == "force") {
+      const auto force_str = tokenizer.next();
+      if (force_str == "off") {
+        status_.force_output = 1;
+      } else if (force_str == "on") {
+        status_.force_output = 2;
+      } else if (force_str == "disable") {
+        status_.force_output = 0;
+      } else {
+        WriteMessage(response, "ERR invalid force\r\n");
+        return;
+      }
 
       WriteOk(response);
       return;
@@ -808,7 +837,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         static_cast<float>(vsamp_out_raw) / 4096.0f * 3.3f / vsamp_divide_;
     const float vsamp_in =
         static_cast<float>(vsamp_in_raw) / 4096.0f * 3.3f / vsamp_divide_;
-    constexpr float V_per_A = 0.0005f * 8 * 7;
+    const float V_per_A = config_.current_sense_ohm * 8 * 7;
     const float isamp =
         -((static_cast<float>(isamp_in) -
            status_.isamp_offset) / 4096.0f * 3.3f) / V_per_A;
@@ -888,15 +917,25 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     auto& shutdown_timeout_ms = status_.shutdown_timeout_ms;
     auto& power_switch_status = status_.switch_status;
 
+    int8_t desired_output = status_.switch_status;
+    if (status_.switch_status == 1) {
+      if (status_.force_output == 1) {
+        desired_output = 0;
+      } else if (status_.force_output == 2) {
+        desired_output = 1;
+      }
+    }
+
     switch (state) {
       case kPowerOff: {
         fault_code = 0;
-        if (power_switch_status == 1) {
+        if (power_switch_status == 1 ||
+            desired_output == 1) {
           // We don't want to turn off if the user is trying to turn
           // us back on.
           shutdown_timeout_ms = kShutdownTimeoutMs;
         }
-        if (power_switch_status == 1 &&
+        if (desired_output == 1 &&
             status_.off_time_ms == kMinOffTimeMs) {
           precharge_timeout_ms = 100;
           state = kPrecharging;
@@ -910,7 +949,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         fault_code = 0;
         if (status_.tps2490_fault == 1) {
           state = kPowerOn;
-        } else if (power_switch_status == 0) {
+        } else if (desired_output == 0) {
           state = kPowerOff;
         } else if (precharge_timeout_ms == 0) {
           fault_code = 1;
@@ -924,7 +963,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         if (status_.tps2490_fault == 0) {
           state = kFault;
           fault_code = 2;
-        } else if (power_switch_status == 0 &&
+        } else if (desired_output == 0 &&
                    status_.lock_time_100ms == 0) {
           state = kPowerOff;
         }
@@ -932,7 +971,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         break;
       }
       case kFault: {
-        if (power_switch_status == 0) {
+        if (desired_output == 0) {
           state = kPowerOff;
         }
         shutdown_timeout_ms = kShutdownTimeoutMs;
@@ -986,6 +1025,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   OpAmpBuffer opamp3_{OPAMP3, 0, OpAmpBuffer::kExternal};  // PB0 == VINP0, output = PB1
   OpAmpInvertingAmplifier opamp5_{OPAMP5};  // PB15 == VINM0
 
+  Config config_;
   Status status_;
 
   std::array<uint16_t, 16> isamp_sample_window_ = {};
