@@ -998,11 +998,12 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   micro::AsyncStream* serial_ = multiplex_protocol_.MakeTunnel(1);
   micro::AsyncExclusive<micro::AsyncWriteStream> write_stream_{serial_};
   micro::CommandManager command_manager_{&pool_, serial_, &write_stream_};
+  char micro_output_buffer[2048] = {};
   micro::TelemetryManager telemetry_manager_{
-    &pool_, &command_manager_, &write_stream_};
+    &pool_, &command_manager_, &write_stream_, micro_output_buffer};
   fw::Stm32G4Flash flash_interface_;
   micro::PersistentConfig persistent_config_{
-    pool_, command_manager_, flash_interface_};
+    pool_, command_manager_, flash_interface_, micro_output_buffer};
   fw::Uuid uuid_{persistent_config_};
   fw::GitInfo git_info_;
   fw::FirmwareInfo firmware_info_{pool_, telemetry_manager_, 0, 0};

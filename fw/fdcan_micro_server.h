@@ -22,6 +22,10 @@ namespace fw {
 
 class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
  public:
+  // Fields in Header::flags
+  static constexpr uint32_t kBrsFlag = 0x01;
+  static constexpr uint32_t kFdcanFlag = 0x02;
+
   FDCanMicroServer(FDCan* can) : fdcan_(can) {}
 
   void AsyncRead(Header* header,
@@ -35,19 +39,28 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
 
   void AsyncWrite(const Header& header,
                   const std::string_view& data,
+                  const Header& query_header,
                   const mjlib::micro::SizeCallback& callback) override {
     const auto actual_dlc = RoundUpDlc(data.size());
     const uint32_t id =
         ((header.source & 0xff) << 8) | (header.destination & 0xff);
 
+    FDCan::SendOptions send_options;
+    send_options.bitrate_switch =
+        (query_header.flags & kBrsFlag) ?
+        FDCan::Override::kRequire : FDCan::Override::kDisable;
+    send_options.fdcan_frame =
+        ((query_header.flags & kFdcanFlag) ==0 && data.size() <= 8) ?
+        FDCan::Override::kDisable : FDCan::Override::kRequire;
+
     if (actual_dlc == data.size()) {
-      fdcan_->Send(id, data, {});
+      fdcan_->Send(id, data, send_options);
     } else {
       std::memcpy(buf_, data.data(), data.size());
       for (size_t i = data.size(); i < actual_dlc; i++) {
         buf_[i] = 0x50;
       }
-      fdcan_->Send(id, std::string_view(buf_, actual_dlc), {});
+      fdcan_->Send(id, std::string_view(buf_, actual_dlc), send_options);
     }
 
     callback(mjlib::micro::error_code(), data.size());
