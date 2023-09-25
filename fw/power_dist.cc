@@ -1,4 +1,4 @@
-// Copyright 2019-2021 Josh Pieper, jjp@pobox.com.
+// Copyright 2023 mjbots Robotic Systems, LLC.  info@mjbots.com
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -454,12 +454,6 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
   adc->SMPR2 = make_cycles(2);
 }
 
-uint16_t SampleAdc(ADC_TypeDef* adc) {
-  adc->CR |= ADC_CR_ADSTART;
-  while ((adc->ISR & ADC_ISR_EOC) == 0);
-  return adc->DR;
-}
-
 const int kShutdownTimeoutMs = 5000;
 const int kMinOffTimeMs = 500;
 
@@ -487,6 +481,10 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     float fet_temp_C = 0.0f;
     int32_t energy_uW_hr = 0;
 
+    int16_t int_temp_raw = 0;
+    float int_temp_C = 0.0f;
+
+
     int32_t precharge_timeout_ms = 0;
     int32_t shutdown_timeout_ms = 0;
 
@@ -510,6 +508,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       a->Visit(MJ_NVP(output_current_A));
       a->Visit(MJ_NVP(fet_temp_C));
       a->Visit(MJ_NVP(energy_uW_hr));
+
+      a->Visit(MJ_NVP(int_temp_raw));
+      a->Visit(MJ_NVP(int_temp_C));
 
       a->Visit(MJ_NVP(precharge_timeout_ms));
       a->Visit(MJ_NVP(shutdown_timeout_ms));
@@ -660,6 +661,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     //  DAC1 -> PA4 -> ISAMP_BIAS -> PA1 -> ADC12_IN2
     //  DAC3 -> internal
     //  DAC4 -> internal -> OPAMP5/VINP
+    //  Internal_TEMP -> ADC5/IN4
 
     ConfigureDAC1(&timer_);
     ConfigureDAC3(&timer_);
@@ -669,6 +671,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     ConfigureADC(ADC2, 16, &timer_);
     ConfigureADC(ADC3, 1, &timer_);
     ConfigureADC(ADC5, 1, &timer_);
+
+    ADC345_COMMON->CCR |= ADC_CCR_VSENSESEL;
   }
 
   void Setup() {
@@ -815,6 +819,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     ADC2->SQR1 =
         (0 << ADC_SQR1_L_Pos) | // length 1
         (16 << ADC_SQR1_SQ1_Pos);
+    ADC5->SQR1 =
+        (0 << ADC_SQR1_L_Pos) | // length 1
+        (1 << ADC_SQR1_SQ1_Pos);
 
     // Sample the ADCs.
     ADC1->CR |= ADC_CR_ADSTART;
@@ -845,11 +852,25 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     ADC2->SQR1 =
         (0 << ADC_SQR1_L_Pos) | // length 1
         (5 << ADC_SQR1_SQ1_Pos);
-    const auto fet_temp_raw = SampleAdc(ADC2);
+    ADC5->SQR1 =
+        (0 << ADC_SQR1_L_Pos) | // length 1
+        (4 << ADC_SQR1_SQ1_Pos);
+
+    ADC2->CR |= ADC_CR_ADSTART;
+    ADC5->CR |= ADC_CR_ADSTART;
+
+    while (((ADC2->ISR & ADC_ISR_EOC) == 0) ||
+           ((ADC5->ISR & ADC_ISR_EOC) == 0));
+
+    const auto fet_temp_raw = ADC2->DR;
+    const auto int_temp_raw = ADC5->DR;
 
     const float fet_temp_C =
         ((static_cast<float>(fet_temp_raw) / 4096.0f * 3.3f) - 1.8663f) /
         -0.01169f;
+
+    const float int_temp_C =
+        (static_cast<float>(int_temp_raw) - ts_cal1_) / static_cast<float>(ts_cal2_ - ts_cal1_) * 100.0f + 30.0f;
 
     if (vsamp_out > 4.0f) {
       const float delta_energy_uW_hr = vsamp_in * isamp * 0.001f / 3600.0f * 1e6f;
@@ -860,6 +881,9 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     status_.output_voltage_V = vsamp_out;
     status_.output_current_A = isamp;
     status_.fet_temp_C = fet_temp_C;
+    status_.int_temp_raw = int_temp_raw;
+    status_.int_temp_C = int_temp_C;
+
 
     isamp_sample_window_[isamp_sample_offset_] = isamp_in;
     isamp_sample_offset_ = (isamp_sample_offset_ + 1) % isamp_sample_window_.size();
@@ -1038,6 +1062,11 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
               (fw::g_measured_hw_rev <= 2 ? (200.0f / (200.0f + 3000.0f)) :
                (fw::g_measured_hw_rev == 3 ? (200.0f / (200.0f + 4700.0f)) :
                 1.0f));
+
+  const uint16_t* ts_cal1_addr_ = reinterpret_cast<const uint16_t*>(0x1fff75a8);
+  const uint16_t* ts_cal2_addr_ = reinterpret_cast<const uint16_t*>(0x1fff75ca);
+  const uint16_t ts_cal1_ = *ts_cal1_addr_;
+  const uint16_t ts_cal2_ = *ts_cal2_addr_;
 };
 
 void RunRev2() {
