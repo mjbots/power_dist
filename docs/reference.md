@@ -2,8 +2,8 @@ mjbots power dist reference
 
 # A. Operation #
 
-This documentation refers to the most recent (r4.3b) version of the
-board.
+This documentation refers to the most recent (r4.5b) version of the
+board.  r4.3 versions are largely compatible with this as well.
 
 The power dist board provides pre-charging, energy monitoring,
 over-current protection, a soft power switch, and a power connector
