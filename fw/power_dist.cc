@@ -461,10 +461,12 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
  public:
   struct Config {
     float current_sense_ohm = 0.0005f;
+    bool disable_sleep = false;
 
     template <typename Archive>
     void Serialize(Archive* a) {
       a->Visit(MJ_NVP(current_sense_ohm));
+      a->Visit(MJ_NVP(disable_sleep));
     }
   };
 
@@ -902,7 +904,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         switch_led_.write(0);
         override_pwr_.write(0);
         led1_.write(1);
-        override_3v3_.write(status_.shutdown_timeout_ms > 0);
+        override_3v3_.write(config_.disable_sleep ||
+                            status_.shutdown_timeout_ms > 0);
         break;
       }
       case kPrecharging: {
