@@ -782,6 +782,7 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     }
 
     fdcan_micro_server_.Poll();
+    multiplex_protocol_.Poll();
   }
 
   void PollMillisecond() {
