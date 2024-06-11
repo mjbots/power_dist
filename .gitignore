@@ -8,6 +8,8 @@
 fw/BUILD/
 fw/.mbedignore
 
+hw/mjpower-ss/#auto_saved_files#
+
 /bazel-*
 
 /node_modules/

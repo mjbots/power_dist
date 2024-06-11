@@ -1,0 +1,6 @@
+*-backups/
+~*.lck
+*.xml
+*.xlsx
+fp-info-cache
+_autosave*

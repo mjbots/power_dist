@@ -1,0 +1,7 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "TPS2490DGSR")(type "KiCad")(uri "${KIPRJMOD}/TPS2490DGSR.kicad_sym")(options "")(descr ""))
+  (lib (name "PSMN3R7-100BSEJ")(type "KiCad")(uri "${KIPRJMOD}/PSMN3R7-100BSEJ.kicad_sym")(options "")(descr ""))
+  (lib (name "G-107-0513")(type "KiCad")(uri "${KIPRJMOD}/G-107-0513.kicad_sym")(options "")(descr ""))
+  (lib (name "XT90PW-M")(type "KiCad")(uri "${KIPRJMOD}/XT90PW-M.kicad_sym")(options "")(descr ""))
+)
