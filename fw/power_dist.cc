@@ -1099,9 +1099,13 @@ int main(void) {
   __HAL_RCC_ADC12_CLK_ENABLE();
   __HAL_RCC_ADC345_CLK_ENABLE();
 
+  fw::MillisecondTimer timer;
+
   DigitalIn hwrev0(HWREV_PIN0, PullUp);
   DigitalIn hwrev1(HWREV_PIN1, PullUp);
   DigitalIn hwrev2(HWREV_PIN2, PullUp);
+
+  timer.wait_ms(2);
 
   const uint8_t this_hw_pins =
       0x07 & (~(hwrev0.read() |
