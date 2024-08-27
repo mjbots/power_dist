@@ -1,23 +1,24 @@
-mjbots power dist reference
+mjbots power_dist and mjpower-ss reference
 
 # A. Operation #
 
-This documentation refers to the most recent (r4.5b) version of the
-board.  r4.3 versions are largely compatible with this as well.
+The `power_dist` and mjpower-ss boards provides pre-charging, an
+external power switch, and a power connector fanout for use in robotic
+applications.  Additionally, the `power_dist` provides energy
+monitoring and over-current protection, and a soft switch capability.
 
-The power dist board provides pre-charging, energy monitoring,
-over-current protection, a soft power switch, and a power connector
-fanout for use in robotic applications.  The input can be directly
-connected to a battery or power supply.  The output can be connected
-to high capacitance loads.
+The input can be directly connected to a battery or power supply.  The
+output can be connected to high capacitance loads.
 
-Additionally, a CAN-FD port allows host software to monitor the state
-of the switch, input voltage, power, and energy, and request that
-shutdown be delayed to accomplish a "soft power down".
+For the `power_dist`, a CAN-FD port allows host software to monitor
+the state of the switch, input voltage, power, and energy, and request
+that shutdown be delayed to accomplish a "soft power down".  This
+documentation refers to the most recent (r4.5b) version of the
+`power_dist`.  r4.3 versions are largely compatible with this as well.
 
-# A. Register command set #
+# A. Register command set (power_dist only) #
 
-The power_dist uses the same register framing and CAN-FD as the mjbots moteus controllers, with alternate definitions for the registers.  [moteus reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#a-register-command-set)
+The `power_dist` uses the same register framing and CAN-FD as the mjbots moteus controllers, with alternate definitions for the registers.  [moteus reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#a-register-command-set)
 
 The default ID for the power_dist is '32', (which notably differs from
 the default id of 1 for the moteus controller).
@@ -101,7 +102,7 @@ Mode: Read only
 
 Total energy provided to the downstream port since power was enabled.
 
-# B. diagnostic command set #
+# B. diagnostic command set (power_dist only) #
 
 All `tel` and `conf` class commands from [moteus
 reference](https://github.com/mjbots/moteus/blob/main/docs/reference.md#b-diagnostic-command-set)
@@ -121,8 +122,9 @@ p lock <time_in_100ms>
 
 ## Mechanical ##
 
-4x M2.5 mounting holes are provided in a 74mm x 44mm rectangular
-pattern.
+`power_dist`: 4x M2.5 mounting holes are provided in a 74mm x 44mm rectangular pattern.
+
+`mjpower-ss`: 4x M2.5 mounting holes are provided in a 64mm x 44mm rectangular pattern.
 
 ## Pinout ##
 
@@ -136,15 +138,22 @@ The XT-30 connectors have a `-` and a `+` imprint on the housing.
 
 ### JST PH-4 Switch ###
 
-Looking at the pins of the connector from the top with the mjbots logo
-right side up the pins are numbered from right to left.
+A small white dot is present on the silk screen near pin 1.
 
  - 1 - LED+ - LED positive
  - 2 - LED- - LED ground
- - 3 - SWP - Switch positive
- - 4 - SWG - Switch ground
+ - 3 - SWG - Switch ground
+ - 4 - SWP - Switch positive
 
-### JST PH-3 CAN ###
+### Onboard Switch (mjpower-ss only) ###
+
+The onboard switch is connected in parallel to the external switch.
+If either the onboard switch is set to the ON position, or the
+external switch pins are tied together, the board will pre-charge and
+provide power to the output when the input voltage reaches a small
+threshold below the minimum input voltage.
+
+### JST PH-3 CAN (power_dist only) ###
 
 Looking at the pins of the connector with the mjbots logo right side
 up, the pins are numbered from the bottom to the top.
@@ -171,7 +180,7 @@ connect the CAN ground if the device power supply is otherwise
 isolated.
 
 
-### JST ZH-6 SWD ###
+### JST ZH-6 SWD (power_dist only) ###
 
 Looking at the pins of the connector with the mjbots logo right side
 up the pins are numbered 1 to 6 from top to bottom.
@@ -183,7 +192,7 @@ up the pins are numbered 1 to 6 from top to bottom.
  - 5 - SWCLK
  - 6 - 3.3V
 
-# D. Maintenance #
+# D. Maintenance (power_dist only) #
 
 ## Building firmware ##
 
