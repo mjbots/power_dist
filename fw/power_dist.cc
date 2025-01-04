@@ -548,6 +548,13 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
 
   /// multiplex::MicroServer
 
+  void StartFrame() override {
+  }
+
+  Action CompleteFrame() override {
+    return kAccept;
+  }
+
   uint32_t Write(multiplex::MicroServer::Register reg,
                  const Value& value) override {
     switch (static_cast<Register>(reg)) {
