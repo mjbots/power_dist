@@ -44,6 +44,7 @@ namespace micro = mjlib::micro;
 namespace multiplex = mjlib::multiplex;
 using Value = multiplex::MicroServer::Value;
 using mjlib::base::Limit;
+using FDCan = fw::FDCan;
 
 namespace {
 
@@ -109,6 +110,12 @@ int16_t ReadInt16Mapping(Value value) {
     }, value);
 }
 
+int32_t ReadInt32Mapping(Value value) {
+  return std::visit([](auto a) {
+    return static_cast<int32_t>(a);
+  }, value);
+}
+
 struct ValueScaler {
   float int8_scale;
   float int16_scale;
@@ -150,6 +157,18 @@ enum class Register {
   kOutputCurrent = 0x011,
   kTemperature = 0x012,
   kEnergy = 0x013,
+
+  kUuid1 = 0x150,
+  kUuid2 = 0x151,
+  kUuid3 = 0x152,
+  kUuid4 = 0x153,
+
+  kUuidMask1 = 0x154,
+  kUuidMask2 = 0x155,
+  kUuidMask3 = 0x156,
+  kUuidMask4 = 0x157,
+
+  kUuidMaskCapable = 0x158,
 };
 
 enum State {
@@ -454,6 +473,19 @@ void ConfigureADC(ADC_TypeDef* adc, int channel_sqr, fw::MillisecondTimer* timer
   adc->SMPR2 = make_cycles(2);
 }
 
+struct CanConfig {
+  uint32_t prefix = 0;
+
+  template <typename Archive>
+  void Serialize(Archive* a) {
+    a->Visit(MJ_NVP(prefix));
+  }
+
+  bool operator==(const CanConfig& rhs) const {
+    return prefix == rhs.prefix;
+  }
+};
+
 const int kShutdownTimeoutMs = 5000;
 const int kMinOffTimeMs = 500;
 
@@ -546,25 +578,78 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     multiplex_protocol_.config()->id = 32;
   }
 
+  void MaybeUpdateFilters() {
+    // We only update our config if it has actually changed.
+    // Re-initializing the CAN-FD controller can cause packets to
+    // be lost, so don't do it unless actually necessary.
+    if (can_config_ == old_can_config_ &&
+        multiplex_protocol_.config()->id == old_multiplex_id_) {
+      return;
+    }
+
+    old_can_config_ = can_config_;
+    old_multiplex_id_ = multiplex_protocol_.config()->id;
+
+    FDCan::Filter filters[4] = {};
+    filters[0].id1 = (can_config_.prefix << 16) | old_multiplex_id_;
+    filters[0].id2 = 0x1fff00ffu;
+    filters[0].mode = FDCan::FilterMode::kMask;
+    filters[0].action = FDCan::FilterAction::kAccept;
+    filters[0].type = FDCan::FilterType::kExtended;
+
+    filters[1].id1 = (can_config_.prefix << 16) | 0x7f;
+    filters[1].id2 = 0x1fff00ffu;
+    filters[1].mode = FDCan::FilterMode::kMask;
+    filters[1].action = FDCan::FilterAction::kAccept;
+    filters[1].type = FDCan::FilterType::kExtended;
+
+    filters[2].id1 = (can_config_.prefix << 16) | old_multiplex_id_;
+    filters[2].id2 = 0x1fff00ffu;
+    filters[2].mode = FDCan::FilterMode::kMask;
+    filters[2].action = FDCan::FilterAction::kAccept;
+    filters[2].type = FDCan::FilterType::kStandard;
+
+    filters[3].id1 = (can_config_.prefix << 16) | 0x7f;
+    filters[3].id2 = 0x1fff00ffu;
+    filters[3].mode = FDCan::FilterMode::kMask;
+    filters[3].action = FDCan::FilterAction::kAccept;
+    filters[3].type = FDCan::FilterType::kStandard;
+
+    FDCan::FilterConfig filter_config;
+    filter_config.begin = std::begin(filters);
+    filter_config.end = std::end(filters);
+    filter_config.global_std_action = FDCan::FilterAction::kReject;
+    filter_config.global_ext_action = FDCan::FilterAction::kReject;
+    can_.ConfigureFilters(filter_config);
+
+    fdcan_micro_server_.SetPrefix(can_config_.prefix);
+  }
+
   /// multiplex::MicroServer
 
   void StartFrame() override {
+    discard_all_ = false;
   }
 
   Action CompleteFrame() override {
+    if (discard_all_) {
+      return kDiscard;
+    }
     return kAccept;
   }
 
-  uint32_t Write(multiplex::MicroServer::Register reg,
-                 const Value& value) override {
+  WriteAction Write(multiplex::MicroServer::Register reg,
+                    const Value& value) override __attribute__((optimize("O3"))) {
+    if (discard_all_) { return kDiscardRemaining; }
+
     switch (static_cast<Register>(reg)) {
       case Register::kState: {
         // TODO: For now, mark as not writeable.
-        return 2;
+        return kNotWriteable;
       }
       case Register::kLockTime: {
         status_.lock_time_100ms = ReadInt16Mapping(value);
-        return 0;
+        return kSuccess;
       }
       case Register::kFaultCode:
       case Register::kSwitchStatus:
@@ -572,19 +657,47 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
       case Register::kOutputVoltage:
       case Register::kOutputCurrent:
       case Register::kTemperature:
-      case Register::kEnergy: {
+      case Register::kEnergy:
+      case Register::kUuid1:
+      case Register::kUuid2:
+      case Register::kUuid3:
+      case Register::kUuid4:
+      case Register::kUuidMaskCapable: {
         // Not writeable.
-        return 2;
+        return kNotWriteable;
       }
+
+      case Register::kUuidMask1:
+      case Register::kUuidMask2:
+      case Register::kUuidMask3:
+      case Register::kUuidMask4: {
+        const auto uuid = uuid_.uuid();
+        const auto index =
+            (static_cast<int>(reg) -
+             static_cast<int>(Register::kUuidMask1)) * 4;
+
+        const auto expected = *(reinterpret_cast<const int32_t*>(&uuid[index]));
+        const auto written = ReadInt32Mapping(value);
+        if (expected != written) {
+          discard_all_ = true;
+          return kDiscardRemaining;
+        }
+        return kSuccess;
+      }
+
     }
 
     // This is an unknown register.
-    return 1;
+    return kUnknownRegister;
   }
 
   multiplex::MicroServer::ReadResult Read(
       multiplex::MicroServer::Register reg,
       size_t type) const override {
+    if (discard_all_) {
+      return static_cast<uint32_t>(1);
+    }
+
     switch (static_cast<Register>(reg)) {
       case Register::kState: {
         return IntMapping(static_cast<int8_t>(status_.state), type);
@@ -619,6 +732,28 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
           case 3: return Value(static_cast<float>(e) / 1000000.0f);
         }
         MJ_ASSERT(false);
+        break;
+      }
+      case Register::kUuid1:
+      case Register::kUuid2:
+      case Register::kUuid3:
+      case Register::kUuid4: {
+        if (type != 2) { break; }
+
+        const auto uuid = uuid_.uuid();
+        const auto index =
+            (static_cast<int>(reg) -
+             static_cast<int>(Register::kUuid1)) * 4;
+        return Value(*(reinterpret_cast<const int32_t*>(&uuid[index])));
+      }
+      case Register::kUuidMaskCapable: {
+        return IntMapping(1, type);
+      }
+      case Register::kUuidMask1:
+      case Register::kUuidMask2:
+      case Register::kUuidMask3:
+      case Register::kUuidMask4: {
+        break;
       }
     }
 
@@ -689,7 +824,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
         "p", std::bind(&PowerDist::HandleCommand, this,
                        std::placeholders::_1, std::placeholders::_2));
 
-    persistent_config_.Register("id", multiplex_protocol_.config(), [](){});
+    persistent_config_.Register("id", multiplex_protocol_.config(), [this]() { MaybeUpdateFilters(); });
+    persistent_config_.Register("can", &can_config_, [this]() { MaybeUpdateFilters(); });
     persistent_config_.Register("power", &config_, [](){});
     telemetry_manager_.Register("git", &git_info_);
     telemetry_manager_.Register("power", &status_);
@@ -1041,6 +1177,11 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
     pool_, command_manager_, flash_interface_, micro_output_buffer};
   fw::Uuid uuid_{persistent_config_};
   fw::GitInfo git_info_;
+  CanConfig can_config_, old_can_config_;
+
+  // Initialize this as bogus so we always update at least once.
+  uint8_t old_multiplex_id_ = 255;
+
   fw::FirmwareInfo firmware_info_{pool_, telemetry_manager_, 0, 0};
 
 
@@ -1078,6 +1219,8 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
   const uint16_t* ts_cal2_addr_ = reinterpret_cast<const uint16_t*>(0x1fff75ca);
   const uint16_t ts_cal1_ = *ts_cal1_addr_;
   const uint16_t ts_cal2_ = *ts_cal2_addr_;
+
+  bool discard_all_ = false;
 };
 
 void RunRev2() {

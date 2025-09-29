@@ -15,14 +15,16 @@
 #pragma once
 
 #include <array>
+#include <cstdint>
+
+#include "mjlib/base/visitor.h"
+#include "mjlib/micro/persistent_config.h"
 
 namespace fw {
 
 class Uuid {
  public:
-  Uuid(mjlib::micro::PersistentConfig& config) {
-    config.Register("uuid", &data_, [](){});
-  }
+  Uuid(mjlib::micro::PersistentConfig& config);
 
   struct Data {
     std::array<uint8_t, 16> uuid = {};
@@ -32,6 +34,11 @@ class Uuid {
       a->Visit(MJ_NVP(uuid));
     }
   };
+
+  const uint8_t* uuid() const;
+
+ private:
+  void Update();
 
   Data data_;
 };

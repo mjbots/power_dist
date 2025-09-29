@@ -57,11 +57,23 @@ class FDCan {
     int time_seg2 = -1;
   };
 
+  struct FilterConfig {
+    FilterAction global_std_action = FilterAction::kAccept;
+    FilterAction global_ext_action = FilterAction::kAccept;
+    FilterAction global_remote_std_action = FilterAction::kAccept;
+    FilterAction global_remote_ext_action = FilterAction::kAccept;
+
+    const Filter* begin = nullptr;
+    const Filter* end = nullptr;
+  };
+
   struct Options {
     PinName td = NC;
     PinName rd = NC;
     int slow_bitrate = 1000000;
     int fast_bitrate = 5000000;
+
+    FilterConfig filters;
 
     bool automatic_retransmission = false;
     bool remote_frame = false;
@@ -70,22 +82,9 @@ class FDCan {
     bool restricted_mode = false;
     bool bus_monitor = false;
 
-    // We for now default to use compensation that is appropriate for
-    // the TCAN1057 with its longer delay:
-    //
-    //  start - 13 / 85Mhz ~= 152ns
-    //  min   - 1 / 85Mhz ~= 12ns
-    bool delay_compensation = true;
-    uint32_t tdc_offset = 13;
-    uint32_t tdc_filter = 1;
-
-    FilterAction global_std_action = FilterAction::kAccept;
-    FilterAction global_ext_action = FilterAction::kAccept;
-    FilterAction global_remote_std_action = FilterAction::kAccept;
-    FilterAction global_remote_ext_action = FilterAction::kAccept;
-
-    const Filter* filter_begin = nullptr;
-    const Filter* filter_end = nullptr;
+    bool delay_compensation = false;
+    uint32_t tdc_offset = 0;
+    uint32_t tdc_filter = 0;
 
     // If any members of this are non-negative, force them to be used
     // instead of the auto-calculated values.
@@ -96,10 +95,6 @@ class FDCan {
   };
 
   FDCan(const Options& options = Options());
-
-  Options options() { return options_; }
-
-  void Reset(const Options&);
 
   enum class Override {
     kDefault,
@@ -112,19 +107,15 @@ class FDCan {
     Override fdcan_frame = Override::kDefault;
     Override remote_frame = Override::kDefault;
     Override extended_id = Override::kDefault;
-    bool abort_existing = false;
 
     SendOptions() {}
   };
 
-  enum SendResult {
-    kSuccess,
-    kNoSpace,
-  };
+  void ConfigureFilters(const FilterConfig&);
 
-  SendResult Send(uint32_t dest_id,
-                  std::string_view data,
-                  const SendOptions& = SendOptions());
+  void Send(uint32_t dest_id,
+            std::string_view data,
+            const SendOptions& = SendOptions());
 
   /// @return true if a packet was available.
   bool Poll(FDCAN_RxHeaderTypeDef* header, mjlib::base::string_span);
@@ -132,7 +123,6 @@ class FDCan {
   void RecoverBusOff();
 
   FDCAN_ProtocolStatusTypeDef status();
-  FDCAN_ErrorCountersTypeDef error_counters();
 
   struct Config {
     int clock = 0;
@@ -145,11 +135,14 @@ class FDCan {
   static int ParseDlc(uint32_t dlc_code);
 
  private:
+  void Init();
+
   Options options_;
   Config config_;
 
   FDCAN_GlobalTypeDef* can_ = nullptr;
   FDCAN_HandleTypeDef hfdcan1_;
+  FDCAN_ProtocolStatusTypeDef status_result_ = {};
   uint32_t last_tx_request_ = 0;
 };
 

@@ -28,6 +28,10 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
 
   FDCanMicroServer(FDCan* can) : fdcan_(can) {}
 
+  void SetPrefix(uint32_t can_prefix) {
+    can_prefix_ = can_prefix;
+  }
+
   void AsyncRead(Header* header,
                  const mjlib::base::string_span& data,
                  const mjlib::micro::SizeCallback& callback) override {
@@ -43,14 +47,16 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
                   const mjlib::micro::SizeCallback& callback) override {
     const auto actual_dlc = RoundUpDlc(data.size());
     const uint32_t id =
-        ((header.source & 0xff) << 8) | (header.destination & 0xff);
+        ((header.source & 0xff) << 8) |
+        (header.destination & 0xff) |
+        (can_prefix_ << 16);
 
     FDCan::SendOptions send_options;
     send_options.bitrate_switch =
         (query_header.flags & kBrsFlag) ?
         FDCan::Override::kRequire : FDCan::Override::kDisable;
     send_options.fdcan_frame =
-        ((query_header.flags & kFdcanFlag) ==0 && data.size() <= 8) ?
+        ((query_header.flags & kFdcanFlag) == 0 && data.size() <= 8) ?
         FDCan::Override::kDisable : FDCan::Override::kRequire;
 
     if (actual_dlc == data.size()) {
@@ -73,29 +79,33 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
   }
 
   void Poll() {
-    Poll(&rx_header_, mjlib::base::string_span(
-             &ignored_data_[0], sizeof(ignored_data_)));
-  }
+    if (!current_read_header_) { return; }
 
-  bool Poll(FDCAN_RxHeaderTypeDef* header, mjlib::base::string_span data) {
-    const bool got_data = fdcan_->Poll(header, data);
-    if (!got_data) { return false; }
-
-    const auto size_in_bytes = FDCan::ParseDlc(header->DataLength);
-
-    if (header->Identifier & ~0xffff) {
-      // This is definitely not a multiplex packet.
-      return true;
+    const auto status = fdcan_->status();
+    if (status.BusOff) {
+      fdcan_->RecoverBusOff();
+      can_reset_count_++;
     }
 
-    // Weird, no one is waiting for us, just return.
-    if (!current_read_header_) { return false; }
+    const bool got_data = fdcan_->Poll(&fdcan_header_, current_read_data_);
+    if (!got_data) { return; }
 
-    std::memcpy(&current_read_data_[0], &data[0], size_in_bytes);
+    // We could check the prefix here as below:
+    //
+    //   const uint16_t prefix = (fdcan_header_.Identifier >> 16) & 0x1fff;
+    //   if (prefix != can_prefix_) { return; }
+    //
+    // However, we should be excluding prefix based on the hardware
+    // CAN filter, and having the check here would mask if the filter
+    // wasn't working.
 
-    current_read_header_->destination = header->Identifier & 0xff;
-    current_read_header_->source = (header->Identifier >> 8) & 0xff;
-    current_read_header_->size = size_in_bytes;
+    current_read_header_->destination = fdcan_header_.Identifier & 0xff;
+    current_read_header_->source = (fdcan_header_.Identifier >> 8) & 0xff;
+    current_read_header_->size = FDCan::ParseDlc(fdcan_header_.DataLength);
+    current_read_header_->flags = 0
+        | ((fdcan_header_.BitRateSwitch == FDCAN_BRS_ON) ? kBrsFlag : 0)
+        | ((fdcan_header_.FDFormat == FDCAN_FD_CAN) ? kFdcanFlag : 0)
+        ;
 
     auto copy = current_read_callback_;
     auto bytes = current_read_header_->size;
@@ -105,7 +115,6 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
     current_read_data_ = {};
 
     copy(mjlib::micro::error_code(), bytes);
-    return false;
   }
 
   static size_t RoundUpDlc(size_t value) {
@@ -128,6 +137,8 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
     return 0;
   }
 
+  uint32_t can_reset_count() const { return can_reset_count_; }
+
  private:
   FDCan* const fdcan_;
 
@@ -135,10 +146,10 @@ class FDCanMicroServer : public mjlib::multiplex::MicroDatagramServer {
   Header* current_read_header_ = nullptr;
   mjlib::base::string_span current_read_data_;
 
+  FDCAN_RxHeaderTypeDef fdcan_header_ = {};
   char buf_[64] = {};
-
-  FDCAN_RxHeaderTypeDef rx_header_ = {};
-  char ignored_data_[64] = {};
+  uint32_t can_prefix_ = 0;
+  uint32_t can_reset_count_ = 0;
 };
 
 }

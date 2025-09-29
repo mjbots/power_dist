@@ -90,12 +90,18 @@ FDCan::Rate ApplyRateOverride(FDCan::Rate base, FDCan::Rate overlay) {
 }
 }
 
-FDCan::FDCan(const Options& options) {
-  Reset(options);
+FDCan::FDCan(const Options& options)
+    : options_(options) {
+  Init();
 }
 
-void FDCan::Reset(const Options& options) {
-  options_ = options;
+void FDCan::ConfigureFilters(const FilterConfig& filters) {
+  options_.filters = filters;
+  Init();
+}
+
+void FDCan::Init() {
+  const auto& options = options_;
 
   __HAL_RCC_FDCAN_CLK_ENABLE();
 
@@ -155,14 +161,14 @@ void FDCan::Reset(const Options& options) {
 
   can.Init.StdFiltersNbr =
       std::count_if(
-          options.filter_begin, options.filter_end,
+          options.filters.begin, options.filters.end,
           [](const auto& filter) {
             return (filter.action != FilterAction::kDisable &&
                     filter.type == FilterType::kStandard);
           });
   can.Init.ExtFiltersNbr =
       std::count_if(
-          options.filter_begin, options.filter_end,
+          options.filters.begin, options.filters.end,
           [](const auto& filter) {
             return (filter.action != FilterAction::kDisable &&
                     filter.type == FilterType::kExtended);
@@ -175,7 +181,7 @@ void FDCan::Reset(const Options& options) {
   int standard_index = 0;
   int extended_index = 0;
   std::for_each(
-      options.filter_begin, options.filter_end,
+      options.filters.begin, options.filters.end,
       [&](const auto& filter) {
         if (filter.action == FilterAction::kDisable) {
           return;
@@ -217,8 +223,10 @@ void FDCan::Reset(const Options& options) {
           }
           mbed_die();
         }();
-        sFilterConfig.FilterID1 = filter.id1;
-        sFilterConfig.FilterID2 = filter.id2;
+        const uint32_t mask =
+            filter.type == FilterType::kStandard ? 0x7FF : 0x1FFFFFFF;
+        sFilterConfig.FilterID1 = filter.id1 & mask;
+        sFilterConfig.FilterID2 = filter.id2 & mask;
 
         if (HAL_FDCAN_ConfigFilter(&can, &sFilterConfig) != HAL_OK)
         {
@@ -258,10 +266,10 @@ void FDCan::Reset(const Options& options) {
      Reject non matching frames with STD ID and EXT ID */
   if (HAL_FDCAN_ConfigGlobalFilter(
           &can,
-          map_filter_action(options.global_std_action),
-          map_filter_action(options.global_ext_action),
-          map_remote_action(options.global_remote_std_action),
-          map_remote_action(options.global_remote_ext_action)) != HAL_OK) {
+          map_filter_action(options.filters.global_std_action),
+          map_filter_action(options.filters.global_ext_action),
+          map_remote_action(options.filters.global_remote_std_action),
+          map_remote_action(options.filters.global_remote_ext_action)) != HAL_OK) {
     mbed_die();
   }
 
@@ -301,12 +309,12 @@ bool ApplyOverride(bool value, FDCan::Override o) {
 }
 }
 
-FDCan::SendResult FDCan::Send(uint32_t dest_id,
-                              std::string_view data,
-                              const SendOptions& send_options) {
+void FDCan::Send(uint32_t dest_id,
+                 std::string_view data,
+                 const SendOptions& send_options) {
 
   // Abort anything we have started that hasn't finished.
-  if (send_options.abort_existing && last_tx_request_) {
+  if (last_tx_request_) {
     HAL_FDCAN_AbortTxRequest(&hfdcan1_, last_tx_request_);
   }
 
@@ -336,11 +344,9 @@ FDCan::SendResult FDCan::Send(uint32_t dest_id,
           &hfdcan1_, &tx_header,
           const_cast<uint8_t*>(
               reinterpret_cast<const uint8_t*>(data.data()))) != HAL_OK) {
-    return kNoSpace;
+    mbed_die();
   }
   last_tx_request_ = HAL_FDCAN_GetLatestTxFifoQRequestBuffer(&hfdcan1_);
-
-  return kSuccess;
 }
 
 bool FDCan::Poll(FDCAN_RxHeaderTypeDef* header,
@@ -358,16 +364,10 @@ void FDCan::RecoverBusOff() {
   hfdcan1_.Instance->CCCR &= ~FDCAN_CCCR_INIT;
 }
 
-FDCAN_ProtocolStatusTypeDef FDCan::status() {
-  FDCAN_ProtocolStatusTypeDef result = {};
-  HAL_FDCAN_GetProtocolStatus(&hfdcan1_, &result);
-  return result;
-}
 
-FDCAN_ErrorCountersTypeDef FDCan::error_counters() {
-  FDCAN_ErrorCountersTypeDef result = {};
-  HAL_FDCAN_GetErrorCounters(&hfdcan1_, &result);
-  return result;
+FDCAN_ProtocolStatusTypeDef FDCan::status() {
+  HAL_FDCAN_GetProtocolStatus(&hfdcan1_, &status_result_);
+  return status_result_;
 }
 
 FDCan::Config FDCan::config() const {
