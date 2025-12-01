@@ -568,8 +568,15 @@ class PowerDist : public mjlib::multiplex::MicroServer::Server {
              options.rd = CAN_RX;
              options.slow_bitrate = 1000000;
              options.fast_bitrate = 5000000;
+
              options.fdcan_frame = true;
              options.bitrate_switch = true;
+             options.automatic_retransmission = true;
+
+             options.delay_compensation = true;
+
+             options.tdc_offset = 13;
+             options.tdc_filter = 2;
 
              return options;
            }()),
