@@ -37,19 +37,14 @@ The following additional mappings are provided.
 
 ### 0x000 - State ###
 
-Mode: Read/write
+Mode: Read only
 
-The current operational state of the power_dist.  Only some values may
-be written.
+The current operational state of the power_dist.
 
 - 0 => power off
-- 1 => precharging (read only)
+- 1 => precharging
 - 2 => power on
-- 3 => fault (read only)
-
-If power off is commanded over CAN, the device will not enter sleep,
-which differs from the behavior when power off is achived through the
-physical switch.
+- 3 => fault
 
 ### 0x001 - Fault Code ###
 
@@ -117,6 +112,21 @@ Request that the lock time be set.
 p lock <time_in_100ms>
 ```
 
+## `p force off` ##
+
+Request that the output be turned off.  The device will not enter
+sleep, which differs from the behavior when power off is achieved
+through the physical switch.  While the "force" mode is activated, the
+switch has no effect.
+
+## `p force on` ##
+
+Request that the output be turned on.  This enables "force" mode,
+which disables the physical switch.
+
+## `p force disable` ##
+
+Remove "force" mode, which will re-enable the physical switch.
 
 # C. Mechanical / Electrical #
 
